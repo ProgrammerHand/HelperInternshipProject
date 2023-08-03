@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helper.Core.Inquiry;
+using Helper.Core.ValueObjects;
 
 namespace Helper.Core.Inquiry
 {
     internal interface IInquiryRepository
     {
+        Task AddAsync(Inquiry inquiry);
+        Task UpdateAsync(Inquiry inquiry);
+        Task<Inquiry> GetByIdAsync(InquiryId inquiry);
     }
 }

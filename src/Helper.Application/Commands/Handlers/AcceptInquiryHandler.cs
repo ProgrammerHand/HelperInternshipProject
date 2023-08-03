@@ -10,9 +10,6 @@ namespace Helper.Application.Commands.Handlers
         public async Task HandleAsync(AcceptInquiry command)
         {
             //TODO: Repository interaction 
-
-            if (command.decision is false)
-                throw new ArgumentException($"{command.inquiriId} is rejected");
         }
     }
 }

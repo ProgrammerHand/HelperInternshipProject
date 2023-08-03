@@ -8,9 +8,6 @@ namespace Helper.Application.Commands.Handlers
         public async Task HandleAsync(CreateInquiry command)
         {
             //TODO: Repository interaction 
-
-            if (!(command.requestedCompletionDate.GetType() == typeof(DateTime)))
-                throw new ArgumentException("dupa");
         }
     }
 }
