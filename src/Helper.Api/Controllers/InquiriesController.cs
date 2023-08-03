@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Helper.Application.Commands;
+using Helper.Application.Abstractions;
+using Helper.Core.ValueObjects;
 
 namespace Helper.Api.Controllers
 {
@@ -7,21 +10,31 @@ namespace Helper.Api.Controllers
     [Route("api/[controller]")]
     public class InquiriesController : ControllerBase
     {
-        //private readonly ICommandHandler<InquiriStatus> _changeInquiriStatusHandler;
-        //private readonly ICommandHandler<CreateInquiri> _createInquiriHandler;
-        //private readonly ICommandHandler<FeasibilityNote> _setFeasibilityHandler;
+        private readonly ICommandHandler<AcceptInquiry> _rejectInquirysHandler;
+        private readonly ICommandHandler<AcceptInquiry> _acceptInquirysHandler;
+        private readonly ICommandHandler<CreateInquiry> _createInquiryHandler;
+        private readonly ICommandHandler<FeasibilityNote> _setFeasibilityHandler;
+
+        public InquiriesController(ICommandHandler<AcceptInquiry> rejectInquirysHandler, ICommandHandler<AcceptInquiry> acceptInquirysHandler,
+            ICommandHandler<CreateInquiry> createInquiryHandler,ICommandHandler<FeasibilityNote> setFeasibilityHandler)
+        {
+            _rejectInquirysHandler = rejectInquirysHandler;
+            _acceptInquirysHandler = acceptInquirysHandler;
+            _createInquiryHandler = createInquiryHandler;
+            _setFeasibilityHandler = setFeasibilityHandler;
+        }
 
         [HttpPost(""), AllowAnonymous]
-        public async Task<ActionResult> CreateInquiry()//CreateInquiri command)
+        public async Task<ActionResult> CreateInquiry(CreateInquiry command)
         {
-            //await _createInquiriHandler.HandleAsync(command);
+            await _createInquiryHandler.HandleAsync(command);
             return Ok();
         }
 
         [HttpPut("feasibility-note/{inquiryId}"), Authorize]
-        public async Task<ActionResult> SetFeasibility()//int inquiryId, FeasibilityNote command)
+        public async Task<ActionResult> SetFeasibility(int inquiryId, FeasibilityNote command)
         {
-            //await _setFeasibilityHandler.HandleAsync(command with { inquiriId = inquiryId });
+            await _setFeasibilityHandler.HandleAsync(command with { InquiriId = inquiryId });
             return Ok();
         }
 
@@ -29,14 +42,14 @@ namespace Helper.Api.Controllers
         [HttpPut("accepted/{inquiryId}")]
         public async Task<ActionResult> AcceptInquiry(int inquiryId)
         {
-            //await _changeInquiriStatusHandler.HandleAsync(new InquiriStatus(inquiryId, true));
+            await _acceptInquirysHandler.HandleAsync(new AcceptInquiry(inquiryId, Status.accepted));
             return Ok();
         }
 
         [HttpPut("rejected/{inquiryId}")]
         public async Task<ActionResult> RejectInquiry(int inquiryId)
         {
-            //await _changeInquiriStatusHandler.HandleAsync(new InquiriStatus(inquiryId, false)); ;
+            await _rejectInquirysHandler.HandleAsync(new AcceptInquiry(inquiryId, Status.rejected));
             return Ok();
         }
 
