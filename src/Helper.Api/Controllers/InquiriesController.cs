@@ -12,7 +12,7 @@ namespace Helper.Api.Controllers
         //private readonly ICommandHandler<FeasibilityNote> _setFeasibilityHandler;
 
         [HttpPost(""), AllowAnonymous]
-        public async Task<ActionResult> CreateInquiri()//CreateInquiri command)
+        public async Task<ActionResult> CreateInquiry()//CreateInquiri command)
         {
             //await _createInquiriHandler.HandleAsync(command);
             return Ok();
@@ -27,14 +27,14 @@ namespace Helper.Api.Controllers
 
 
         [HttpPut("accepted/{inquiryId}")]
-        public async Task<ActionResult> AcceptInquiri(int inquiryId)
+        public async Task<ActionResult> AcceptInquiry(int inquiryId)
         {
             //await _changeInquiriStatusHandler.HandleAsync(new InquiriStatus(inquiryId, true));
             return Ok();
         }
 
         [HttpPut("rejected/{inquiryId}")]
-        public async Task<ActionResult> RejectInquiri(int inquiryId)
+        public async Task<ActionResult> RejectInquiry(int inquiryId)
         {
             //await _changeInquiriStatusHandler.HandleAsync(new InquiriStatus(inquiryId, false)); ;
             return Ok();
@@ -47,13 +47,13 @@ namespace Helper.Api.Controllers
         }
 
         [HttpGet("{inquiriId}"), Authorize]
-        public async Task<ActionResult> GetInquiri()
+        public async Task<ActionResult> GetInquiry()
         {
             return Ok();// await _getInquiries.GetInquiri(inquiriId));
         }
 
         [HttpGet("solutions-variants"), Authorize]
-        public async Task<ActionResult> GetInquiriSolutionVariants(int inquiriId)
+        public async Task<ActionResult> GetInquirySolutionVariants(int inquiriId)
         {
             return Ok();// await _getInquiries.GetInquiriSolutionVariants(inquiriId));
         }
