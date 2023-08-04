@@ -1,9 +1,5 @@
-﻿using Helper.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helper.Application.Exceptions;
+using Helper.Core;
 
 namespace Helper.Application.Commands
 {
@@ -11,11 +7,14 @@ namespace Helper.Application.Commands
     {
         public static void Validate(CreateInquiry command, IClockCustom clock)
         {
-
-            if (command.Description == null)
-                throw new ArgumentNullException();
-            //if (command.RequestedCompletionDate <= clock.Now.Date)
-                //throw new ArgumentNullException();
+            if (string.IsNullOrEmpty(command.Description) || string.IsNullOrWhiteSpace(command.Description) )
+                throw new NoDescriptionGivenException();
+            if (command.Start <= clock.Now)
+                throw new StartDateInPastException();
+            if (command.End < command.Start)
+                throw new EndBeforeStartException();
+            if (command.Start < clock.Now.AddDays(7))
+                throw new StartDateTooEarly();
         }
     }
 }

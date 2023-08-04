@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helper.Core.Inquiry.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,11 @@ namespace Helper.Core.Inquiry.ValueObjects
         {
             if (Variant == Variants.consulting && EndDate is null)
             {
-                //add domain exception
-                throw new ArgumentNullException("");
+                throw new NotGivenConsaltingEndException();
             }
             Start = StartDate;
             End = EndDate;
         }
+
     }
 }

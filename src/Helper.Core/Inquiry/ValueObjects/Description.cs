@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helper.Application.Exceptions;
 
 namespace Helper.Core.Inquiry.ValueObjects
 {
@@ -12,8 +8,13 @@ namespace Helper.Core.Inquiry.ValueObjects
 
         public Description(string body)
         {
-            // throw exceprion if body null
+            if (string.IsNullOrEmpty(body) || string.IsNullOrWhiteSpace((body)))
+                throw new NoDescriptionGivenException();
             Body = body;
         }
+
+        public static implicit operator string(Description data) => data.Body;
+
+        public static implicit operator Description(string body) => new(body);
     }
 }

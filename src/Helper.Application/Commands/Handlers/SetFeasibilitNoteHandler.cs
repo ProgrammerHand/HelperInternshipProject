@@ -1,16 +1,14 @@
 ﻿using Helper.Application.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Helper.Core.Inquiry;
+using Helper.Core.Inquiry.ValueObjects;
 namespace Helper.Application.Commands.Handlers
 {
-    public sealed class SetFeasibilitNoteHandler : ICommandHandler<FeasibilityNote>
+    public sealed class SetFeasibilitNoteHandler : ICommandHandler<SetFeasibilityNote>
     {
-        public async Task HandleAsync(FeasibilityNote command)
+        public async Task HandleAsync(SetFeasibilityNote command)
         {
+            var entity = Inquiry.CreateInquiry(null, null, null);
+            entity.SetFeasibilityNote(new FeasibilityNote(command.Body)); 
             //TODO: Repository interaction 
         }
     }

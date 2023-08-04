@@ -17,7 +17,7 @@ namespace Helper.Core.Inquiry.ValueObjects
             {
                 throw new ArgumentNullException();
             }
-
+             
             Value = value;
         }
 

@@ -14,5 +14,9 @@ namespace Helper.Core.Inquiry.ValueObjects
         {
             Status = status;
         }
+
+        //public static implicit operator Status(AcceptanceStatus data) => data.Status;
+
+        //public static implicit operator AcceptanceStatus(Guid value) => new(value);
     }
 }

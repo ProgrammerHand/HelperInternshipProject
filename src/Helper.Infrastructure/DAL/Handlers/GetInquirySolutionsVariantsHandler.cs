@@ -1,14 +1,14 @@
-﻿using Helper.Application.DTO;
+﻿using Helper.Application.Abstractions;
+using Helper.Application.DTO;
 using Helper.Application.Queries;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    public class GetInquirySolutionsVariantsHandler
+    public class GetInquirySolutionsVariantsHandler : IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto>
     {
-        public async Task<List<InquiryDto>> HandleAsync(GetInquiry query)
+        public async Task<InquirySolutionVariantsDto> HandleAsync(GetInquirySolutionVariants querry)
         {
-            //DB Interaction
-            return null;
+            return new InquirySolutionVariantsDto();
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Helper.Application.DTO
 {
     public class InquirySolutionVariantsDto
     {
-        public Variants SolVariants { get; set; }
-    }
+        public string[] SolutionVariants => Enum.GetNames(typeof(Variants));
+     }
 }
