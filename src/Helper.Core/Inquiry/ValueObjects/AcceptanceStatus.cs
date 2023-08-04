@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helper.Core.ValueObjects
+namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed class AcceptanceStatus
     {

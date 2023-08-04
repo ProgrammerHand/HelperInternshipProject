@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Helper.Application.Commands;
 using Helper.Application.Abstractions;
-using Helper.Core.ValueObjects;
+using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Api.Controllers
 {

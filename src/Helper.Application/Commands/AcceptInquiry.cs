@@ -1,7 +1,7 @@
 ﻿using Helper.Application.Abstractions;
-using Helper.Core.ValueObjects;
+using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Application.Commands
 {
-    public sealed record AcceptInquiry(int InquiriId, Status value) : ICommand;
+    public sealed record AcceptInquiry(int InquiriId) : ICommand;
 }

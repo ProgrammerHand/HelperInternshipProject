@@ -1,26 +1,28 @@
-﻿using Helper.Core.ValueObjects;
+﻿using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Core.Inquiry
 {
-    internal class Inquiry
+    public class Inquiry
     {
         public InquiryId Id { get; private set; }
         public Description Description { get; private set; }
-        public CompletionDate RequestedCompletionDate { get; private set; }
+        public RealisationDate RequestedCompletionDate { get; private set; }
         public AcceptanceStatus AcceptanceStatus { get; private set; } = new AcceptanceStatus(Status.awaits_decision);
         public SolutionVariants SolutionDecision { get; private set; }
 
 
-        private Inquiry(Description ClientDescription, CompletionDate CompletionDate, SolutionVariants Solution)
+        private Inquiry( InquiryId id, Description clientDescription, RealisationDate completionDate, SolutionVariants solution)
         {
-            Description = ClientDescription;
-            RequestedCompletionDate = CompletionDate;
-            SolutionDecision = Solution;
+            Id = id;
+            Description = clientDescription;
+            RequestedCompletionDate = completionDate;
+            SolutionDecision = solution;
         }
 
-        public Inquiry CreateInquiry(Description ClientDescription, CompletionDate CompletionDate, SolutionVariants Solution) 
+        public static Inquiry CreateInquiry(Description clientDescription, RealisationDate completionDate, SolutionVariants solution) 
         {
-            return new Inquiry(ClientDescription, CompletionDate, Solution);
+            InquiryId id = Guid.NewGuid();
+            return new Inquiry(id, clientDescription, completionDate, solution);
         }
     }
 }

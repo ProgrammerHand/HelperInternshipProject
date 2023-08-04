@@ -1,4 +1,4 @@
-﻿namespace Helper.Core.ValueObjects
+﻿namespace Helper.Core.Inquiry.ValueObjects
 {
     internal class FeasibilityNote
     {

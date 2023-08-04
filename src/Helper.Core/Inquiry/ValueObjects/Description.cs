@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helper.Core.ValueObjects
+namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed class Description
     {
@@ -12,7 +12,8 @@ namespace Helper.Core.ValueObjects
 
         public Description(string body)
         {
+            // throw exceprion if body null
             Body = body;
-         }
+        }
     }
 }

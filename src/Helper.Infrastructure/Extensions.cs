@@ -15,7 +15,7 @@ namespace Helper.Core
                 .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
-
+            services.AddScoped<IClockCustom, UTCClock>();
             return services;
         }
     }

@@ -1,4 +1,4 @@
-﻿using Helper.Core.ValueObjects;
+﻿using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Application.DTO
 {

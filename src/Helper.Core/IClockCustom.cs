@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helper.Core.ValueObjects
+namespace Helper.Core
 {
-    public enum Status
+    public interface IClockCustom
     {
-        accepted,
-        awaits_decision,
-        rejected
+        public DateTime Now { get;}
     }
 }

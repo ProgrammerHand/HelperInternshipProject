@@ -1,9 +1,9 @@
 ﻿using Helper.Core.Inquiry;
-using Helper.Core.ValueObjects;
+using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Core.Inquiry
 {
-    internal interface IInquiryRepository
+    public interface IInquiryRepository
     {
         Task AddAsync(Inquiry inquiry);
         Task UpdateAsync(Inquiry inquiry);
