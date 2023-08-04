@@ -7,7 +7,7 @@ namespace Helper.Core.Inquiry
         public InquiryId Id { get; private set; }
         public Description Description { get; private set; }
         public RealisationDate RequestedCompletionDate { get; private set; }
-        public AcceptanceStatus AcceptanceStatus { get; private set; } = new AcceptanceStatus(Status.awaits_decision);
+        public AcceptanceStatus AcceptanceStatus { get; private set; }
         public SolutionVariants SolutionDecision { get; private set; }
 
 
@@ -17,6 +17,7 @@ namespace Helper.Core.Inquiry
             Description = clientDescription;
             RequestedCompletionDate = completionDate;
             SolutionDecision = solution;
+            AcceptanceStatus = new AcceptanceStatus(Status.awaits_decision);
         }
 
         public static Inquiry CreateInquiry(Description clientDescription, RealisationDate completionDate, SolutionVariants solution) 
