@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Helper.Core.Inquiry.ValueObjects
 {
-    public class RealisationDate
+    public sealed record RealisationDate
     {
         public DateTime Start { get; private set; }
         public DateTime? End { get; private set; }
@@ -21,6 +21,8 @@ namespace Helper.Core.Inquiry.ValueObjects
             Start = StartDate;
             End = EndDate;
         }
+        private RealisationDate() 
+        { }
 
     }
 }

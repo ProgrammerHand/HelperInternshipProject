@@ -25,7 +25,7 @@ namespace Helper.Infrastructure.Exceptions
             {
                 CustomException => (StatusCodes.Status400BadRequest,
                     new Error(exception.GetType().Name, exception.Message)),
-                _ => (context.Response.StatusCode, new Error("error", "There was an error."))
+                _ => (StatusCodes.Status500InternalServerError, new Error("error", "There was an error."))
             };
 
             context.Response.StatusCode = statusCode;

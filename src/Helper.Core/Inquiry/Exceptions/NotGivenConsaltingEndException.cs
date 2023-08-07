@@ -6,7 +6,6 @@ namespace Helper.Core.Inquiry.Exceptions
     {
         public NotGivenConsaltingEndException() : base("No description for inquiry given")
         {
-            
         }
 
     }

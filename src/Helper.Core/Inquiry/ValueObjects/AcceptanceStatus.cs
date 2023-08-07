@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Helper.Core.Inquiry.ValueObjects
 {
-    public sealed class AcceptanceStatus
+    public sealed record AcceptanceStatus
     {
-        Status Status { get; set; }
+        public Status Value { get; set; }
 
         public AcceptanceStatus(Status status)
         {
-            Status = status;
+            Value = status;
         }
 
-        //public static implicit operator Status(AcceptanceStatus data) => data.Status;
+        public static implicit operator Status(AcceptanceStatus data) => data.Value;
 
-        //public static implicit operator AcceptanceStatus(Guid value) => new(value);
+        public static implicit operator AcceptanceStatus(Status value) => new(value);
     }
 }

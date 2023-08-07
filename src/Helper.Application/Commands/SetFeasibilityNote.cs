@@ -2,5 +2,5 @@
 
 namespace Helper.Application.Commands
 {
-    public sealed record SetFeasibilityNote(Guid InquiriId, string Body) : ICommand;
+    public sealed record SetFeasibilityNote(Guid InquiriId, string Value) : ICommand;
 }

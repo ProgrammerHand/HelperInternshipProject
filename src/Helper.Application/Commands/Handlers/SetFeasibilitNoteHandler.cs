@@ -1,15 +1,21 @@
 ﻿using Helper.Application.Abstractions;
 using Helper.Core.Inquiry;
-using Helper.Core.Inquiry.ValueObjects;
+
 namespace Helper.Application.Commands.Handlers
 {
     public sealed class SetFeasibilitNoteHandler : ICommandHandler<SetFeasibilityNote>
     {
+        private readonly IInquiryRepository _inquiryRepo;
+
+        public SetFeasibilitNoteHandler(IInquiryRepository inquiryRepo)
+        {
+            _inquiryRepo = inquiryRepo;
+        }
         public async Task HandleAsync(SetFeasibilityNote command)
         {
-            var entity = Inquiry.CreateInquiry(null, null, null);
-            entity.SetFeasibilityNote(new FeasibilityNote(command.Body)); 
-            //TODO: Repository interaction 
+            var inquiry = await _inquiryRepo.GetByIdAsync(command.InquiriId);
+            inquiry.SetFeasibilityNote(command.Value);
+            await _inquiryRepo.UpdateAsync(inquiry);
         }
     }
 }

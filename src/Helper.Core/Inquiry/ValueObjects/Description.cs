@@ -2,18 +2,18 @@
 
 namespace Helper.Core.Inquiry.ValueObjects
 {
-    public sealed class Description
+    public sealed record Description
     {
-        public string Body { get; set; }
+        public string Value { get; set; }
 
-        public Description(string body)
+        public Description(string value)
         {
-            if (string.IsNullOrEmpty(body) || string.IsNullOrWhiteSpace((body)))
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace((value)))
                 throw new NoDescriptionGivenException();
-            Body = body;
+            Value = value;
         }
 
-        public static implicit operator string(Description data) => data.Body;
+        public static implicit operator string(Description data) => data.Value;
 
         public static implicit operator Description(string body) => new(body);
     }

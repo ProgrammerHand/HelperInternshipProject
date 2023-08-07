@@ -1,15 +1,21 @@
 ﻿using Helper.Application.Abstractions;
 using Helper.Application.DTO;
 using Helper.Application.Queries;
+using Helper.Core.Inquiry.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    public class GetInquiryHandler : IQueryHandler<GetInquiry, InquiryDto>
+    internal class GetInquiryHandler : IQueryHandler<GetInquiry, InquiryDto>
     {
+        private readonly HelperDbContext _context;
+
+        public GetInquiryHandler(HelperDbContext DbContext) => _context = DbContext;
         public async Task<InquiryDto> HandleAsync(GetInquiry query)
         {
-            //DB Interaction
-            throw new NotImplementedException();
+            var inquiryId = new InquiryId(query.Id);
+            var inquiry = await _context.Inquiries.AsNoTracking().FirstOrDefaultAsync(x => x.Id == inquiryId);
+            return inquiry?.AsDto();
         }
     }
 }

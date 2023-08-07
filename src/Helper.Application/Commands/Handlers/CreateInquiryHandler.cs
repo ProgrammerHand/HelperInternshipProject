@@ -24,10 +24,9 @@ namespace Helper.Application.Commands.Handlers
 
             var inquiry = Inquiry.CreateInquiry(new Description(command.Description),
                 new RealisationDate (command.Start, command.End, command.SolutionVariant),
-                new SolutionVariants(command.SolutionVariant));
+                new SolutionVariant(command.SolutionVariant));
 
             await _inquiryRepo.AddAsync(inquiry);
-            //TODO: Repository interaction
 
 
         }

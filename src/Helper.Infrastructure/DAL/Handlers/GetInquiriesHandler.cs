@@ -1,15 +1,24 @@
 ﻿using Helper.Application.Abstractions;
 using Helper.Application.DTO;
 using Helper.Application.Queries;
+using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    public class GetInquiriesHandler : IQueryHandler<GetInquiries, List<InquiryDto>>
+    internal class GetInquiriesHandler : IQueryHandler<GetInquiries, List<InquiryDto>>
     {
+        private readonly HelperDbContext _context;
+        public GetInquiriesHandler(HelperDbContext DbContext) => _context = DbContext;
         public async Task<List<InquiryDto>> HandleAsync(GetInquiries querry)
         {
             //DB Interaction
-            throw new NotImplementedException();
+            var entities = await _context.Inquiries.ToListAsync();
+            var inquiries = new List<InquiryDto>();
+            foreach (var entity in entities)
+            {
+                inquiries.Add(entity.AsDto());
+            }
+            return inquiries;
         }
     }
 }

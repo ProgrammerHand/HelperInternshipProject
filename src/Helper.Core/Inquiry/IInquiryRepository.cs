@@ -1,5 +1,4 @@
-﻿using Helper.Core.Inquiry;
-using Helper.Core.Inquiry.ValueObjects;
+﻿using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Core.Inquiry
 {
@@ -8,5 +7,6 @@ namespace Helper.Core.Inquiry
         Task AddAsync(Inquiry inquiry);
         Task UpdateAsync(Inquiry inquiry);
         Task<Inquiry> GetByIdAsync(InquiryId inquiry);
+        Task<bool> Save();
     }
 }

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helper.Core.Inquiry.Exceptions;
 
 namespace Helper.Core.Inquiry.ValueObjects
 {
-    // remake all valueobj to records
     public sealed record InquiryId
     {
-        Guid Value { get; set; }
+       public Guid Value { get; set; }
 
         public InquiryId(Guid value)
         {
             if (value == Guid.Empty)
             {
-                throw new ArgumentNullException();
+                throw new EmptyIdException();
             }
              
             Value = value;

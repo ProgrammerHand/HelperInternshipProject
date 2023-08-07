@@ -4,7 +4,7 @@ using Helper.Application.Queries;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    public class GetInquirySolutionsVariantsHandler : IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto>
+    internal class GetInquirySolutionsVariantsHandler : IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto>
     {
         public async Task<InquirySolutionVariantsDto> HandleAsync(GetInquirySolutionVariants querry)
         {

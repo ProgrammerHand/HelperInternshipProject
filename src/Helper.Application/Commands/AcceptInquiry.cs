@@ -3,5 +3,5 @@ using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Application.Commands
 {
-    public sealed record AcceptInquiry(int InquiriId) : ICommand;
+    public sealed record AcceptInquiry(Guid InquiriId) : ICommand;
 }
