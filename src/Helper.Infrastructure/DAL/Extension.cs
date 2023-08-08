@@ -14,6 +14,7 @@ namespace Helper.Infrastructure.DAL
             services.Configure<MSServerOptions>(configuration.GetRequiredSection(OptionsSectionName));
             var localDbOptions = configuration.GetOptions<MSServerOptions>(OptionsSectionName);
             services.AddDbContext<HelperDbContext>(x => x.UseSqlServer(localDbOptions.ConnectionString));
+            services.AddHostedService<DatabaseAutoMigration>();
             return services;
         }
     }
