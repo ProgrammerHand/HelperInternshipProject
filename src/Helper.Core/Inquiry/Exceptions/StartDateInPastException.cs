@@ -1,6 +1,6 @@
 ﻿using Helper.Core.Exceptions;
 
-namespace Helper.Application.Exceptions
+namespace Helper.Core.Inquiry.Exceptions
 {
     public sealed class StartDateInPastException : CustomException
     {

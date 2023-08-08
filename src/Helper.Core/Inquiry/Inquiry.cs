@@ -1,6 +1,5 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Helper.Core.Inquiry
 {
@@ -34,14 +33,14 @@ namespace Helper.Core.Inquiry
 
         public void AcceptInquiry() 
         {
-            if (string.IsNullOrEmpty(FeasibilityNote.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
+            if (string.IsNullOrEmpty(FeasibilityNote?.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
                 throw new NoFeasibilityNoteWasGivenException();
             AcceptanceStatus = new AcceptanceStatus(Status.accepted);
         }
 
         public void RejectInquiry()
         {
-            if (string.IsNullOrEmpty(FeasibilityNote.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
+            if (string.IsNullOrEmpty(FeasibilityNote?.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
                 throw new NoFeasibilityNoteWasGivenException();
             AcceptanceStatus = new AcceptanceStatus(Status.rejected);
         }

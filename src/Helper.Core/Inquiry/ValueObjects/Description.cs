@@ -1,4 +1,4 @@
-﻿using Helper.Application.Exceptions;
+﻿using Helper.Core.Inquiry.Exceptions;
 
 namespace Helper.Core.Inquiry.ValueObjects
 {

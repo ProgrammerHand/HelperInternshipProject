@@ -23,7 +23,7 @@ namespace Helper.Application.Commands.Handlers
             InquiryParamsValidator.Validate(command, _clock);
 
             var inquiry = Inquiry.CreateInquiry(new Description(command.Description),
-                new RealisationDate (command.Start, command.End, command.SolutionVariant),
+                new RealisationDate (command.Start, command.End, command.SolutionVariant, _clock),
                 new SolutionVariant(command.SolutionVariant));
 
             await _inquiryRepo.AddAsync(inquiry);
