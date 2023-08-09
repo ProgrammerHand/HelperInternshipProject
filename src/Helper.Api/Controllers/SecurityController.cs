@@ -1,7 +1,4 @@
-﻿using Humanizer.Configuration;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Net;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Helper.Api.Controllers
 {
