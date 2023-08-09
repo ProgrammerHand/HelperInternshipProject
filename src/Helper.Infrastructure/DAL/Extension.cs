@@ -7,7 +7,7 @@ namespace Helper.Infrastructure.DAL
 {
     internal static class Extension
     {
-        private const string OptionsSectionName = "Server";
+        private const string OptionsSectionName = "ConnectionStrings";
 
         public static IServiceCollection AddDb(this IServiceCollection services, IConfiguration configuration)
         {
