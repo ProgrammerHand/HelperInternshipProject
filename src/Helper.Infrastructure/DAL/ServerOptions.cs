@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Helper.Infrastructure.DAL
 {
-    internal sealed class MSServerOptions
+    internal sealed class ServerOptions
     {
         public string ConnectionString { get; set;  }
     }

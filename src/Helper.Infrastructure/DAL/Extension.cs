@@ -7,13 +7,13 @@ namespace Helper.Infrastructure.DAL
 {
     internal static class Extension
     {
-        private const string OptionsSectionName = "msServer";
+        private const string OptionsSectionName = "Server";
 
-        public static IServiceCollection AddLocalDb(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDb(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<MSServerOptions>(configuration.GetRequiredSection(OptionsSectionName));
-            var localDbOptions = configuration.GetOptions<MSServerOptions>(OptionsSectionName);
-            services.AddDbContext<HelperDbContext>(x => x.UseSqlServer(localDbOptions.ConnectionString));
+            services.Configure<ServerOptions>(configuration.GetRequiredSection(OptionsSectionName));
+            var DbOptions = configuration.GetOptions<ServerOptions>(OptionsSectionName);
+            services.AddDbContext<HelperDbContext>(x => x.UseSqlServer(DbOptions.ConnectionString));
             services.AddHostedService<DatabaseAutoMigration>();
             return services;
         }
