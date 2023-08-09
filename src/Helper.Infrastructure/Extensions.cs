@@ -19,7 +19,7 @@ namespace Helper.Core
             services.AddHttpContextAccessor();
             services.AddScoped<IClockCustom, UTCClock>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
-            services.AddLocalDb(configuration);
+            //services.AddLocalDb(configuration);
 
             var infrastructureAssembly = typeof(AppOptions).Assembly;
 
