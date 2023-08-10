@@ -4,7 +4,7 @@ namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed record InquiryId
     {
-       public Guid Value { get; set; }
+        public Guid Value { get; set; }
 
         public InquiryId(Guid value)
         {

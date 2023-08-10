@@ -1,5 +1,6 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.User.Value_objects;
 
 namespace Helper.Core.Inquiry
 {
@@ -11,7 +12,8 @@ namespace Helper.Core.Inquiry
         public FeasibilityNote? FeasibilityNote { get; private set; }
         public AcceptanceStatus AcceptanceStatus { get; private set; }
         public SolutionVariant SolutionDecision { get; private set; }
-
+        //public UserId AuthorId { get; private set; }
+        public User.User Author { get; private set; }
 
         private Inquiry( InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision)
         {
