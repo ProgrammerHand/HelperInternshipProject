@@ -23,6 +23,16 @@ namespace Helper.Infrastructure.DAL.Repositories
             return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<User> GetByEmailAsync(UserEmail email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<bool> CheckByEmailAsync(UserEmail email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email);
+        }
+
         public async Task<bool> Save()
         {
             var saved = _context.SaveChangesAsync();

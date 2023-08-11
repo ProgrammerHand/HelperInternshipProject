@@ -1,4 +1,5 @@
-﻿using Helper.Core.User.Value_objects;
+﻿using Helper.Core.User.Exceptions;
+using Helper.Core.User.Value_objects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,8 @@ namespace Helper.Core.User
 
         public void EvaluateRole() 
         {
-            if (Role.Value != Enum.GetValues(typeof(Roles)).Cast<Roles>().Last())
+            if (Role.Value == Enum.GetValues(typeof(Roles)).Cast<Roles>().Last())
+                throw new HighestRoleException();
             this.Role.Value++;
         }
     }

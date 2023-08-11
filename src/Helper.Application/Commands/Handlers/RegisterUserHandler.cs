@@ -1,4 +1,5 @@
 ﻿using Helper.Application.Abstractions;
+using Helper.Application.Exceptions;
 using Helper.Application.Security;
 using Helper.Core.User;
 using Helper.Core.User.Value_objects;
@@ -18,6 +19,8 @@ namespace Helper.Application.Commands.Handlers
 
         public async Task HandleAsync(RegisterUser command)
         {
+            if (await _userRepo.CheckByEmailAsync(new UserEmail(command.Email)))
+                throw new UserAlredyExistException();
             var user = User.CreateUser(new UserEmail(command.Email), new UserPassword(_passwordManager.Hash(command.Password)));
             await _userRepo.AddAsync(user);
         }
