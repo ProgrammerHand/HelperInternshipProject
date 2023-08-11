@@ -15,8 +15,8 @@ namespace Helper.Core.User
         public UserEmail Email { get; private set; }
         public UserPassword PasswordHash { get; private set; }
         public UserRole Role { get; private set; } = Roles.User;
-        public IEnumerable<Inquiry.Inquiry> Inquiries => InquiriesRelation;
-        private ICollection<Inquiry.Inquiry> InquiriesRelation = new List<Inquiry.Inquiry>();
+        //public IEnumerable<Inquiry.Inquiry> Inquiries => InquiriesRelation;
+        //private ICollection<Inquiry.Inquiry> InquiriesRelation = new List<Inquiry.Inquiry>();
 
         private User(UserId id, UserEmail email, UserPassword passwordHash)
         {

@@ -7,6 +7,9 @@ using Helper.Infrastructure.DAL;
 using Helper.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Helper.Infrastructure.DAL.Repositories;
+using Helper.Core.User;
+using Helper.Application.Security;
+using Helper.Infrastructure.Security;
 
 namespace Helper.Core
 {
@@ -17,8 +20,10 @@ namespace Helper.Core
             services.AddControllers();
             services.AddSingleton<ExceptionMiddleware>();
             services.AddHttpContextAccessor();
+            services.AddSecurity();
             services.AddScoped<IClockCustom, UTCClock>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddDb(configuration);
 
             var infrastructureAssembly = typeof(AppOptions).Assembly;
@@ -33,7 +38,7 @@ namespace Helper.Core
 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
             app.UseSwagger();
             app.UseReDoc(reDoc =>
             {

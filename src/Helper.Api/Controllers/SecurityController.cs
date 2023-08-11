@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Helper.Application.Abstractions;
+using Helper.Application.Commands;
+using Helper.Application.Commands.Handlers;
+using Helper.Core.User;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Helper.Api.Controllers
 {
@@ -7,10 +11,12 @@ namespace Helper.Api.Controllers
     public class SecurityController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly ICommandHandler<RegisterUser> _registerUserHandler;
 
-        public SecurityController(IConfiguration configuration)
+        public SecurityController(IConfiguration configuration, ICommandHandler<RegisterUser> registerUserHandler)
         {
             _configuration = configuration;
+            _registerUserHandler = registerUserHandler;
         }
 
         [HttpPost("authorize")]
@@ -20,8 +26,9 @@ namespace Helper.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> RegisterUser()
+        public async Task<ActionResult> RegisterUser(RegisterUser command)
         {
+            _registerUserHandler.HandleAsync(command);
             return Ok();// await _registration.register());
         }
 

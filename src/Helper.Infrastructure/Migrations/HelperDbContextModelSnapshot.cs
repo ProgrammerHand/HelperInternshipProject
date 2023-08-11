@@ -70,13 +70,13 @@ namespace Helper.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Helper.Core.Inquiry.Inquiry", b =>
                 {
                     b.HasOne("Helper.Core.User.User", "Author")
-                        .WithMany("Inquiries")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -106,11 +106,6 @@ namespace Helper.Infrastructure.Migrations
 
                     b.Navigation("RequestedCompletionDate")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Helper.Core.User.User", b =>
-                {
-                    b.Navigation("Inquiries");
                 });
 #pragma warning restore 612, 618
         }

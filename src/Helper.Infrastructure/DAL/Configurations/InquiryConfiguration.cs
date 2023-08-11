@@ -27,7 +27,7 @@ namespace Helper.Infrastructure.DAL.Configurations
                     cd.Property(x => x.End).HasColumnName("RequestedEndDate");
                 });
 
-            builder.HasOne(x => x.Author).WithMany(x => x.Inquiries);
+            builder.HasOne(x => x.Author).WithMany();
         }
     }
 }
