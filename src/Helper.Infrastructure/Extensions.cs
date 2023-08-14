@@ -10,6 +10,7 @@ using Helper.Infrastructure.DAL.Repositories;
 using Helper.Core.User;
 using Helper.Application.Security;
 using Helper.Infrastructure.Security;
+using Helper.Infrastructure.JWT;
 
 namespace Helper.Core
 {
@@ -21,7 +22,8 @@ namespace Helper.Core
             services.AddSingleton<ExceptionMiddleware>();
             services.AddHttpContextAccessor();
             services.AddSecurity();
-            services.AddScoped<IClockCustom, UTCClock>();
+
+            services.AddSingleton<IClockCustom, ClockCustom>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddDb(configuration);
@@ -32,6 +34,8 @@ namespace Helper.Core
                 .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
+
+            services.AddAuth(configuration);
 
             return services;
         }

@@ -7,7 +7,7 @@ using Helper.Core;
 
 namespace Helper.Infrastructure
 {
-    public class UTCClock : IClockCustom
+    public class ClockCustom : IClockCustom
     {
         public DateTime Now => DateTime.UtcNow;
 

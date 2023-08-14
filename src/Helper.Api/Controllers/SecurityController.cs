@@ -1,7 +1,7 @@
 ﻿using Helper.Application.Abstractions;
 using Helper.Application.Commands;
 using Helper.Application.Commands.Handlers;
-using Helper.Core.User;
+using Helper.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helper.Api.Controllers
@@ -12,24 +12,29 @@ namespace Helper.Api.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly ICommandHandler<RegisterUser> _registerUserHandler;
+        private readonly ICommandHandler<AuthoriseUser> _authoriseUserHandler;
+        private readonly ITokenManager _tokenManager;
 
-        public SecurityController(IConfiguration configuration, ICommandHandler<RegisterUser> registerUserHandler)
+        public SecurityController(IConfiguration configuration, ICommandHandler<RegisterUser> registerUserHandler,
+            ICommandHandler<AuthoriseUser> authoriseUserHandler)
         {
             _configuration = configuration;
             _registerUserHandler = registerUserHandler;
+            _authoriseUserHandler = authoriseUserHandler;
         }
 
-        [HttpPost("authorize")]
-        public async Task<ActionResult> AuthorizeUser()
+        [HttpPost("authorise")]
+        public async Task<ActionResult> AuthoriseUser(AuthoriseUser command)
         {
-            return Ok();//await _authorization.authorize());
+            await _authoriseUserHandler.HandleAsync(command);
+            return Ok();
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser(RegisterUser command)
         {
-            _registerUserHandler.HandleAsync(command);
-            return Ok();// await _registration.register());
+            await _registerUserHandler.HandleAsync(command);
+            return Ok();
         }
 
         [HttpGet("appinfo")]
