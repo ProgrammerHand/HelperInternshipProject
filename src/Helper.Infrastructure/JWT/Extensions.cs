@@ -3,6 +3,7 @@ using Helper.Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -20,15 +21,16 @@ namespace Helper.Infrastructure.JWT
             .Configure<AuthConditions>(configuration.GetRequiredSection(OptionsSectionName))
             .AddSingleton<ITokenManager, TokenManager>()
             .AddSingleton<ITokenStorageHttpContext, TokenStorageHttpContext>()
-            .AddAuthentication(o =>
+            .AddAuthentication(x =>
             {
-                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                //o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(o =>
+            .AddJwtBearer(x =>
             {
-                o.IncludeErrorDetails = true;
-                o.TokenValidationParameters = new TokenValidationParameters
+                x.Audience = conditions.Audience;
+                x.IncludeErrorDetails = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidIssuer = conditions.Issuer,
                     ClockSkew = TimeSpan.Zero,

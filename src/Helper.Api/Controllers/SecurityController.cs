@@ -2,6 +2,7 @@
 using Helper.Application.Commands;
 using Helper.Application.Commands.Handlers;
 using Helper.Application.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Helper.Api.Controllers
@@ -13,21 +14,22 @@ namespace Helper.Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly ICommandHandler<RegisterUser> _registerUserHandler;
         private readonly ICommandHandler<AuthoriseUser> _authoriseUserHandler;
-        private readonly ITokenManager _tokenManager;
+        private readonly ITokenStorageHttpContext _tokenStorage;
 
         public SecurityController(IConfiguration configuration, ICommandHandler<RegisterUser> registerUserHandler,
-            ICommandHandler<AuthoriseUser> authoriseUserHandler)
+            ICommandHandler<AuthoriseUser> authoriseUserHandler, ITokenStorageHttpContext tokenStorage)
         {
             _configuration = configuration;
             _registerUserHandler = registerUserHandler;
             _authoriseUserHandler = authoriseUserHandler;
+            _tokenStorage = tokenStorage;
         }
 
         [HttpPost("authorise")]
         public async Task<ActionResult> AuthoriseUser(AuthoriseUser command)
         {
             await _authoriseUserHandler.HandleAsync(command);
-            return Ok();
+            return Ok(_tokenStorage.GetToken());
         }
 
         [HttpPost("register")]
@@ -37,7 +39,7 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("appinfo")]
+        [HttpGet("appinfo"), Authorize]
         public async Task<ActionResult> GetAppInfo()
         {
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

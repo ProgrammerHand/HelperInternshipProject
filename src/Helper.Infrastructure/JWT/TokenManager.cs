@@ -18,6 +18,7 @@ namespace Helper.Infrastructure.JWT
     {
         private readonly IClockCustom _clock;
         private readonly string _issuer;
+        private readonly string _audience;
         private readonly TimeSpan _expiry;
         private readonly SigningCredentials _signingCredentials;
         private readonly JwtSecurityTokenHandler _jwtSecurityToken = new JwtSecurityTokenHandler();
@@ -26,6 +27,7 @@ namespace Helper.Infrastructure.JWT
         {
             _clock = clock;
             _issuer = options.Value.Issuer;
+            _audience = options.Value.Audience;
             _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);
             _signingCredentials = new SigningCredentials(new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(options.Value.SigningKey)),
@@ -43,7 +45,7 @@ namespace Helper.Infrastructure.JWT
 
             var expiry = now.Add(_expiry);
 
-            JwtSecurityToken tokenPrefab = new JwtSecurityToken(issuer : _issuer, claims: claims, notBefore: now, expires: expiry, signingCredentials: _signingCredentials);
+            JwtSecurityToken tokenPrefab = new JwtSecurityToken(issuer: _issuer, audience: _audience, claims: claims, notBefore: now, expires: expiry, signingCredentials: _signingCredentials);
 
             return new JwtDto
             {

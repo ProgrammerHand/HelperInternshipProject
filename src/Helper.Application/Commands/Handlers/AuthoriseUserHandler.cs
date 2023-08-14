@@ -11,16 +11,14 @@ namespace Helper.Application.Commands.Handlers
         private readonly IPasswordManager _passwordManager;
         private readonly ITokenManager _tokenManager;
         private readonly ITokenStorageHttpContext _tokenStorage;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AuthoriseUserHandler(IUserRepository userRepo, IPasswordManager passwordManager,
-            ITokenStorageHttpContext tokenStorage, ITokenManager tokenManager, IHttpContextAccessor httpContextAccessor)
+            ITokenStorageHttpContext tokenStorage, ITokenManager tokenManager)
         {
             _userRepo = userRepo;
             _passwordManager = passwordManager;
             _tokenManager = tokenManager;
             _tokenStorage = tokenStorage;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task HandleAsync(AuthoriseUser command)
@@ -32,8 +30,6 @@ namespace Helper.Application.Commands.Handlers
                 throw new ArgumentException("wrong pasword");
             var token = _tokenManager.CreateToken(entity.Id, entity.Role);
             _tokenStorage.SetToken(token);
-            var temp = _httpContextAccessor.HttpContext.Items;
-            var tem1 = 2;
         }
     }
 }
