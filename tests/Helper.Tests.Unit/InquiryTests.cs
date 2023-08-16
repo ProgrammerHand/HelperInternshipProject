@@ -116,7 +116,7 @@ namespace Helper.Tests.Unit
         }
 
         [Fact]
-        public void given_solutionVariant_Consulting_without_endDate_before_startDate_new_RealisationDate_should_fail()
+        public void given_solutionVariant_Consulting_without_endDate_new_RealisationDate_should_fail()
         {
             //ARRANGE
             var solutionVariant = Variants.consulting;
