@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL
 {
-    internal sealed class HelperDbContext : DbContext
+    public sealed class HelperDbContext : DbContext
     {
         public DbSet<Inquiry> Inquiries { get; set; }
         public DbSet<User> Users { get; set; }
