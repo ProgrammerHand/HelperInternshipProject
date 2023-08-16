@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(x =>
         BearerFormat = "JWT",
         Scheme = "Bearer",
     });
-
+    //x.OperationFilter<SecurityRequirementsOperationFilter>();
     x.SupportNonNullableReferenceTypes();
     x.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {

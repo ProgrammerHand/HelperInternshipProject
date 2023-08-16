@@ -34,7 +34,7 @@ namespace Helper.Infrastructure.JWT
                     SecurityAlgorithms.HmacSha512);
         }
 
-        public JwtDto CreateToken(Guid userId, Roles role)
+        public JwtDto CreateToken(Guid userId, Role role)
         {
             var now = _clock.Now;
             var claims = new List<Claim>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Helper.Core.User.Value_objects
 {
-        public enum Roles
+        public enum Role
         {
             User,
             Consultant,

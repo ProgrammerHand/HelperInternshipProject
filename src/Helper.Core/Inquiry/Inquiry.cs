@@ -15,22 +15,23 @@ namespace Helper.Core.Inquiry
         //public UserId AuthorId { get; private set; }
         public User.User Author { get; private set; }
 
-        private Inquiry( InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision)
+        private Inquiry( InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision, User.User author)
         {
             Id = id;
             Description = description;
             RequestedCompletionDate = requestedCompletionDate;
             SolutionDecision = solutionDecision;
             AcceptanceStatus = new AcceptanceStatus(Status.awaits_decision);
+            Author = author;
         }
         private Inquiry() 
         {
         }
 
-        public static Inquiry CreateInquiry(Description clientDescription, RealisationDate completionDate, SolutionVariant solution) 
+        public static Inquiry CreateInquiry(Description clientDescription, RealisationDate completionDate, SolutionVariant solution, User.User author) 
         {
             InquiryId id = Guid.NewGuid();
-            return new Inquiry(id, clientDescription, completionDate, solution);
+            return new Inquiry(id, clientDescription, completionDate, solution, author);
         }
 
         public void AcceptInquiry() 

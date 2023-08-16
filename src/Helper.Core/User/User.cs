@@ -15,7 +15,7 @@ namespace Helper.Core.User
         public UserId Id { get; private set; }
         public UserEmail Email { get; private set; }
         public UserPassword PasswordHash { get; private set; }
-        public UserRole Role { get; private set; } = Roles.User;
+        public UserRole Role { get; private set; } = Value_objects.Role.User;
         //public IEnumerable<Inquiry.Inquiry> Inquiries => InquiriesRelation;
         //private ICollection<Inquiry.Inquiry> InquiriesRelation = new List<Inquiry.Inquiry>();
 
@@ -38,7 +38,7 @@ namespace Helper.Core.User
 
         public void EvaluateRole() 
         {
-            if (Role.Value == Enum.GetValues(typeof(Roles)).Cast<Roles>().Last())
+            if (Role.Value == Enum.GetValues(typeof(Role)).Cast<Role>().Last())
                 throw new HighestRoleException();
             this.Role.Value++;
         }

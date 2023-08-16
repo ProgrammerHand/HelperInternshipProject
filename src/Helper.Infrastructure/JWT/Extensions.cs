@@ -1,5 +1,6 @@
 ﻿using Helper.Application.Security;
 using Helper.Core;
+using Helper.Core.User.Value_objects;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ namespace Helper.Infrastructure.JWT
             .AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                //o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(x =>
             {
@@ -40,14 +41,14 @@ namespace Helper.Infrastructure.JWT
 
             services.AddAuthorization(authorization =>
             {
-                authorization.AddPolicy("is-admin", policy =>
+                authorization.AddPolicy(Policies.IsAdmin, policy =>
                 {
-                    policy.RequireRole("admin");
+                    policy.RequireRole(Role.Admin.ToString());
                 });
-                authorization.AddPolicy("is-worker", policy =>
+                authorization.AddPolicy(Policies.IsWorker, policy =>
                 {
-                    policy.RequireRole("Admin");
-                    policy.RequireRole("Consultant");
+                    policy.RequireRole(Role.Admin.ToString());
+                    policy.RequireRole(Role.Consultant.ToString());
                 });
             });
 

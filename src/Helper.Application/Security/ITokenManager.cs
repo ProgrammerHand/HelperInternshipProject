@@ -5,6 +5,6 @@ namespace Helper.Application.Security
 {
     public interface ITokenManager
     {
-        JwtDto CreateToken(Guid userId, Roles role);
+        JwtDto CreateToken(Guid userId, Role role);
     }
 }

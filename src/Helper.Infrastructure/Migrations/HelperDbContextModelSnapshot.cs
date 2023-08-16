@@ -65,7 +65,7 @@ namespace Helper.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Roles>("Role")
+                    b.Property<Role>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

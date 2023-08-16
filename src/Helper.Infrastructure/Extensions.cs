@@ -11,6 +11,7 @@ using Helper.Core.User;
 using Helper.Application.Security;
 using Helper.Infrastructure.Security;
 using Helper.Infrastructure.JWT;
+using Helper.Infrastructure.Logging;
 
 namespace Helper.Core
 {
@@ -36,6 +37,7 @@ namespace Helper.Core
                 .WithScopedLifetime());
 
             services.AddAuth(configuration);
+            services.AddCustomCommandLogging();
 
             return services;
         }

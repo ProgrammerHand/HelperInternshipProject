@@ -9,9 +9,9 @@ namespace Helper.Core.User.Value_objects
 {
     public sealed record UserRole
     {
-        public Roles Value { get; set; }
+        public Role Value { get; set; }
 
-        public UserRole(Roles role)
+        public UserRole(Role role)
         {
             Value = role;
         }
@@ -21,8 +21,8 @@ namespace Helper.Core.User.Value_objects
             
         }
 
-        public static implicit operator Roles(UserRole data) => data.Value;
+        public static implicit operator Role(UserRole data) => data.Value;
 
-        public static implicit operator UserRole(Roles role) => new(role);
+        public static implicit operator UserRole(Role role) => new(role);
     }
 }

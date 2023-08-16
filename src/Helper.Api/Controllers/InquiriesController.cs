@@ -4,6 +4,8 @@ using Helper.Application.Commands;
 using Helper.Application.Abstractions;
 using Helper.Application.Queries;
 using Helper.Application.DTO;
+using System.Security.Claims;
+using Helper.Infrastructure.JWT;
 
 namespace Helper.Api.Controllers
 {
@@ -33,14 +35,15 @@ namespace Helper.Api.Controllers
             _getInquirySolutionVariants = getInquirySolutionVariants;
         }
 
-        [HttpPost(""), AllowAnonymous]
+        [HttpPost(""), Authorize]
         public async Task<ActionResult> CreateInquiry(CreateInquiry command)
         {
-            await _createInquiryHandler.HandleAsync(command);
+            await _createInquiryHandler.HandleAsync(command with {AuthorId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)});
             return Ok();
         }
 
         [HttpPut("feasibility-note/{inquiryId}")]
+        [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SetFeasibility([FromRoute(Name = "inquiryId")] Guid inquiryId, SetFeasibilityNote command)
         {
             await _setFeasibilityHandler.HandleAsync(command with {InquiriId = inquiryId});
@@ -49,20 +52,25 @@ namespace Helper.Api.Controllers
 
 
         [HttpPut("accepted/{inquiryId}")]
+        [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> AcceptInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
         {
             await _acceptInquiryHandler.HandleAsync(new AcceptInquiry(inquiryId));
             return Ok();
         }
 
+
         [HttpPut("rejected/{inquiryId}")]
+        [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> RejectInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
         {
             await _rejectInquiryHandler.HandleAsync(new RejectInquiry(inquiryId));
             return Ok();
         }
 
+
         [HttpGet("")]
+        [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> GetInquiries()
         {
              
