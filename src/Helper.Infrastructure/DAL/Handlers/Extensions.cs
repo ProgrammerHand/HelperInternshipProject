@@ -14,6 +14,7 @@ namespace Helper.Infrastructure.DAL.Handlers
             FeasibilityNote = entity.FeasibilityNote?.Value,
             SolutionDecision = Enum.GetName(entity.SolutionDecision.Value),
             AcceptanceStatus = Enum.GetName(entity.AcceptanceStatus.Value),
+            Author = entity.Author,
 
         };
     }

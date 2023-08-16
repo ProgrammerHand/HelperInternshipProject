@@ -3,7 +3,7 @@ using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
 using Moq;
-using Shouldly;
+
 
 namespace Helper.Tests.Unit
 {
@@ -25,7 +25,7 @@ namespace Helper.Tests.Unit
         public void given_inquiry_with_null_FeasibilityNote_acceptInquiry_should_fail()
         {
             //ARRANGE
-            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call) ;
+            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call, null) ;
 
             //ACT
             var exception = Record.Exception(inquiry.AcceptInquiry);
@@ -40,7 +40,7 @@ namespace Helper.Tests.Unit
         public void given_inquiry_with_null_FeasibilityNote_rejectInquiry_should_fail()
         {
             //ARRANGE
-            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call);
+            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call, null);
 
             //ACT
             var exception = Record.Exception(inquiry.RejectInquiry);
@@ -55,10 +55,10 @@ namespace Helper.Tests.Unit
         [InlineData("")]
         [InlineData("     ")]
         [InlineData(null)]
-        public void given_empty_feasibilityNote_SetFeasibilityNote_rejectInquiry_should_fail(string feasibilityNote)
+        public void given_empty_feasibilityNote_SetFeasibilityNote_should_fail(string feasibilityNote)
         {
             //ARRANGE
-            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call);
+            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call, null);
 
             //ACT
             var exception = Record.Exception(() => inquiry.SetFeasibilityNote(feasibilityNote));
@@ -85,13 +85,13 @@ namespace Helper.Tests.Unit
         }
 
         [Fact]
-        public void given_startDate_without_break_new_RealisationDate_should_fail()
+        public void given_startDate_for_consultation_without_7days_break_new_RealisationDate_should_fail()
         {
             //ARRANGE
             var startDate = mockClock.Object.Now.AddDays(3);
 
             //ACT
-            var exception = Record.Exception(() => new RealisationDate(startDate, null, Variants.call, mockClock.Object));
+            var exception = Record.Exception(() => new RealisationDate(startDate, null, Variants.consulting, mockClock.Object));
 
             //ASSERT
             exception.ShouldNotBeNull();

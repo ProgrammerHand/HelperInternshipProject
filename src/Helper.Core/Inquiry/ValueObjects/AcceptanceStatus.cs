@@ -8,7 +8,7 @@ namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed record AcceptanceStatus
     {
-        public Status Value { get; set; }
+        public Status Value { get; }
 
         public AcceptanceStatus(Status status)
         {

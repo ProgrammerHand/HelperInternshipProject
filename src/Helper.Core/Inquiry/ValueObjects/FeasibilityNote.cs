@@ -4,7 +4,7 @@ namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed record FeasibilityNote
     {
-        public string Value { get; set; }
+        public string Value { get; }
 
         public FeasibilityNote(string body)
         {

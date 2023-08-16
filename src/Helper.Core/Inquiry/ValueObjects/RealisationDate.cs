@@ -9,8 +9,8 @@ namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed record RealisationDate
     {
-        public DateTime Start { get; private set; }
-        public DateTime? End { get; private set; }
+        public DateTime Start { get; }
+        public DateTime? End { get; }
 
         public RealisationDate(DateTime StartDate, DateTime? EndDate, Variants Variant, IClockCustom clock)
         {

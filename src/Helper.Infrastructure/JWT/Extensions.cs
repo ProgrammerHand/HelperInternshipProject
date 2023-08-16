@@ -47,8 +47,7 @@ namespace Helper.Infrastructure.JWT
                 });
                 authorization.AddPolicy(Policies.IsWorker, policy =>
                 {
-                    policy.RequireRole(Role.Admin.ToString());
-                    policy.RequireRole(Role.Consultant.ToString());
+                    policy.RequireRole(Role.Consultant.ToString(), Role.Admin.ToString());
                 });
             });
 

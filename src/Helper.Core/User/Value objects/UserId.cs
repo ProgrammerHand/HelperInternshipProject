@@ -10,7 +10,7 @@ namespace Helper.Core.User.Value_objects
 {
     public sealed record UserId
     {
-        public Guid Value { get; set; }
+        public Guid Value { get; }
 
         public UserId(Guid value)
         {

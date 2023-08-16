@@ -15,7 +15,7 @@ namespace Helper.Core.Inquiry
         //public UserId AuthorId { get; private set; }
         public User.User Author { get; private set; }
 
-        private Inquiry( InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision, User.User author)
+        private Inquiry(InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision, User.User author)
         {
             Id = id;
             Description = description;
@@ -24,17 +24,17 @@ namespace Helper.Core.Inquiry
             AcceptanceStatus = new AcceptanceStatus(Status.awaits_decision);
             Author = author;
         }
-        private Inquiry() 
+        private Inquiry()
         {
         }
 
-        public static Inquiry CreateInquiry(Description clientDescription, RealisationDate completionDate, SolutionVariant solution, User.User author) 
+        public static Inquiry CreateInquiry(Description clientDescription, RealisationDate completionDate, SolutionVariant solution, User.User author)
         {
             InquiryId id = Guid.NewGuid();
             return new Inquiry(id, clientDescription, completionDate, solution, author);
         }
 
-        public void AcceptInquiry() 
+        public void AcceptInquiry()
         {
             if (string.IsNullOrEmpty(FeasibilityNote?.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
                 throw new NoFeasibilityNoteWasGivenException();
@@ -53,6 +53,11 @@ namespace Helper.Core.Inquiry
             if (string.IsNullOrEmpty(feasibilityNote.Value) || string.IsNullOrWhiteSpace(feasibilityNote.Value))
                 throw new NoFeasibilityNoteWasGivenException();
             FeasibilityNote = feasibilityNote;
+        }
+
+        public void ChangeAuthor(User.User author)
+        {
+            this.Author = author;
         }
     }
 }

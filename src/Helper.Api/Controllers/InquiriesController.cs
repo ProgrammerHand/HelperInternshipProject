@@ -6,6 +6,7 @@ using Helper.Application.Queries;
 using Helper.Application.DTO;
 using System.Security.Claims;
 using Helper.Infrastructure.JWT;
+using Helper.Application.Commands.Handlers;
 
 namespace Helper.Api.Controllers
 {
@@ -17,14 +18,15 @@ namespace Helper.Api.Controllers
         private readonly ICommandHandler<AcceptInquiry> _acceptInquiryHandler;
         private readonly ICommandHandler<CreateInquiry> _createInquiryHandler;
         private readonly ICommandHandler<SetFeasibilityNote> _setFeasibilityHandler;
+        private readonly ICommandHandler<ChangeAuthor> _changeAuthorHandler;
         private readonly IQueryHandler<GetInquiry, InquiryDto> _getInquiry;
         private readonly IQueryHandler<GetInquiries, List<InquiryDto>> _getInquiries;
         private readonly IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto> _getInquirySolutionVariants;
 
         public InquiriesController(ICommandHandler<RejectInquiry> rejectInquiryHandler, ICommandHandler<AcceptInquiry> acceptInquiryHandler,
             ICommandHandler<CreateInquiry> createInquiryHandler,ICommandHandler<SetFeasibilityNote> setFeasibilityHandler,
-            IQueryHandler<GetInquiry, InquiryDto> getInquiry, IQueryHandler<GetInquiries, List<InquiryDto>> getInquiries,
-            IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto> getInquirySolutionVariants)
+            ICommandHandler<ChangeAuthor> changeAuthorHandler, IQueryHandler<GetInquiry, InquiryDto> getInquiry,
+            IQueryHandler<GetInquiries, List<InquiryDto>> getInquiries, IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto> getInquirySolutionVariants)
         {
             _rejectInquiryHandler = rejectInquiryHandler;
             _acceptInquiryHandler = acceptInquiryHandler;
@@ -33,6 +35,7 @@ namespace Helper.Api.Controllers
             _getInquiry = getInquiry;
             _getInquiries = getInquiries;
             _getInquirySolutionVariants = getInquirySolutionVariants;
+            _changeAuthorHandler = changeAuthorHandler;
         }
 
         [HttpPost(""), Authorize]
@@ -68,7 +71,6 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-
         [HttpGet("")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> GetInquiries()
@@ -88,6 +90,14 @@ namespace Helper.Api.Controllers
         public async Task<ActionResult> GetInquirySolutionVariants()
         {
             return Ok(await _getInquirySolutionVariants.HandleAsync(new GetInquirySolutionVariants()));
+        }
+
+        [HttpPut("Author/{inquiryId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> ChangeAuthorInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, ChangeAuthor command)
+        {
+            await _changeAuthorHandler.HandleAsync(command with {InquiryId = inquiryId});
+            return Ok();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Helper.Core.User.Value_objects
 {
     public sealed record UserEmail
     {
-        public string Value { get; set; }
+        public string Value { get; }
 
         public UserEmail(string email)
         {
@@ -23,7 +23,6 @@ namespace Helper.Core.User.Value_objects
 
         private UserEmail()
         {
-            
         }
 
         public static implicit operator string(UserEmail data) => data.Value;

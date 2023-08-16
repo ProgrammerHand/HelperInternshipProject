@@ -1,4 +1,6 @@
-﻿namespace Helper.Application.DTO
+﻿using Helper.Core.User;
+
+namespace Helper.Application.DTO
 {
     public record InquiryDto
     {
@@ -8,5 +10,6 @@
         public string SolutionDecision { get; set; }
         public string? FeasibilityNote { get; set; }
         public string AcceptanceStatus { get; set; }
+        public User Author { get; set; }
     }
 }

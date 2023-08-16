@@ -3,7 +3,7 @@ namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed record SolutionVariant
     {
-        public Variants Value { get; private set; }
+        public Variants Value { get; }
 
         public SolutionVariant(Variants variant)
         {

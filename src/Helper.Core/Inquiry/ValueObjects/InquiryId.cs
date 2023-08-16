@@ -4,7 +4,7 @@ namespace Helper.Core.Inquiry.ValueObjects
 {
     public sealed record InquiryId
     {
-        public Guid Value { get; set; }
+        public Guid Value { get; }
 
         public InquiryId(Guid value)
         {
@@ -16,7 +16,7 @@ namespace Helper.Core.Inquiry.ValueObjects
             Value = value;
         }
 
-        public static implicit operator Guid(InquiryId date) => date.Value;
+        public static implicit operator Guid(InquiryId data) => data.Value;
 
         public static implicit operator InquiryId(Guid value) => new(value);
     }
