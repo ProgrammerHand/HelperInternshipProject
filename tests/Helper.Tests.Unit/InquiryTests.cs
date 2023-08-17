@@ -89,9 +89,10 @@ namespace Helper.Tests.Unit
         {
             //ARRANGE
             var startDate = mockClock.Object.Now.AddDays(3);
+            var endDate = mockClock.Object.Now.AddDays(8);
 
             //ACT
-            var exception = Record.Exception(() => new RealisationDate(startDate, null, Variants.consulting, mockClock.Object));
+            var exception = Record.Exception(() => new RealisationDate(startDate, endDate, Variants.consulting, mockClock.Object));
 
             //ASSERT
             exception.ShouldNotBeNull();

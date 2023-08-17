@@ -16,7 +16,8 @@ namespace Helper.Infrastructure.DAL
         {
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<HelperDbContext>();
-            await dbContext.Database.MigrateAsync(cancellationToken);
+            if (dbContext.Database.IsRelational())
+                await dbContext.Database.MigrateAsync(cancellationToken);
         }
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }

@@ -44,7 +44,7 @@ namespace Helper.Core
 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
-            //app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseSwagger();
             app.UseReDoc(reDoc =>
             {
