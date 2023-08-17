@@ -12,6 +12,8 @@ using Helper.Application.Security;
 using Helper.Infrastructure.Security;
 using Helper.Infrastructure.JWT;
 using Helper.Infrastructure.Logging;
+using Helper.Application.Abstraction;
+using Helper.Infrastructure.Commands;
 
 namespace Helper.Core
 {
@@ -21,12 +23,14 @@ namespace Helper.Core
         {
             services.AddControllers();
             services.AddSingleton<ExceptionMiddleware>();
+            services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddHttpContextAccessor();
             services.AddSecurity();
 
             services.AddSingleton<IClockCustom, ClockCustom>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddDb(configuration);
 
             var infrastructureAssembly = typeof(AppOptions).Assembly;
@@ -44,7 +48,7 @@ namespace Helper.Core
 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
             app.UseSwagger();
             app.UseReDoc(reDoc =>
             {
