@@ -35,7 +35,7 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         private async Task Save()
         {
-            var saved = _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

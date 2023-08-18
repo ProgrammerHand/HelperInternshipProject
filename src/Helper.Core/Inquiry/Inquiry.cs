@@ -56,9 +56,14 @@ namespace Helper.Core.Inquiry
             FeasibilityNote = feasibilityNote;
         }
 
+        public void SetRowVersion(byte[] userRowVersion) 
+        {
+            RowVersion = userRowVersion;
+        }
+
         public void ChangeAuthor(User.User author)
         {
-            this.Author = author;
+            Author = author;
         }
     }
 }

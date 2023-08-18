@@ -13,7 +13,7 @@ namespace Helper.Infrastructure.DAL.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasConversion(x => x.Value, x => new OfferId(x));
             builder.Property(x => x.Description).HasConversion(x => x.Value, x => new OfferDescription(x)).IsRequired();
-            builder.Property(x => x.RowVersion).IsConcurrencyToken().ValueGeneratedOnAddOrUpdate().IsRequired();
+            builder.Property(x => x.RowVersion).IsRowVersion().IsRequired();
 
             builder.HasOne(x => x.Precursor).WithMany().HasForeignKey(x => x.PrecursorId);
         }

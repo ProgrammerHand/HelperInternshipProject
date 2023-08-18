@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Repositories
 {
-    internal sealed class InquiryRepository : IInquiryRepository
+    public sealed class InquiryRepository : IInquiryRepository
     {
         private readonly HelperDbContext _context;
 
@@ -25,13 +25,14 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         public async Task UpdateAsync(Inquiry inquiry)
         {
-            _context.Update(inquiry);
+            _context.Inquiries.Update(inquiry);
             await Save();
         }
+ 
 
         private async Task Save()
         {
-            var saved = _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
         }
     }
 }

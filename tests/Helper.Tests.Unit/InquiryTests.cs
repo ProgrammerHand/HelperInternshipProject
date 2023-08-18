@@ -2,8 +2,10 @@ using Helper.Core;
 using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
+using Helper.Infrastructure.DAL;
+using Helper.Infrastructure.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Moq;
-
 
 namespace Helper.Tests.Unit
 {
@@ -130,5 +132,30 @@ namespace Helper.Tests.Unit
             exception.ShouldBeOfType<NotGivenConsaltingEndException>();
 
         }
+
+
+        //[Fact]
+        //public void given_feasibilityNote_when_updated_async_SetFeasiblityNoteDatabase_shoud_fail()
+        //{
+        //    //ARRANGE
+        //    var inquiry = Inquiry.CreateInquiry("test", null, Variants.call, null);
+        //    var mockSet = new Mock<DbSet<Inquiry>>();
+        //    var mockContext = new Mock<HelperDbContext>();
+        //    mockContext.Setup(x => x.Inquiries).Returns(mockSet.Object);
+
+        //    var service = new InquiryRepository(mockContext.Object);
+        //    service.AddAsync(inquiry);
+        //    var inquiryChanged = inquiry;
+        //    inquiryChanged.SetFeasibilityNote("test");
+        //    var exception = Record.ExceptionAsync(async () => await service.UpdateAsync(inquiryChanged));
+
+
+        //    //ACT
+
+        //    //ASSERT
+        //    exception.ShouldNotBeNull();
+        //    exception.ShouldBeOfType<NotGivenConsaltingEndException>();
+
+        //}
     }
 }

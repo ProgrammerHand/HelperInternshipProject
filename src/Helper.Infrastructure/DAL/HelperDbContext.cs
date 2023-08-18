@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL
 {
-    public sealed class HelperDbContext : DbContext
+    public class HelperDbContext : DbContext
     {
         public DbSet<Inquiry> Inquiries { get; set; }
         public DbSet<User> Users { get; set; }
@@ -19,5 +19,6 @@ namespace Helper.Infrastructure.DAL
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using Helper.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Helper.Infrastructure.Exceptions

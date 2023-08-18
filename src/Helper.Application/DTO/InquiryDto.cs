@@ -11,5 +11,6 @@ namespace Helper.Application.DTO
         public string? FeasibilityNote { get; set; }
         public string AcceptanceStatus { get; set; }
         public Core.User.User Author { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

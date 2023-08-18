@@ -21,10 +21,9 @@ namespace Helper.Infrastructure.DAL.Repositories
             await Save();
         }
 
-        private async Task<bool> Save()
+        private async Task Save()
         {
-            var saved = _context.SaveChangesAsync();
-            return await saved > 0 ? true : false;
+            await _context.SaveChangesAsync();
         }
     }
 }

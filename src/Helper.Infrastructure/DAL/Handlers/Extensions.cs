@@ -15,6 +15,7 @@ namespace Helper.Infrastructure.DAL.Handlers
             SolutionDecision = Enum.GetName(entity.SolutionDecision.Value),
             AcceptanceStatus = Enum.GetName(entity.AcceptanceStatus.Value),
             Author = entity.Author,
+            RowVersion = entity.RowVersion
 
         };
     }

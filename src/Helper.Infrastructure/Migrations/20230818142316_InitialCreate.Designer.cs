@@ -14,8 +14,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Helper.Infrastructure.Migrations
 {
     [DbContext(typeof(HelperDbContext))]
-    [Migration("20230818095558_CreateOffer")]
-    partial class CreateOffer
+    [Migration("20230818142316_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,12 @@ namespace Helper.Infrastructure.Migrations
                     b.Property<string>("FeasibilityNote")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<Variants>("SolutionDecision")
                         .HasColumnType("int");
 
@@ -66,6 +72,12 @@ namespace Helper.Infrastructure.Migrations
 
                     b.Property<Guid>("PrecursorId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
