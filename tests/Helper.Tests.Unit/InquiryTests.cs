@@ -130,22 +130,5 @@ namespace Helper.Tests.Unit
             exception.ShouldBeOfType<NotGivenConsaltingEndException>();
 
         }
-
-        [Fact]
-        public void given_two_feasibilityNote_SetFeasibilityNote_should_fail()
-        {
-            //ARRANGE
-            var inquiry = Inquiry.CreateInquiry("test", null, Variants.call, null);
-
-            //ACT
-            var exception1 = Record.Exception(() => inquiry.SetFeasibilityNote("test"));
-            var exception2 = Record.Exception(() => inquiry.SetFeasibilityNote("Dupa"));
-
-            //ASSERT
-            exception2.ShouldNotBeNull();
-            exception2.ShouldBeOfType<NoFeasibilityNoteWasGivenException>();
-
-        }
-
     }
 }

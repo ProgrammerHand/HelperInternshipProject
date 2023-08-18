@@ -77,27 +77,5 @@ namespace Helper.Tests.Integration
 
             errorName.Code.ShouldBe(new UserAlredyExistException().GetType().Name);
         }
-
-        [Fact]
-        public async Task Given_feasibility_when_registered_should_not_register_user2()
-        {
-            //Arrange
-
-            var command = new RegisterUser("string", "string");
-            await httpClient.PostAsJsonAsync("api/Security/register", command);
-
-            //Act
-            var response = await httpClient.PostAsJsonAsync("api/Security/register", command);
-            var scope = appFactory.Services.GetService<IServiceScopeFactory>()!.CreateScope();
-            var dbContext = scope.ServiceProvider.GetService<HelperDbContext>();
-            var resultMessage = await response.Content.ReadAsStringAsync();
-            var errorName = JsonConvert.DeserializeObject<Error>(resultMessage);
-
-            //Assert
-            dbContext.ShouldNotBeNull();
-            (await dbContext.Users.Where(x => x.Email == "string").FirstOrDefaultAsync()).ShouldNotBeNull();
-
-            errorName.Code.ShouldBe(new UserAlredyExistException().GetType().Name);
-        }
     }
 }
