@@ -1,4 +1,5 @@
 ﻿using Helper.Core;
+using Helper.Core.Exceptions;
 using Helper.Core.Inquiry.Exceptions;
 
 namespace Helper.Application.Inquiry.Commands

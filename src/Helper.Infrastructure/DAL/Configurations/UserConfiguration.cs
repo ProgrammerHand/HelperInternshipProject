@@ -21,6 +21,7 @@ namespace Helper.Infrastructure.DAL.Configurations
             builder.Property(x => x.Email).HasConversion(x => x.Value, x => new UserEmail(x)).IsRequired();
             builder.Property(x => x.PasswordHash).HasConversion(x => x.Value, x => new UserPassword(x)).IsRequired();
             builder.Property(x => x.Role).HasConversion(x => x.Value, x => new UserRole(x)).IsRequired();
+            builder.Property(x => x.RowVersion).IsConcurrencyToken().ValueGeneratedOnAddOrUpdate().IsRequired();
         }
     }
 }

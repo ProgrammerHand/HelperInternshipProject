@@ -6,6 +6,7 @@ using Helper.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -13,9 +14,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Helper.Infrastructure.Migrations
 {
     [DbContext(typeof(HelperDbContext))]
-    partial class HelperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230818095558_CreateOffer")]
+    partial class CreateOffer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,12 +45,6 @@ namespace Helper.Infrastructure.Migrations
                     b.Property<string>("FeasibilityNote")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
                     b.Property<Variants>("SolutionDecision")
                         .HasColumnType("int");
 
@@ -69,12 +66,6 @@ namespace Helper.Infrastructure.Migrations
 
                     b.Property<Guid>("PrecursorId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -98,12 +89,6 @@ namespace Helper.Infrastructure.Migrations
 
                     b.Property<Role>("Role")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 

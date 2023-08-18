@@ -1,21 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using Helper.Infrastructure.DAL;
 using Microsoft.Extensions.DependencyInjection;
-using Helper.Application.Commands;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using Helper.Application.Exceptions;
+using Helper.Application.User.Commands;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace Helper.Tests.Integration
 {
-    public class IntegrationTests
+    public class AuthenticationTests
     {
         private readonly WebApplicationFactory<Program> appFactory;
         private readonly HttpClient httpClient;
 
-        public IntegrationTests()
+        public AuthenticationTests()
         {
             appFactory = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(host =>
@@ -58,6 +58,28 @@ namespace Helper.Tests.Integration
 
         [Fact]
         public async Task Given_email_and_password_when_registered_should_not_register_user2()
+        {
+            //Arrange
+
+            var command = new RegisterUser("string", "string");
+            await httpClient.PostAsJsonAsync("api/Security/register", command);
+
+            //Act
+            var response = await httpClient.PostAsJsonAsync("api/Security/register", command);
+            var scope = appFactory.Services.GetService<IServiceScopeFactory>()!.CreateScope();
+            var dbContext = scope.ServiceProvider.GetService<HelperDbContext>();
+            var resultMessage = await response.Content.ReadAsStringAsync();
+            var errorName = JsonConvert.DeserializeObject<Error>(resultMessage);
+
+            //Assert
+            dbContext.ShouldNotBeNull();
+            (await dbContext.Users.Where(x => x.Email == "string").FirstOrDefaultAsync()).ShouldNotBeNull();
+
+            errorName.Code.ShouldBe(new UserAlredyExistException().GetType().Name);
+        }
+
+        [Fact]
+        public async Task Given_feasibility_when_registered_should_not_register_user2()
         {
             //Arrange
 

@@ -17,6 +17,7 @@ namespace Helper.Infrastructure.DAL.Configurations
             builder.Property(x => x.FeasibilityNote).HasConversion(x => x.Value, x => new FeasibilityNote(x));
             builder.Property(x => x.AcceptanceStatus).HasConversion(x => x.Value, x => new AcceptanceStatus(x));
             builder.Property(x => x.SolutionDecision).HasConversion(x => x.Value, x => new SolutionVariant(x)).IsRequired();
+            builder.Property(x => x.RowVersion).IsConcurrencyToken().ValueGeneratedOnAddOrUpdate().IsRequired();
 
             //builder.Property(x => x.RequestedCompletionDate).HasConversion(x => (x.Start, x.End), x => new RealisationDate(x.Start, x.End)).IsRequired();
             builder.OwnsOne(

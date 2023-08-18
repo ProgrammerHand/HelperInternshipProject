@@ -13,6 +13,8 @@ using Helper.Infrastructure.Logging;
 using Helper.Application.Abstraction.Commands;
 using Helper.Application.Abstraction.Queries;
 using Helper.Infrastructure.Dispatchers;
+using Helper.Application.Abstraction.Events;
+using Helper.Core.Offer;
 
 namespace Helper.Core
 {
@@ -24,10 +26,12 @@ namespace Helper.Core
             services.AddSingleton<ExceptionMiddleware>();
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
+            services.AddSingleton<IEventDispatcher, EventDispatcher>();
             services.AddHttpContextAccessor();
             services.AddSecurity();
 
             services.AddSingleton<IClockCustom, ClockCustom>();
+            services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
@@ -48,7 +52,7 @@ namespace Helper.Core
 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
-            //app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseSwagger();
             app.UseReDoc(reDoc =>
             {
