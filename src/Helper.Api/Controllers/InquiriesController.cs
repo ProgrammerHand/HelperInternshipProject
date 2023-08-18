@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Helper.Application.Commands;
-using Helper.Application.Abstractions;
-using Helper.Application.Queries;
-using Helper.Application.DTO;
 using System.Security.Claims;
 using Helper.Infrastructure.JWT;
-using Helper.Application.Commands.Handlers;
-using Helper.Application.Abstraction;
+using Helper.Application.Inquiry.Commands;
+using Helper.Application.Inquiry.Queries;
+using Helper.Application.Abstraction.Commands;
+using Helper.Application.Abstraction.Queries;
 
 namespace Helper.Api.Controllers
 {
@@ -16,18 +14,12 @@ namespace Helper.Api.Controllers
     public class InquiriesController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IQueryHandler<GetInquiry, InquiryDto> _getInquiry;
-        private readonly IQueryHandler<GetInquiries, List<InquiryDto>> _getInquiries;
-        private readonly IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto> _getInquirySolutionVariants;
+        private readonly IQueryDispatcher _queryDispatcher;
 
-        public InquiriesController(IQueryHandler<GetInquiry, InquiryDto> getInquiry,
-            IQueryHandler<GetInquiries, List<InquiryDto>> getInquiries, IQueryHandler<GetInquirySolutionVariants, InquirySolutionVariantsDto> getInquirySolutionVariants,
-            ICommandDispatcher commandDispatcher)
+        public InquiriesController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _commandDispatcher = commandDispatcher;
-            _getInquiry = getInquiry;
-            _getInquiries = getInquiries;
-            _getInquirySolutionVariants = getInquirySolutionVariants;
+            _queryDispatcher = queryDispatcher;
         }
 
         [HttpPost(""), Authorize]
@@ -68,20 +60,20 @@ namespace Helper.Api.Controllers
         public async Task<ActionResult> GetInquiries()
         {
              
-            return Ok(await _getInquiries.HandleAsync(new GetInquiries()));
+            return Ok(await _queryDispatcher.QueryAsync(new GetInquiries()));
         }
 
         [HttpGet("{inquiryId}")]
         public async Task<ActionResult> GetInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
         {
             
-            return Ok(await _getInquiry.HandleAsync(new GetInquiry(inquiryId)));
+            return Ok(await _queryDispatcher.QueryAsync(new GetInquiry(inquiryId)));
         }
 
         [HttpGet("solutions-variants")]
         public async Task<ActionResult> GetInquirySolutionVariants()
         {
-            return Ok(await _getInquirySolutionVariants.HandleAsync(new GetInquirySolutionVariants()));
+            return Ok(await _queryDispatcher.QueryAsync(new GetInquirySolutionVariants()));
         }
 
         [HttpPut("Author/{inquiryId}")]

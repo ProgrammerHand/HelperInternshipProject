@@ -1,19 +1,18 @@
 ﻿using Helper.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Helper.Application.Abstractions;
 using Helper.Core.Inquiry;
 using Helper.Infrastructure.DAL;
 using Helper.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Helper.Infrastructure.DAL.Repositories;
 using Helper.Core.User;
-using Helper.Application.Security;
 using Helper.Infrastructure.Security;
 using Helper.Infrastructure.JWT;
 using Helper.Infrastructure.Logging;
-using Helper.Application.Abstraction;
-using Helper.Infrastructure.Commands;
+using Helper.Application.Abstraction.Commands;
+using Helper.Application.Abstraction.Queries;
+using Helper.Infrastructure.Dispatchers;
 
 namespace Helper.Core
 {
@@ -24,6 +23,7 @@ namespace Helper.Core
             services.AddControllers();
             services.AddSingleton<ExceptionMiddleware>();
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
+            services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
             services.AddHttpContextAccessor();
             services.AddSecurity();
 

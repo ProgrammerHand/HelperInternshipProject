@@ -10,6 +10,6 @@ namespace Helper.Application.DTO
         public string SolutionDecision { get; set; }
         public string? FeasibilityNote { get; set; }
         public string AcceptanceStatus { get; set; }
-        public User Author { get; set; }
+        public Core.User.User Author { get; set; }
     }
 }

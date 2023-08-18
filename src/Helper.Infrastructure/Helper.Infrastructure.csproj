@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Helper.Application\Helper.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
 </Project>

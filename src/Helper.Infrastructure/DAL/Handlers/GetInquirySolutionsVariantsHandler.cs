@@ -1,6 +1,6 @@
-﻿using Helper.Application.Abstractions;
+﻿using Helper.Application.Abstraction.Queries;
 using Helper.Application.DTO;
-using Helper.Application.Queries;
+using Helper.Application.Inquiry.Queries;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {

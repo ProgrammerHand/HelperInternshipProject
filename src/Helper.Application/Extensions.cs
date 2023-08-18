@@ -1,4 +1,4 @@
-﻿using Helper.Application.Abstractions;
+﻿using Helper.Application.Abstraction.Commands;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Helper.Application

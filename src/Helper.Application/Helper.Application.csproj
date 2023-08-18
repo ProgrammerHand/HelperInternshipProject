@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Helper.Core\Helper.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstraction\Events\" />
+    <Folder Include="Offer\" />
+  </ItemGroup>
+
 </Project>
