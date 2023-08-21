@@ -40,18 +40,18 @@ namespace Helper.Api.Controllers
 
         [HttpPut("accepted/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
-        public async Task<ActionResult> AcceptInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
+        public async Task<ActionResult> AcceptInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, AcceptInquiry command)
         {
-            await _commandDispatcher.SendAsync(new AcceptInquiry(inquiryId));
+            await _commandDispatcher.SendAsync(command with { InquiriId = inquiryId });
             return Ok();
         }
 
 
         [HttpPut("rejected/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
-        public async Task<ActionResult> RejectInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
+        public async Task<ActionResult> RejectInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, RejectInquiry command)
         {
-            await _commandDispatcher.SendAsync(new RejectInquiry(inquiryId));
+            await _commandDispatcher.SendAsync(command with { InquiriId = inquiryId });
             return Ok();
         }
 

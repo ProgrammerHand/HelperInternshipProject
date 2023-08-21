@@ -1,4 +1,5 @@
 ﻿using Helper.Application.Abstraction.Commands;
+using Helper.Application.Exceptions;
 using Helper.Core.Inquiry;
 
 namespace Helper.Application.Inquiry.Commands.Handlers
@@ -14,9 +15,9 @@ namespace Helper.Application.Inquiry.Commands.Handlers
         public async Task HandleAsync(SetFeasibilityNote command)
         {
             var inquiry = await _inquiryRepo.GetByIdAsync(command.InquiriId);
-
+            if (command.RowVersion == inquiry.RowVersion)
+                throw new WrongRowVersionException();
             inquiry.SetFeasibilityNote(command.Value);
-            inquiry.SetRowVersion(command.RowVersion);
             await _inquiryRepo.UpdateAsync(inquiry);
         }
     }

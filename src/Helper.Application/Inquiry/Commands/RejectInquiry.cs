@@ -3,5 +3,5 @@ using Helper.Core.Inquiry.ValueObjects;
 
 namespace Helper.Application.Inquiry.Commands
 {
-    public sealed record RejectInquiry(Guid InquiriId) : ICommand;
+    public sealed record RejectInquiry(Guid InquiriId, Byte[] RowVersion) : ICommand;
 }

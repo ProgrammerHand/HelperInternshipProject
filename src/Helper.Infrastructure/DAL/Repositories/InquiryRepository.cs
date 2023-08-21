@@ -1,13 +1,15 @@
 ﻿using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.ValueObjects;
+using Helper.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Helper.Infrastructure.DAL.Repositories
 {
     public sealed class InquiryRepository : IInquiryRepository
     {
         private readonly HelperDbContext _context;
-
         public InquiryRepository(HelperDbContext dbContext)
         {
             _context = dbContext;
@@ -20,7 +22,7 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         public async Task<Inquiry> GetByIdAsync(InquiryId id) 
         {
-            return await _context.Inquiries.Include(x => x.Author).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Inquiries.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task UpdateAsync(Inquiry inquiry)
@@ -32,7 +34,7 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         private async Task Save()
         {
-           await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
         }
     }
 }

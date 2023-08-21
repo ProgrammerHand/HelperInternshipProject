@@ -12,7 +12,6 @@ namespace Helper.Infrastructure.DAL
         public DbSet<Offer> Offers { get; set; }
         public HelperDbContext(DbContextOptions<HelperDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

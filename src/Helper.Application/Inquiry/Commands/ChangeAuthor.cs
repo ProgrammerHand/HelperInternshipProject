@@ -2,5 +2,5 @@
 
 namespace Helper.Application.Inquiry.Commands
 {
-    public sealed record ChangeAuthor(Guid InquiryId, Guid NewAuthorId) : ICommand;
+    public sealed record ChangeAuthor(Guid InquiryId, Guid NewAuthorId, Byte[] RowVersion) : ICommand;
 }
