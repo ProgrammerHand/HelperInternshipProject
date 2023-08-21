@@ -25,6 +25,13 @@ namespace Helper.Infrastructure.DAL.Repositories
             return await _context.Inquiries.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task DeleteInquiry(Inquiry inquiry)
+        {
+            _context.Inquiries.Remove(inquiry);
+            await Save();
+        }
+
+
         public async Task UpdateAsync(Inquiry inquiry)
         {
             _context.Inquiries.Update(inquiry);

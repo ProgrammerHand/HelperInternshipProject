@@ -6,6 +6,7 @@ namespace Helper.Core.Inquiry
     {
         Task AddAsync(Inquiry inquiry);
         Task UpdateAsync(Inquiry inquiry);
+        Task DeleteInquiry(Inquiry inquiry);
         Task<Inquiry> GetByIdAsync(InquiryId inquiry);
     }
 }

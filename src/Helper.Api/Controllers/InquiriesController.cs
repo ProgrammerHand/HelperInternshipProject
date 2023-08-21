@@ -55,6 +55,14 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
+        [HttpDelete("{inquiryId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> DeleteInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
+        {
+            await _commandDispatcher.SendAsync(new DeleteInquiry(inquiryId));
+            return Ok();
+        }
+
         [HttpGet("")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> GetInquiries()

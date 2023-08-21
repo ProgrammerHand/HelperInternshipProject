@@ -1,15 +1,18 @@
 ﻿using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer.ValueObjects;
+using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Offer
 {
-    public class Offer
+    public class Offer : ISoftDelete
     {
         public OfferId Id { get; private set; }
         public InquiryId PrecursorId { get; private set; }
         public Inquiry.Inquiry Precursor { get; private set; }
         public OfferDescription Description { get; private set; }
         public byte[] RowVersion { get; private set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         private Offer(OfferId id, Inquiry.Inquiry precursor)
         {

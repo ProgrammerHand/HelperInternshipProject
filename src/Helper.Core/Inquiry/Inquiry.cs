@@ -1,10 +1,11 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.User.Value_objects;
+using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Inquiry
 {
-    public class Inquiry
+    public class Inquiry : ISoftDelete
     {
         public InquiryId Id { get; private set; }
         public Description Description { get; private set; }
@@ -15,6 +16,8 @@ namespace Helper.Core.Inquiry
         //public UserId AuthorId { get; private set; }
         public User.User Author { get; private set; }
         public byte[] RowVersion { get; private set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         private Inquiry(InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision, User.User author)
         {

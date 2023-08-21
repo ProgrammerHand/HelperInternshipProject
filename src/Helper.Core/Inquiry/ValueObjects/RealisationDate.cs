@@ -18,10 +18,16 @@ namespace Helper.Core.Inquiry.ValueObjects
             {
                 throw new NotGivenConsaltingEndException();
             }
+
             if (EndDate < StartDate)
+            {
                 throw new EndBeforeStartException();
+            }
+
             if (StartDate < clock.Now.AddDays(7))
+            {
                 throw new StartDateTooEarly();
+            }
             Start = StartDate;
             End = EndDate;
         }
