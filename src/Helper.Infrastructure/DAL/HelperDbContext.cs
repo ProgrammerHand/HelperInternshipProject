@@ -2,6 +2,8 @@
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
 using Helper.Core.User;
+using Helper.Core.Utility;
+using Helper.Infrastructure.DAL.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL
@@ -26,6 +28,27 @@ namespace Helper.Infrastructure.DAL
         {
 
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            CheckRowVersion();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void CheckRowVersion()
+        {
+            ChangeTracker.DetectChanges();
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is IRowVersionControl)
+                {
+                    var property = entry.Property("RowVersion");
+                    if (property.OriginalValue.Equals(property.CurrentValue))
+                        throw new WrongRowVersionException();
+                }
+            }
+
         }
     }
 }

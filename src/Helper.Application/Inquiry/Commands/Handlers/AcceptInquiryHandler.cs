@@ -2,6 +2,7 @@
 using Helper.Application.Abstraction.Events;
 using Helper.Application.Exceptions;
 using Helper.Application.Inquiry.Commands;
+using Helper.Application.Inquiry.Events;
 using Helper.Application.Offer.Events;
 using Helper.Core.Inquiry;
 
@@ -25,7 +26,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
                 throw new WrongRowVersionException();
             inquiry.AcceptInquiry();
             await _inquiryRepo.UpdateAsync(inquiry);
-            await _eventDispatcher.PublishAsync(new IquiryAccepted(inquiry.Id));
+            await _eventDispatcher.PublishAsync(new IquiryAccepted(inquiry.Id));// zmienuic na inquiryid
         }
     }
 }

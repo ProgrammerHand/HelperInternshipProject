@@ -1,4 +1,5 @@
 ﻿using Helper.Application.Abstraction.Events;
+using Helper.Application.Inquiry.Events;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
 

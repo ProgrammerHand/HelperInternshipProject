@@ -1,11 +1,12 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.User.Value_objects;
+using Helper.Core.Utility;
 using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Inquiry
 {
-    public class Inquiry : ISoftDelete
+    public class Inquiry : ISoftDelete, IRowVersionControl
     {
         public InquiryId Id { get; private set; }
         public Description Description { get; private set; }
@@ -15,7 +16,7 @@ namespace Helper.Core.Inquiry
         public SolutionVariant SolutionDecision { get; private set; }
         //public UserId AuthorId { get; private set; }
         public User.User Author { get; private set; }
-        public byte[] RowVersion { get; private set; }
+        public byte[] RowVersion { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
 
@@ -57,6 +58,11 @@ namespace Helper.Core.Inquiry
             if (string.IsNullOrEmpty(feasibilityNote.Value) || string.IsNullOrWhiteSpace(feasibilityNote.Value))
                 throw new NoFeasibilityNoteWasGivenException();
             FeasibilityNote = feasibilityNote;
+        }
+
+        public void SetRowVersion(Byte[] rowVersion)
+        {
+            RowVersion = rowVersion;
         }
 
         public void ChangeAuthor(User.User author)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helper.Application.Exceptions
+namespace Helper.Infrastructure.DAL.Exceptions
 {
     public sealed class WrongRowVersionException : CustomException
     {

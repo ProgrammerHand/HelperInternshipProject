@@ -17,7 +17,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
         public async Task HandleAsync(DeleteInquiry command)
         {
             var inquiry = await _inquiryRepo.GetByIdAsync(command.InquiryId) ?? throw new InquiryDoesntExistException();
-            _inquiryRepo.DeleteInquiry(inquiry);
+            await _inquiryRepo.DeleteInquiry(inquiry);
         }
     }
 }

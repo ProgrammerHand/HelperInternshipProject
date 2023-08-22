@@ -19,15 +19,12 @@ namespace Helper.Infrastructure.DAL
 
             foreach (var entry in eventData.Context.ChangeTracker.Entries())
             {
+                var entity = entry.GetType();
                 if (entry.State is EntityState.Deleted && entry.Entity is ISoftDelete delete)
                 {
                     entry.State = EntityState.Modified;
                     delete.IsDeleted = true;
                     delete.DeletedAt = _clock.Now;
-                }
-                else if (entry.State is EntityState.Deleted)
-                {
-                    entry.State = EntityState.Modified;
                 }
 
             }

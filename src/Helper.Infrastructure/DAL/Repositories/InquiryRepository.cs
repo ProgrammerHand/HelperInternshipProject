@@ -2,6 +2,7 @@
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -27,6 +28,7 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         public async Task DeleteInquiry(Inquiry inquiry)
         {
+            _context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
             _context.Inquiries.Remove(inquiry);
             await Save();
         }
