@@ -145,7 +145,7 @@ namespace Helper.Infrastructure.Migrations
 
                             b1.HasKey("InquiryId");
 
-                            b1.ToTable("Dates", (string)null);
+                            b1.ToTable("Inquiries");
 
                             b1.WithOwner()
                                 .HasForeignKey("InquiryId");

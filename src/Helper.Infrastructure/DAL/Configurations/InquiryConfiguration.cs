@@ -29,6 +29,7 @@ namespace Helper.Infrastructure.DAL.Configurations
                 });
 
             builder.HasOne(x => x.Author).WithMany();
+            builder.HasQueryFilter(x => x.IsDeleted == false);
         }
     }
 }

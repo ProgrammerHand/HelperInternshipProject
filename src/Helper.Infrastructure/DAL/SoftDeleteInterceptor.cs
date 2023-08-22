@@ -25,6 +25,10 @@ namespace Helper.Infrastructure.DAL
                     delete.IsDeleted = true;
                     delete.DeletedAt = _clock.Now;
                 }
+                else if (entry.State is EntityState.Deleted)
+                {
+                    entry.State = EntityState.Modified;
+                }
 
             }
             return await base.SavingChangesAsync(eventData, result, cancellationToken);
