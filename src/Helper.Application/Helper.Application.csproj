@@ -16,9 +16,4 @@
     <ProjectReference Include="..\Helper.Core\Helper.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Offer\Commands\Handlers\" />
-    <Folder Include="Offer\Queries\" />
-  </ItemGroup>
-
 </Project>

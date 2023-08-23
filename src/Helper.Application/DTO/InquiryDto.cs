@@ -2,7 +2,7 @@
 
 namespace Helper.Application.DTO
 {
-    public record InquiryDto
+    public sealed record InquiryDto
     {
         public string Description { get; set; }
         public DateTime RequestedStartDate { get; set; }
