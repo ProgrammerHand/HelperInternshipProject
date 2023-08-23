@@ -1,10 +1,4 @@
-﻿using Helper.Core.Inquiry.ValueObjects;
-using Helper.Core.User.Value_objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helper.Core.User.Value_objects;
 
 namespace Helper.Core.User
 {
@@ -14,5 +8,6 @@ namespace Helper.Core.User
         Task<User> GetByIdAsync(UserId id);
         Task<User> GetByEmailAsync(UserEmail email);
         Task<bool> CheckByEmailAsync(UserEmail email);
+        Task DeleteUser(User inquiry);
     }
 }

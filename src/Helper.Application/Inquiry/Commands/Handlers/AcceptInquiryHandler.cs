@@ -22,11 +22,10 @@ namespace Helper.Application.Inquiry.Commands.Handlers
         public async Task HandleAsync(AcceptInquiry command)
         {
             var inquiry = await _inquiryRepo.GetByIdAsync(command.InquiriId);
-            if (command.RowVersion == inquiry.RowVersion)
-                throw new WrongRowVersionException();
             inquiry.AcceptInquiry();
+            inquiry.SetRowVersion(command.RowVersion);
             await _inquiryRepo.UpdateAsync(inquiry);
-            await _eventDispatcher.PublishAsync(new IquiryAccepted(inquiry.Id));// zmienuic na inquiryid
+            await _eventDispatcher.PublishAsync(new IquiryAccepted(inquiry.Id));
         }
     }
 }

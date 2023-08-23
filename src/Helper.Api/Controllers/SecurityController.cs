@@ -1,8 +1,11 @@
 ﻿using Helper.Application.Abstraction.Commands;
+using Helper.Application.Abstraction.Queries;
 using Helper.Application.Security;
 using Helper.Application.User.Commands;
+using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Helper.Api.Controllers
 {
@@ -13,28 +16,30 @@ namespace Helper.Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly ICommandHandler<RegisterUser> _registerUserHandler;
         private readonly ICommandHandler<AuthoriseUser> _authoriseUserHandler;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly ITokenStorageHttpContext _tokenStorage;
 
         public SecurityController(IConfiguration configuration, ICommandHandler<RegisterUser> registerUserHandler,
-            ICommandHandler<AuthoriseUser> authoriseUserHandler, ITokenStorageHttpContext tokenStorage)
+            ICommandHandler<AuthoriseUser> authoriseUserHandler, ITokenStorageHttpContext tokenStorage, ICommandDispatcher commandDispatcher)
         {
             _configuration = configuration;
             _registerUserHandler = registerUserHandler;
             _authoriseUserHandler = authoriseUserHandler;
             _tokenStorage = tokenStorage;
+            _commandDispatcher = commandDispatcher;
         }
 
         [HttpPost("authorise")]
         public async Task<ActionResult> AuthoriseUser(AuthoriseUser command)
         {
-            await _authoriseUserHandler.HandleAsync(command);
+            await _commandDispatcher.SendAsync(command);
             return Ok(_tokenStorage.GetToken());
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser(RegisterUser command)
         {
-            await _registerUserHandler.HandleAsync(command);
+            await _commandDispatcher.SendAsync(command);
             return Ok();
         }
 
@@ -45,6 +50,13 @@ namespace Helper.Api.Controllers
             //var app = AppDomain.CurrentDomain.FriendlyName;
             var app = _configuration.GetValue<string>("app:name");
             return Ok($"Envoirment: {env}; App name: {app}");
+        }
+
+        [HttpDelete("delete/{userId}"), Authorize(Policy = Policies.IsAdmin)]
+        public async Task<ActionResult> DeleteUser([FromRoute(Name = "userId")] Guid userId)
+        {
+            await _commandDispatcher.SendAsync(new DeleteUser(userId));
+            return Ok();
         }
     }
 }

@@ -2,5 +2,5 @@
 
 namespace Helper.Application.Inquiry.Events
 {
-    public sealed record IquiryAccepted(Guid precursorId) : IEvent;
+    public sealed record IquiryAccepted(Guid inquiryId) : IEvent;
 }

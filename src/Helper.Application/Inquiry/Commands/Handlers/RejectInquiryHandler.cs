@@ -16,8 +16,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
         public async Task HandleAsync(RejectInquiry command)
         {
             var inquiry = await _inquiryRepo.GetByIdAsync(command.InquiriId);
-            if (command.RowVersion == inquiry.RowVersion)
-                throw new WrongRowVersionException();
+            inquiry.SetRowVersion(command.RowVersion);
             inquiry.RejectInquiry();
             await _inquiryRepo.UpdateAsync(inquiry);
         }

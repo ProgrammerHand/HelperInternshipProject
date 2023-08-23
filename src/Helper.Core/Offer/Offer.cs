@@ -8,19 +8,17 @@ namespace Helper.Core.Offer
     public class Offer : ISoftDelete, IRowVersionControl
     {
         public OfferId Id { get; private set; }
-        public InquiryId PrecursorId { get; private set; }
-        public Inquiry.Inquiry Precursor { get; private set; }
+        public InquiryId InquiryId { get; private set; }
         public OfferDescription Description { get; private set; }
         public byte[] RowVersion { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-        private Offer(OfferId id, Inquiry.Inquiry precursor)
+        private Offer(OfferId id, Inquiry.Inquiry inquiry)
         {
             Id = id;
-            PrecursorId = precursor.Id;
-            Precursor = precursor;
-            Description = precursor.FeasibilityNote.Value;
+            InquiryId = inquiry.Id;
+            Description = inquiry.FeasibilityNote.Value;
         }
 
         private Offer()

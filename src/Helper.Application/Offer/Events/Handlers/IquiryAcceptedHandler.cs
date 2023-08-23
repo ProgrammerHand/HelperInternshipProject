@@ -18,7 +18,7 @@ namespace Helper.Application.Offer.Events.Handlers
 
         public async Task HandleAsync(IquiryAccepted @event)
         {
-            var inquiry = await _inquiryRepo.GetByIdAsync(@event.precursorId);
+            var inquiry = await _inquiryRepo.GetByIdAsync(@event.inquiryId);
             var offer = Core.Offer.Offer.CreateOffer(inquiry);
             await _offerRepo.AddAsync(offer);
         }

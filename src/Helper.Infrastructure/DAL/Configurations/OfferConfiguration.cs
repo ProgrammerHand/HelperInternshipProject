@@ -1,4 +1,5 @@
 ﻿using Helper.Core.Inquiry;
+using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer;
 using Helper.Core.Offer.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,9 @@ namespace Helper.Infrastructure.DAL.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasConversion(x => x.Value, x => new OfferId(x));
+            builder.Property(x => x.InquiryId).HasConversion(x => x.Value, x => new InquiryId(x));
             builder.Property(x => x.Description).HasConversion(x => x.Value, x => new OfferDescription(x)).IsRequired();
             builder.Property(x => x.RowVersion).IsRowVersion();
-
-            builder.HasOne(x => x.Precursor).WithMany().HasForeignKey(x => x.PrecursorId);
         }
     }
 }

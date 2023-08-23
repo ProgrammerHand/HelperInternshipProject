@@ -41,7 +41,7 @@ namespace Helper.Infrastructure.DAL
             ChangeTracker.DetectChanges();
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is IRowVersionControl)
+                if (entry.Entity is IRowVersionControl && entry.State is not EntityState.Added)
                 {
                     var property = entry.Property("RowVersion");
                     if (property.OriginalValue.Equals(property.CurrentValue))
