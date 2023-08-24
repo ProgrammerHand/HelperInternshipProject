@@ -1,7 +1,6 @@
 ﻿using Helper.Application.Abstraction.Commands;
 using Helper.Application.Abstraction.Queries;
-using Helper.Application.Inquiry.Commands;
-using Helper.Application.Inquiry.Queries;
+using Helper.Application.Offer.Queries;
 using Helper.Application.Offer.Commands;
 using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
@@ -18,28 +17,30 @@ namespace Helper.Api.Controllers
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
 
-        [HttpPost("{inquiryId}/verify"), Authorize]
-        public async Task<ActionResult> Verify(VerifyOffer command)
+        [HttpPatch("verify/{offerId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> Verify([FromRoute(Name = "offerId")] Guid offerId)
         {
-            await _commandDispatcher.SendAsync(command);
+            await _commandDispatcher.SendAsync(new VerifyOffer(offerId));
             return Ok();
         }
 
-        [HttpPost("{inquiryId}/price"), Authorize]
-        public async Task<ActionResult> SpecifyPrice(SpecifyOfferPrice command)
+        [HttpPatch("price/{offerId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> SpecifyPrice([FromRoute(Name = "offerId")] Guid offerId, SpecifyOfferPrice command)
         {
-            await _commandDispatcher.SendAsync(command);
+            await _commandDispatcher.SendAsync(command with {OfferId = offerId});
             return Ok();
         }
 
-        [HttpPost("/accept"), Authorize]
+        [HttpPatch("/accept"), Authorize]
         public async Task<ActionResult> Accept(AcceptOffer command)
         {
             await _commandDispatcher.SendAsync(command);
             return Ok();
         }
 
-        [HttpPost("/reject"), Authorize]
+        [HttpPut("/reject"), Authorize]
         public async Task<ActionResult> Reject(RejectOffer command)
         {
             await _commandDispatcher.SendAsync(command);
@@ -53,10 +54,9 @@ namespace Helper.Api.Controllers
             return Ok(await _queryDispatcher.QueryAsync(new GetOffers()));
         }
 
-        [HttpGet("{inquiryId}")]
+        [HttpGet("{offerId}"), Authorize]
         public async Task<ActionResult> GetOffer([FromRoute(Name = "offerId")] Guid offerId)
         {
-
             return Ok(await _queryDispatcher.QueryAsync(new GetOffer(offerId)));
         }
 

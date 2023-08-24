@@ -29,7 +29,7 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("feasibility-note/{inquiryId}")]
+        [HttpPatch("feasibility-note/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SetFeasibility([FromRoute(Name = "inquiryId")] Guid inquiryId, SetFeasibilityNote command)
         {
@@ -38,7 +38,7 @@ namespace Helper.Api.Controllers
         }
 
 
-        [HttpPut("accepted/{inquiryId}")]
+        [HttpPatch("accepted/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> AcceptInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, AcceptInquiry command)
         {
@@ -47,7 +47,7 @@ namespace Helper.Api.Controllers
         }
 
 
-        [HttpPut("rejected/{inquiryId}")]
+        [HttpPatch("rejected/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> RejectInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, RejectInquiry command)
         {
@@ -84,7 +84,7 @@ namespace Helper.Api.Controllers
             return Ok(await _queryDispatcher.QueryAsync(new GetInquirySolutionVariants()));
         }
 
-        [HttpPut("Author/{inquiryId}")]
+        [HttpPatch("Author/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> ChangeAuthorInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, ChangeAuthor command)
         {

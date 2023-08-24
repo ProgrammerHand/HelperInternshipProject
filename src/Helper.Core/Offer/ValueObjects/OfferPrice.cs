@@ -11,9 +11,13 @@ namespace Helper.Core.Offer.ValueObjects
         {
             if (value <= 0)
             {
-                throw new InccorectPrice();
+                throw new InccorectPriceException();
             }
             Value = value;
+        }
+
+        public OfferPrice()
+        {
         }
 
         public static implicit operator double(OfferPrice data) => data.Value;

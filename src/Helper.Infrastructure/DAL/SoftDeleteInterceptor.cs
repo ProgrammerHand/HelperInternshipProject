@@ -1,5 +1,5 @@
 ﻿using Helper.Core;
-using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -45,6 +45,16 @@ namespace Helper.Infrastructure.DAL
                             }
                         }
                     }
+                }
+                if (entry.State is EntityState.Added && entry.Entity is IDataAudit created) 
+                {
+                    created.CreatedAt = _clock.Now;
+                    created.ModifiedAt = _clock.Now;
+                }
+
+                if (entry.State is EntityState.Modified && entry.Entity is IDataAudit modified)
+                {
+                    modified.ModifiedAt = _clock.Now;
                 }
 
             }

@@ -1,5 +1,6 @@
 ﻿using Helper.Core.User.Exceptions;
 using Helper.Core.User.Value_objects;
+using Helper.Core.Utility;
 using Helper.Infrastructure.DAL;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Xml.Linq;
 
 namespace Helper.Core.User
 {
-    public class User : ISoftDelete
+    public class User : ISoftDelete, IDataAudit
     {
         public UserId Id { get; private set; }
         public UserEmail Email { get; private set; }
@@ -19,6 +20,8 @@ namespace Helper.Core.User
         public UserRole Role { get; private set; } = Value_objects.Role.User;
         //public IEnumerable<Inquiry.Inquiry> Inquiries => InquiriesRelation;
         //private ICollection<Inquiry.Inquiry> InquiriesRelation = new List<Inquiry.Inquiry>();
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
 

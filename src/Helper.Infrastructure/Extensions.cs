@@ -15,6 +15,7 @@ using Helper.Application.Abstraction.Queries;
 using Helper.Infrastructure.Dispatchers;
 using Helper.Application.Abstraction.Events;
 using Helper.Core.Offer;
+using Helper.Application.Abstraction;
 
 namespace Helper.Core
 {
@@ -30,6 +31,7 @@ namespace Helper.Core
             services.AddHttpContextAccessor();
             services.AddSecurity();
 
+            services.AddScoped<IDiscounter, Discounter>();
             services.AddSingleton<IClockCustom, ClockCustom>();
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();

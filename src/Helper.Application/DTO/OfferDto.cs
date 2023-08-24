@@ -11,6 +11,8 @@
         public string Status { get; set; }
         public string ClientsReason { get; set; }
         public byte[] RowVersion { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
     }

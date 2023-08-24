@@ -1,5 +1,7 @@
 ﻿using Helper.Core.Offer;
+using Helper.Core.Offer.ValueObjects;
 using Helper.Core.User;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,20 @@ namespace Helper.Infrastructure.DAL.Repositories
         {
             _context = dbContext;
         }
+        public async Task<Offer> GetByIdAsync(OfferId id) 
+        {
+            return await _context.Offers.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task AddAsync(Offer offer)
         {
             await _context.Offers.AddAsync(offer);
+            await Save();
+        }
+
+        public async Task UpdateAsync(Offer offer)
+        {
+            _context.Offers.Update(offer);
             await Save();
         }
 

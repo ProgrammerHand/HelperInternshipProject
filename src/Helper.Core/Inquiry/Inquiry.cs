@@ -6,7 +6,7 @@ using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Inquiry
 {
-    public class Inquiry : ISoftDelete, IRowVersionControl
+    public class Inquiry : ISoftDelete, IRowVersionControl, IDataAudit
     {
         public InquiryId Id { get; private set; }
         public Description Description { get; private set; }
@@ -17,6 +17,8 @@ namespace Helper.Core.Inquiry
         //public UserId AuthorId { get; private set; }
         public User.User Author { get; private set; }
         public byte[] RowVersion { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
 

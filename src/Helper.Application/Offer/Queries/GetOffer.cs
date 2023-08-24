@@ -3,7 +3,7 @@ using Helper.Application.DTO;
 
 namespace Helper.Application.Offer.Queries
 {
-    internal class GetOffer : IQuery<InquiryDto>
+    public class GetOffer : IQuery<OfferDto>
     {
         public Guid Id { get; private set; }
 
@@ -11,6 +11,5 @@ namespace Helper.Application.Offer.Queries
         {
             Id = id;
         }
-    {
     }
 }

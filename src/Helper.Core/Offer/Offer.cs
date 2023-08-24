@@ -1,21 +1,25 @@
 ﻿using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.Offer.Exceptions;
 using Helper.Core.Offer.ValueObjects;
 using Helper.Core.Utility;
 using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Offer
 {
-    public class Offer : ISoftDelete, IRowVersionControl
+    public class Offer : ISoftDelete, IRowVersionControl, IDataAudit
     {
         public OfferId Id { get; private set; }
         public InquiryId InquiryId { get; private set; }
         public OfferDescription Description { get; private set; }
-        public OfferPrice Price { get; private set; }
-        public bool IsDraft { get; private set; }
-        public bool IsVerified { get; private set; }
-        public Status Status { get; private set; } = Status.awaits_decision;
+        public OfferPrice? Price { get; private set; }
+        public SolutionCloudStorage? SolutionStorage { get; private set; }
+        public bool IsDraft { get; private set; } = true;
+        public bool IsVerified { get; private set; } = false;
+        public AcceptanceStatus Status { get; private set; } = new(Inquiry.ValueObjects.Status.awaits_decision);
         public OfferRejectReason? ClientsReason { get; private set; }
         public byte[] RowVersion { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
 
@@ -38,11 +42,20 @@ namespace Helper.Core.Offer
 
         public void Accept() 
         {
-            Status = Status.accepted;
+            if(Status.Value is not Inquiry.ValueObjects.Status.awaits_decision)
+                throw new OfferDecisionAlredyGivenException();
+            if (IsDraft is true)
+                throw new OfferNotReadyException();
+            Status = Inquiry.ValueObjects.Status.accepted;
         }
 
         public void Reject(string clientsReason)
         {
+            if (IsDraft is true)
+                throw new OfferNotReadyException();
+            if (Status.Value is not Inquiry.ValueObjects.Status.awaits_decision)
+                throw new OfferDecisionAlredyGivenException();
+
             if (ClientsReason is not null)
             {
                 ClientsReason.Extend(clientsReason);
@@ -53,8 +66,32 @@ namespace Helper.Core.Offer
             }
         }
 
-        public void SpecifyPrice()
+        public void AddSolutionStorage(string link) 
         {
+            SolutionStorage = new SolutionCloudStorage(link);
+        }
+
+        public void Verify() 
+        {
+            if (IsVerified is true)
+                throw new OfferAlredyVerifiedException();
+            if (SolutionStorage is null)
+                throw new StorageLinkEmptyException();
+            IsVerified = true;
+        }
+
+        public void SpecifyPrice(double price)
+        {
+            if (IsVerified is false)
+                throw new OfferNotVerifiedException();
+            Price = new OfferPrice(price);
+        }
+
+        public void FinalizeDraft()
+        {
+            if (Price is null)
+                throw new InccorectPriceException();
+            IsDraft = false;
         }
 
     }

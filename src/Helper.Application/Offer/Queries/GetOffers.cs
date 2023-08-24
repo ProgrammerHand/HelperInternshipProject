@@ -3,7 +3,7 @@ using Helper.Application.DTO;
 
 namespace Helper.Application.Offer.Queries
 {
-    internal class GetOffers : IQuery<List<OfferDto>>
+    public class GetOffers : IQuery<List<OfferDto>>
     {
     }
 }
