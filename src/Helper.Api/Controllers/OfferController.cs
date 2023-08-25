@@ -5,7 +5,6 @@ using Helper.Application.Offer.Commands;
 using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Helper.Api.Controllers
 {
@@ -17,11 +16,17 @@ namespace Helper.Api.Controllers
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
 
-        [HttpPatch("verify/{offerId}")]
-        [Authorize(Policy = Policies.IsWorker)]
-        public async Task<ActionResult> Verify([FromRoute(Name = "offerId")] Guid offerId)
+        public OfferController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
-            await _commandDispatcher.SendAsync(new VerifyOffer(offerId));
+            _commandDispatcher = commandDispatcher;
+            _queryDispatcher = queryDispatcher;
+        }
+
+        [HttpPatch("setPaymentDate/{offerId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> SetPaymentDate([FromRoute(Name = "offerId")] Guid offerId, SetOfferPaymentDate command)
+        {
+            await _commandDispatcher.SendAsync(command with {OfferId = offerId});
             return Ok();
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IDiscounter
     {
-        double CalculateDiscount(double price, DateTime UserCreationTime);
+        double CalculateDiscount(double price);
     }
 }

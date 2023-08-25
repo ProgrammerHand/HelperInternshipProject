@@ -14,17 +14,12 @@ namespace Helper.Api.Controllers
     public class SecurityController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly ICommandHandler<RegisterUser> _registerUserHandler;
-        private readonly ICommandHandler<AuthoriseUser> _authoriseUserHandler;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ITokenStorageHttpContext _tokenStorage;
 
-        public SecurityController(IConfiguration configuration, ICommandHandler<RegisterUser> registerUserHandler,
-            ICommandHandler<AuthoriseUser> authoriseUserHandler, ITokenStorageHttpContext tokenStorage, ICommandDispatcher commandDispatcher)
+        public SecurityController(IConfiguration configuration, ITokenStorageHttpContext tokenStorage, ICommandDispatcher commandDispatcher)
         {
             _configuration = configuration;
-            _registerUserHandler = registerUserHandler;
-            _authoriseUserHandler = authoriseUserHandler;
             _tokenStorage = tokenStorage;
             _commandDispatcher = commandDispatcher;
         }

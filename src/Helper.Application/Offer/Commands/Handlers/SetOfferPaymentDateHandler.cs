@@ -3,18 +3,18 @@ using Helper.Core.Offer;
 
 namespace Helper.Application.Offer.Commands.Handlers
 {
-    public sealed class VerifyOfferHandler : ICommandHandler<VerifyOffer>
+    public sealed class SetOfferPaymentDateHandler : ICommandHandler<SetOfferPaymentDate>
     {
         private IOfferRepository _offerRepo;
 
-        public VerifyOfferHandler(IOfferRepository offerRepo)
+        public SetOfferPaymentDateHandler(IOfferRepository offerRepo)
         {
             _offerRepo = offerRepo;
         }
-        public async Task HandleAsync(VerifyOffer command)
+        public async Task HandleAsync(SetOfferPaymentDate command)
         {
             var entity = await _offerRepo.GetByIdAsync(command.OfferId);
-            entity.Verify();
+            entity.AddPaymentDate(command.PaymentDate);
             await _offerRepo.UpdateAsync(entity);
         }
     }

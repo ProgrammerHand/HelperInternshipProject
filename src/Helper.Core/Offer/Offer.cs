@@ -12,7 +12,9 @@ namespace Helper.Core.Offer
         public InquiryId InquiryId { get; private set; }
         public OfferDescription Description { get; private set; }
         public OfferPrice? Price { get; private set; }
+        public DateTime? PaymentDate { get; private set; }
         public SolutionCloudStorage? SolutionStorage { get; private set; }
+        public DateTime RealisationStartDate { get; private set; }
         public bool IsDraft { get; private set; } = true;
         public bool IsVerified { get; private set; } = false;
         public AcceptanceStatus Status { get; private set; } = new(Inquiry.ValueObjects.Status.awaits_decision);
@@ -28,13 +30,14 @@ namespace Helper.Core.Offer
             Id = id;
             InquiryId = inquiry.Id;
             Description = inquiry.FeasibilityNote.Value;
+            RealisationStartDate = inquiry.RequestedCompletionDate.Start;
         }
 
         private Offer()
         {
         }
 
-        public static Offer CreateOffer( Inquiry.Inquiry precursor)
+        public static Offer CreateOffer(Inquiry.Inquiry precursor)
         {
             var id = Guid.NewGuid();
             return new Offer(id, precursor);
@@ -71,19 +74,17 @@ namespace Helper.Core.Offer
             SolutionStorage = new SolutionCloudStorage(link);
         }
 
-        public void Verify() 
+        public void AddPaymentDate(DateTime date) 
         {
-            if (IsVerified is true)
-                throw new OfferAlredyVerifiedException();
-            if (SolutionStorage is null)
-                throw new StorageLinkEmptyException();
-            IsVerified = true;
+            if ((RealisationStartDate - date).Days < 5)
+                throw new PaymentDateTooLateException();
+                    PaymentDate = date;
         }
 
         public void SpecifyPrice(double price)
         {
-            if (IsVerified is false)
-                throw new OfferNotVerifiedException();
+            if (PaymentDate is null)
+                throw new NoOfferPaymentDateException();
             Price = new OfferPrice(price);
         }
 

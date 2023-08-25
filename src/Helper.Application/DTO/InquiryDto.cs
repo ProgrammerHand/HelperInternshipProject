@@ -4,6 +4,7 @@ namespace Helper.Application.DTO
 {
     public sealed record InquiryDto
     {
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public DateTime RequestedStartDate { get; set; }
         public DateTime? RequestedEndDate { get; set; }

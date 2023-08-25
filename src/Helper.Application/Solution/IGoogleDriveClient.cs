@@ -2,7 +2,7 @@
 {
     public interface IGoogleDriveClient
     {
-        public void CreateDrive() 
+        public void CreateFolder() 
         {
         }
     }

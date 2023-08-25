@@ -5,11 +5,11 @@
         public Guid Id { get; set; }
         public Guid InquiryId { get; set; }
         public string Description { get; set; }
-        public double Price { get; set; }
+        public double? Price { get; set; }
+        public DateTime? PaymentDate { get; set; }
         public bool IsDraft { get; set; }
-        public bool IsVerified { get; set; }
         public string Status { get; set; }
-        public string ClientsReason { get; set; }
+        public string? ClientsReason { get; set; }
         public byte[] RowVersion { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }

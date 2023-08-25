@@ -9,6 +9,7 @@ namespace Helper.Infrastructure.DAL.Handlers
         public static InquiryDto AsDto(this Inquiry entity)
         => new()
         {
+            Id = entity.Id,
             Description = entity.Description.Value,
             RequestedStartDate = entity.RequestedCompletionDate.Start,
             RequestedEndDate = entity.RequestedCompletionDate.End,
@@ -23,13 +24,14 @@ namespace Helper.Infrastructure.DAL.Handlers
         public static OfferDto AsDto(this Offer entity)
        => new()
        {
+            Id = entity.Id,
             InquiryId = entity.InquiryId,
             Description = entity.Description.Value,
-            Price = entity.Price.Value,
+            Price = entity.Price is null ? 0 : entity.Price.Value,
             IsDraft = entity.IsDraft,
-            IsVerified = entity.IsVerified,
+            PaymentDate = entity.PaymentDate,
             Status = Enum.GetName(entity.Status.Value),
-            ClientsReason = entity.ClientsReason.Value,
+            ClientsReason = entity.ClientsReason is null ? null : entity.ClientsReason.Value,
             RowVersion = entity.RowVersion,
             CreatedAt = entity.CreatedAt,
             ModifiedAt = entity.ModifiedAt,
