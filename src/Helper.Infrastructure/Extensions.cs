@@ -16,6 +16,7 @@ using Helper.Infrastructure.Dispatchers;
 using Helper.Application.Abstraction.Events;
 using Helper.Core.Offer;
 using Helper.Application.Abstraction;
+using Helper.Infrastructure.Integrations;
 
 namespace Helper.Core
 {
@@ -28,10 +29,12 @@ namespace Helper.Core
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
             services.AddSingleton<IEventDispatcher, EventDispatcher>();
+            
             services.AddHttpContextAccessor();
             services.AddSecurity();
 
             services.AddSingleton<IClockCustom, ClockCustom>();
+            services.AddScoped<IGoogleDriveClient, GoogleDriveClient>();
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -53,7 +56,7 @@ namespace Helper.Core
 
         public static WebApplication UseInfrastructure(this WebApplication app)
         {
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
             app.UseSwagger();
             app.UseReDoc(reDoc =>
             {

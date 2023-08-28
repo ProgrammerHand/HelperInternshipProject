@@ -5,6 +5,7 @@ using Helper.Application.Offer.Commands;
 using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Helper.Infrastructure.Integrations;
 
 namespace Helper.Api.Controllers
 {
@@ -15,11 +16,13 @@ namespace Helper.Api.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
+        private readonly IGoogleDriveClient _gdriveclient;
 
-        public OfferController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
+        public OfferController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IGoogleDriveClient gdriveclient)
         {
             _commandDispatcher = commandDispatcher;
             _queryDispatcher = queryDispatcher;
+            _gdriveclient = gdriveclient;
         }
 
         [HttpPatch("setPaymentDate/{offerId}")]
@@ -64,6 +67,14 @@ namespace Helper.Api.Controllers
         {
             return Ok(await _queryDispatcher.QueryAsync(new GetOffer(offerId)));
         }
+
+        [HttpPost("/folder")]
+        public async Task<ActionResult> CreateFolder(string name)
+        {
+            await _gdriveclient.CreateFolder(name);
+            return Ok();
+        }
+        
 
     }
 }

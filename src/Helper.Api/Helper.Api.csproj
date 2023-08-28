@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="client_secret.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -21,7 +25,11 @@
   </ItemGroup>
 
    <ItemGroup>
-    <InternalsVisibleTo Include="Helper.Tests.Integration"/>
+    <InternalsVisibleTo Include="Helper.Tests.Integration" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <None Include="client_secret.json" />
    </ItemGroup>
 
 </Project>
