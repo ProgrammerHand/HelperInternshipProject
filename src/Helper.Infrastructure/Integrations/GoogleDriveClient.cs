@@ -16,24 +16,30 @@ namespace Helper.Infrastructure.Integrations
             _configuration = configuration; 
         }
 
-        public async Task<Google.Apis.Drive.v3.DriveService> GetService_v3()
+        public async Task<DriveService> GetService_v3()
         {
-            //get Credentials from client_secret.json file
-            UserCredential credential = null;
-            using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            string[] scopes = { Google.Apis.Drive.v3.DriveService.Scope.Drive };
+            GoogleCredential credentialScoped;
+            using (var stream = new FileStream(Directory.GetCurrentDirectory() + "/client_secret.json", FileMode.Open, FileAccess.Read))
             {
-                string credPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                credPath = Path.Combine(credPath, ".credentials/", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
-                string[] scopes = { DriveService.ScopeConstants.Drive };
-                // Requesting Authentication or loading previously stored authentication for userName
-                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets,
-                                                                         scopes,
-                                                                         "user",
-                                                                         CancellationToken.None,
-                                                                         new FileDataStore(credPath, true)).Result;
-
-                credential.GetAccessTokenForRequestAsync();
+                var credential = ServiceAccountCredential.FromServiceAccountData(stream);
+                credentialScoped = GoogleCredential.FromServiceAccountCredential(credential).CreateScoped(scopes);
             }
+            //UserCredential credential = null;
+            //using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            //{
+            //    string credPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            //    credPath = Path.Combine(credPath, ".credentials/", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            //    string[] scopes = { DriveService.ScopeConstants.Drive };
+            //    // Requesting Authentication or loading previously stored authentication for userName
+            //     credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets,
+            //                                                             scopes,
+            //                                                             "user",
+            //                                                             CancellationToken.None,
+            //                                                             new FileDataStore(credPath, true)).Result;
+
+            //    await credential.GetAccessTokenForRequestAsync();
+            //}
             //var credential = await GoogleCredential.FromFileAsync("client_secret.json", CancellationToken.None);
             //credential.CreateScoped(DriveService.ScopeConstants.Drive);
             //string credPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
@@ -52,9 +58,9 @@ namespace Helper.Infrastructure.Integrations
             //}
 
             //create Drive API service.    
-            DriveService service = new DriveService(new BaseClientService.Initializer()
+            Google.Apis.Drive.v3. DriveService service = new DriveService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = credential,
+                HttpClientInitializer = credentialScoped,
                 ApplicationName = _configuration.GetValue<string>("app:name"),
             });
             return service;

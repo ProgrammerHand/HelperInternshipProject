@@ -29,7 +29,9 @@
    </ItemGroup>
 
    <ItemGroup>
-     <None Include="client_secret.json" />
+     <None Include="client_secret.json">
+       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+     </None>
    </ItemGroup>
 
 </Project>
