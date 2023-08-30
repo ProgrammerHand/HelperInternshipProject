@@ -1,5 +1,4 @@
-﻿using Helper.Core;
-using Helper.Core.Inquiry;
+﻿using Helper.Core.Inquiry;
 using Helper.Core.Offer;
 using Helper.Core.User;
 using Helper.Core.Utility;

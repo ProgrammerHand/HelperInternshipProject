@@ -17,6 +17,8 @@ using Helper.Application.Abstraction.Events;
 using Helper.Core.Offer;
 using Helper.Application.Abstraction;
 using Helper.Infrastructure.Integrations;
+using Helper.Core.Utility;
+using Helper.Application.Integrations;
 
 namespace Helper.Core
 {

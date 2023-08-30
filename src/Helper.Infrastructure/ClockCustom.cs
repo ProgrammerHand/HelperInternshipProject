@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Helper.Core;
+﻿using Helper.Core.Utility;
 
 namespace Helper.Infrastructure
 {

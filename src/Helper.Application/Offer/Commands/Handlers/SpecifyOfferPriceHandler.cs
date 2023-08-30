@@ -1,8 +1,8 @@
 ﻿using Helper.Application.Abstraction;
 using Helper.Application.Abstraction.Commands;
-using Helper.Core;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
+using Helper.Core.Offer.Policies;
 using Helper.Core.Utility;
 
 namespace Helper.Application.Offer.Commands.Handlers

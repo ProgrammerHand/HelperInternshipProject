@@ -4,5 +4,5 @@ using System.Text.Json.Serialization;
 
 namespace Helper.Application.Inquiry.Commands
 {
-    public sealed record RejectInquiry([property: JsonIgnore] Guid InquiriId, Byte[] RowVersion) : ICommand;
+    public sealed record RejectInquiry([property: JsonIgnore] Guid InquiryId, Byte[] RowVersion) : ICommand;
 }

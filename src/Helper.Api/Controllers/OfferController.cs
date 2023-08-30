@@ -6,6 +6,7 @@ using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Helper.Infrastructure.Integrations;
+using Helper.Application.Integrations;
 
 namespace Helper.Api.Controllers
 {
@@ -71,8 +72,8 @@ namespace Helper.Api.Controllers
         [HttpPost("/folder")]
         public async Task<ActionResult> CreateFolder(string name)
         {
-            await _gdriveclient.CreateFolder(name);
-            return Ok();
+           
+            return Ok(await _gdriveclient.CreateFolder(name));
         }
         
 

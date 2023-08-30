@@ -1,28 +1,38 @@
-﻿using SendGrid;
+﻿using Helper.Application.Integrations;
+using Microsoft.Extensions.Configuration;
+using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Net;
 
 namespace Helper.Infrastructure.Integrations
 {
     public class MailSendingClient
     {
-        private readonly SendGridClient _mailClient;
+        private readonly IConfiguration _configuration;
 
-        public MailSendingClient()
+        public MailSendingClient(IConfiguration configuration)
         {
-            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-            _mailClient = new SendGridClient(apiKey);
+            _configuration = configuration;
         }
 
-        public async Task SendMail() 
+        private SendGridClient GetMailSendingClient()
         {
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            return new SendGridClient(apiKey);
+        }
+
+        public async Task<HttpStatusCode> SendMailAsync(MailDto data) 
+        {
+            var mailClient = GetMailSendingClient();
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("[REPLACE WITH YOUR EMAIL]", "[REPLACE WITH YOUR NAME]"),
-                Subject = "Sending with Twilio SendGrid is Fun",
-                PlainTextContent = "and easy to do anywhere, especially with C#"
+                From = new EmailAddress(_configuration.GetValue<string>("projectMail"), _configuration.GetValue<string>("app:name")),
+                Subject = data.Subject,
+                PlainTextContent = data.Content
             };
-            msg.AddTo(new EmailAddress("[REPLACE WITH DESIRED TO EMAIL]", "[REPLACE WITH DESIRED TO NAME]"));
-            var response = await _mailClient.SendEmailAsync(msg);
+            msg.AddTo(new EmailAddress(data.ReciverEmail, data.ReciverName));
+            var response = await mailClient.SendEmailAsync(msg);
+            return response.StatusCode;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Helper.Infrastructure.DAL.Repositories
         {
             _context = dbContext;
         }
+
         public async Task AddAsync(Inquiry inquiry)
         {
             await _context.Inquiries.AddAsync(inquiry);
@@ -33,13 +34,11 @@ namespace Helper.Infrastructure.DAL.Repositories
             await Save();
         }
 
-
         public async Task UpdateAsync(Inquiry inquiry)
         {
             _context.Inquiries.Update(inquiry);
             await Save();
         }
- 
 
         private async Task Save()
         {

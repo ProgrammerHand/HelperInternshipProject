@@ -1,13 +1,13 @@
 ﻿using Helper.Application.Abstraction;
-using Helper.Core.Offer.Policies;
+using Helper.Core.Utility;
 
-namespace Helper.Core.Utility
+namespace Helper.Core.Offer.Policies
 {
     public static class DiscountFactory
     {
         public static IDiscounter CreateDiscount(IClockCustom clock)
         {
-            var condition = clock.Now.Month&2;
+            var condition = clock.Now.Month & 2;
             return condition switch
             {
                 0 => new Percents20Policy(),

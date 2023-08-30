@@ -1,10 +1,8 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
-using Google.Apis.Util.Store;
-using Helper.Application.Solution;
+using Helper.Application.Integrations;
 using Microsoft.Extensions.Configuration;
-using SendGrid;
 
 namespace Helper.Infrastructure.Integrations
 {
@@ -66,22 +64,23 @@ namespace Helper.Infrastructure.Integrations
             return service;
         }
 
-        public async Task CreateFolder(string FolderName) 
+        public async Task<string> CreateFolder(string FolderName) 
         {
             Google.Apis.Drive.v3.DriveService service = await GetService_v3();
+            var folderParent = _configuration.GetValue<string>("gdriveFolderId");
 
             Google.Apis.Drive.v3.Data.File FileMetaData = new Google.Apis.Drive.v3.Data.File
             {
                 Name = FolderName,
-                Parents = new[] { "1DOIaRfxrrqDNoAPIGHTcj2sBb3T8znQH" },
+                Parents = new[] { folderParent },
                 MimeType = "application/vnd.google-apps.folder"
             };
             Google.Apis.Drive.v3.FilesResource.CreateRequest request;
-
             request = service.Files.Create(FileMetaData);
-            request.Fields = "id";
+            //request.Fields = "id";
+            request.Fields = "webViewLink";
             var file = request.Execute();
-
+            return file.WebViewLink.ToString();
         }
     }
 }

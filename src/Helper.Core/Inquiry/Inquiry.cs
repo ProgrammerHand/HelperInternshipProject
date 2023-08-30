@@ -57,8 +57,6 @@ namespace Helper.Core.Inquiry
 
         public void SetFeasibilityNote(FeasibilityNote feasibilityNote)
         {
-            if (string.IsNullOrEmpty(feasibilityNote.Value) || string.IsNullOrWhiteSpace(feasibilityNote.Value))
-                throw new NoFeasibilityNoteWasGivenException();
             FeasibilityNote = feasibilityNote;
         }
 

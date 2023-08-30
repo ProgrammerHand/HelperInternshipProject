@@ -13,10 +13,10 @@ namespace Helper.Application.Inquiry.Commands.Handlers
             _inquiryRepo = inquiryRepo;
         }
 
-
         public async Task HandleAsync(DeleteInquiry command)
         {
             var inquiry = await _inquiryRepo.GetByIdAsync(command.InquiryId) ?? throw new InquiryDoesntExistException();
+            inquiry.SetRowVersion(command.RowVersion);
             await _inquiryRepo.DeleteInquiry(inquiry);
         }
     }

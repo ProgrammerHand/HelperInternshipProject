@@ -1,8 +1,8 @@
 ﻿using Helper.Application.Abstraction.Commands;
-using Helper.Core;
 using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.User;
+using Helper.Core.Utility;
 
 namespace Helper.Application.Inquiry.Commands.Handlers
 {

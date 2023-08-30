@@ -18,8 +18,7 @@ namespace Helper.Core.Offer.ValueObjects
         }
 
         public SolutionCloudStorage()
-        {
-            
+        { 
         }
     }
 }

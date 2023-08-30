@@ -16,6 +16,7 @@ namespace Helper.Core.Offer.ValueObjects
             Value = value;
         }
 
+
         public static implicit operator string(OfferDescription data) => data.Value;
 
         public static implicit operator OfferDescription(string value) => new(value);

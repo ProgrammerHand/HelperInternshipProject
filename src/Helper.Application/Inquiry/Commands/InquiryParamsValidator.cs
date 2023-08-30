@@ -1,6 +1,6 @@
-﻿using Helper.Core;
-using Helper.Core.Exceptions;
+﻿using Helper.Core.Exceptions;
 using Helper.Core.Inquiry.Exceptions;
+using Helper.Core.Utility;
 
 namespace Helper.Application.Inquiry.Commands
 {

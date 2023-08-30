@@ -1,10 +1,7 @@
-using Helper.Core;
 using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.Exceptions;
 using Helper.Core.Inquiry.ValueObjects;
-using Helper.Infrastructure.DAL;
-using Helper.Infrastructure.DAL.Repositories;
-using Microsoft.EntityFrameworkCore;
+using Helper.Core.Utility;
 using Moq;
 
 namespace Helper.Tests.Unit

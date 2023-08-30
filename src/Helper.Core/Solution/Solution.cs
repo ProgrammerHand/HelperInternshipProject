@@ -1,5 +1,6 @@
 ﻿using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Solution.ValueObjects;
+using Helper.Core.User.Value_objects;
 
 namespace Helper.Core.Solution
 {
@@ -10,6 +11,7 @@ namespace Helper.Core.Solution
         public Description Description { get; private set;}
         public RealisationDate RequestedCompletionDate { get; private set;}
         public SolutionVariant Variant { get; private set;}
+        public UserId? AssignedConsultant { get; private set;}
 
 
         private Solution(SolutionId id, Inquiry.Inquiry inquiry)
@@ -25,6 +27,11 @@ namespace Helper.Core.Solution
         {
             var id = Guid.NewGuid();
             return new Solution(id, inquiry);
+        }
+
+        public void AssignConsultant(Guid userId)
+        {
+            AssignedConsultant = userId;
         }
     }
 }
