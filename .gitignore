@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /src/Helper.Api/appsettings.Production.json
 /src/Helper.Infrastructure/Integrations/client_secret_780542263714-4g0ue9t8710i0pt8g0kcchd0k81s4ukh.apps.googleusercontent.com.json
 /src/Helper.Api/client_secret.json
+/src/Helper.Api/appsettings.Development.json
