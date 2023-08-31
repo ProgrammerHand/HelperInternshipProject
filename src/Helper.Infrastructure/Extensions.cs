@@ -34,8 +34,9 @@ namespace Helper.Core
             
             services.AddHttpContextAccessor();
             services.AddSecurity();
-
+            
             services.AddSingleton<IClockCustom, ClockCustom>();
+            services.AddScoped<IMailSendingClient, MailSendingSmtp>();
             services.AddScoped<IGoogleDriveClient, GoogleDriveClient>();
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();

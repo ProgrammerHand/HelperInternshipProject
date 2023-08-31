@@ -24,7 +24,7 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         public async Task<Inquiry> GetByIdAsync(InquiryId id) 
         {
-            return await _context.Inquiries.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Inquiries.Include(x => x.Author).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task DeleteInquiry(Inquiry inquiry)

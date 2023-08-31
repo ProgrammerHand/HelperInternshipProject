@@ -28,7 +28,7 @@ namespace Helper.Api.Controllers
             await _commandDispatcher.SendAsync(command with {AuthorId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)}); // IContex accesor
             return Ok();
         }
-        +
+        
         [HttpPatch("feasibility-note/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SetFeasibility([FromRoute(Name = "inquiryId")] Guid inquiryId, SetFeasibilityNote command)

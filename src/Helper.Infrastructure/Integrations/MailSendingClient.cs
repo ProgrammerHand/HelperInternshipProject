@@ -26,7 +26,7 @@ namespace Helper.Infrastructure.Integrations
             var mailClient = GetMailSendingClient();
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress(_configuration.GetValue<string>("projectMail"), _configuration.GetValue<string>("app:name")),
+                From = new EmailAddress(_configuration.GetValue<string>("projectMail:adress"), _configuration.GetValue<string>("app:name")),
                 Subject = data.Subject,
                 PlainTextContent = data.Content
             };
