@@ -17,13 +17,13 @@ namespace Helper.Api.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
-        private readonly IGoogleDriveClient _gdriveclient;
+       
 
-        public OfferController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, IGoogleDriveClient gdriveclient)
+        public OfferController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _commandDispatcher = commandDispatcher;
             _queryDispatcher = queryDispatcher;
-            _gdriveclient = gdriveclient;
+            
         }
 
         [HttpPatch("setPaymentDate/{offerId}")]
@@ -68,14 +68,6 @@ namespace Helper.Api.Controllers
         {
             return Ok(await _queryDispatcher.QueryAsync(new GetOffer(offerId)));
         }
-
-        [HttpPost("/folder")]
-        public async Task<ActionResult> CreateFolder(string name)
-        {
-           
-            return Ok(await _gdriveclient.CreateFolder(name));
-        }
-        
 
     }
 }

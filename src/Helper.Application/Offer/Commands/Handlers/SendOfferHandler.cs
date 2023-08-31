@@ -1,7 +1,6 @@
 ﻿using Helper.Application.Integrations;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
-using Helper.Core.User;
 
 namespace Helper.Application.Offer.Commands.Handlers
 {
@@ -22,7 +21,6 @@ namespace Helper.Application.Offer.Commands.Handlers
         {
             var offer = await _offerRepo.GetByIdAsync(command.Offerid);
             var inquiry = await _inquiryRepo.GetByIdAsync(offer.InquiryId);
-            offer.FinalizeDraft();
             var mailData = new MailDto
             {
                 ReciverEmail = inquiry.Author.Email,
@@ -31,7 +29,7 @@ namespace Helper.Application.Offer.Commands.Handlers
                 Content = "Offer Content"
             };
             await _mailClient.SendMailAsync(mailData);
-            //TODO: mailsending
+            offer.FinalizeDraft();
         }
         
     }

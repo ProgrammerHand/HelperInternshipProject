@@ -7,7 +7,7 @@ namespace Helper.Core.Offer.Policies
     {
         public static IDiscounter CreateDiscount(IClockCustom clock)
         {
-            var condition = clock.Now.Month & 2;
+            var condition = clock.Now.Month % 2;
             return condition switch
             {
                 0 => new Percents20Policy(),

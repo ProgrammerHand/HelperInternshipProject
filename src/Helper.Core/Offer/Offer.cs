@@ -1,6 +1,7 @@
 ﻿using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer.Exceptions;
 using Helper.Core.Offer.ValueObjects;
+using Helper.Core.User.Value_objects;
 using Helper.Core.Utility;
 using Helper.Infrastructure.DAL;
 
@@ -10,6 +11,7 @@ namespace Helper.Core.Offer
     {
         public OfferId Id { get; private set; }
         public InquiryId InquiryId { get; private set; }
+        public UserId CustomerId { get; private set; }
         public OfferDescription Description { get; private set; }
         public OfferPrice? Price { get; private set; }
         public DateTime? PaymentDate { get; private set; }
@@ -29,6 +31,7 @@ namespace Helper.Core.Offer
         {
             Id = id;
             InquiryId = inquiry.Id;
+            CustomerId = inquiry.Author.Id;
             Description = inquiry.FeasibilityNote.Value;
             RealisationStartDate = inquiry.RequestedCompletionDate.Start;
         }
@@ -37,10 +40,10 @@ namespace Helper.Core.Offer
         {
         }
 
-        public static Offer CreateOffer(Inquiry.Inquiry precursor)
+        public static Offer CreateOffer(Inquiry.Inquiry inquiry)
         {
             var id = Guid.NewGuid();
-            return new Offer(id, precursor);
+            return new Offer(id, inquiry);
         }
 
         public void Accept() 
@@ -90,7 +93,9 @@ namespace Helper.Core.Offer
 
         public void FinalizeDraft()
         {
-            if (Price is null)
+            if (PaymentDate is null)
+                throw new NoOfferPaymentDateException();
+            if (Price is null) // check paymentDate
                 throw new InccorectPriceException();
             IsDraft = false;
         }

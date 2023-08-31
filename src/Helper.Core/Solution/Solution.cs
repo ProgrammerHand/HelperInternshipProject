@@ -23,7 +23,7 @@ namespace Helper.Core.Solution
             Variant = inquiry.SolutionDecision;
         }
 
-        public Solution CreateSolution(Inquiry.Inquiry inquiry) 
+        public static Solution CreateSolution(Inquiry.Inquiry inquiry) 
         {
             var id = Guid.NewGuid();
             return new Solution(id, inquiry);

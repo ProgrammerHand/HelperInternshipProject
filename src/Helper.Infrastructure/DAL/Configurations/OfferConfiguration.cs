@@ -1,7 +1,7 @@
-﻿using Helper.Core.Inquiry;
-using Helper.Core.Inquiry.ValueObjects;
+﻿using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer;
 using Helper.Core.Offer.ValueObjects;
+using Helper.Core.User.Value_objects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +14,7 @@ namespace Helper.Infrastructure.DAL.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasConversion(x => x.Value, x => new OfferId(x));
             builder.Property(x => x.InquiryId).HasConversion(x => x.Value, x => new InquiryId(x));
+            builder.Property(x => x.CustomerId).HasConversion(x => x.Value, x => new UserId(x));
             builder.Property(x => x.Description).HasConversion(x => x.Value, x => new OfferDescription(x)).IsRequired();
             builder.Property(x => x.Price).HasConversion(x => x.Value, x => new OfferPrice(x));
             builder.Property(x => x.SolutionStorage).HasConversion(x => x.Value, x => new SolutionCloudStorage(x));

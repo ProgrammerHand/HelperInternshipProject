@@ -33,7 +33,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
                 Content = "Your Inquiry was acceped, please review offer in your account"
             };
             await _mailclient.SendMailAsync(mailData);
-            await _eventDispatcher.PublishAsync(new IquiryAccepted(inquiry.Id));
+            await _eventDispatcher.PublishAsync(new InquiryAccepted(inquiry.Id));
         }
     }
 }
