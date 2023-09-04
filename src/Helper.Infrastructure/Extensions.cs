@@ -19,6 +19,7 @@ using Helper.Application.Abstraction;
 using Helper.Infrastructure.Integrations;
 using Helper.Core.Utility;
 using Helper.Application.Integrations;
+using Helper.Core.Solution;
 
 namespace Helper.Core
 {
@@ -41,6 +42,7 @@ namespace Helper.Core
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISolutionRepository, SolutionRepository>();
 
             services.AddDb(configuration);
 

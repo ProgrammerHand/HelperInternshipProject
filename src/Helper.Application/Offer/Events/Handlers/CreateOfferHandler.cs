@@ -6,17 +6,15 @@ using Helper.Core.Solution;
 
 namespace Helper.Application.Offer.Events.Handlers
 {
-    public class InquiryAcceptedHandler : IEventHandler<InquiryAccepted>
+    public class CreateOfferHandler : IEventHandler<InquiryAccepted>
     {
         private readonly IInquiryRepository _inquiryRepo;
         private readonly IOfferRepository _offerRepo;
-        //private readonly ISolutionRepository _solutionRepo;
 
-        public InquiryAcceptedHandler(IInquiryRepository inquiryRepo, IOfferRepository offerRepo)//, ISolutionRepository solutionRepo)
+        public CreateOfferHandler(IInquiryRepository inquiryRepo, IOfferRepository offerRepo)
         {
             _inquiryRepo = inquiryRepo;
             _offerRepo = offerRepo;
-            //_solutionRepo = solutionRepo;
         }
 
         public async Task HandleAsync(InquiryAccepted @event)
@@ -24,8 +22,6 @@ namespace Helper.Application.Offer.Events.Handlers
             var inquiry = await _inquiryRepo.GetByIdAsync(@event.inquiryId);
             var offer = Core.Offer.Offer.CreateOffer(inquiry);
             await _offerRepo.AddAsync(offer);
-            //var solution = Core.Solution.Solution.CreateSolution(inquiry);
-            //await _solutionRepo.AddAsync(solution);
         }
     }
 }

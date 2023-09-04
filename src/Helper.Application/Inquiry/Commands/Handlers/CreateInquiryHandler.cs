@@ -4,6 +4,7 @@ using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.User;
 using Helper.Core.Utility;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Helper.Application.Inquiry.Commands.Handlers
 {
@@ -14,6 +15,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
         private readonly IInquiryRepository _inquiryRepo;
         private readonly IUserRepository _userRepo;
         private readonly IMailSendingClient _mailclient;
+        private readonly IUrlHelper _urlHelper;
 
         public CreateInquiryHandler(IClockCustom clock, IInquiryRepository inquiryRepo, IUserRepository userRepo, IMailSendingClient mailclient)
         {

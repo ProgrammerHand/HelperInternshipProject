@@ -30,7 +30,7 @@ namespace Helper.Infrastructure.Integrations
                 Subject = data.Subject,
                 PlainTextContent = data.Content
             };
-            msg.AddTo(new EmailAddress(data.ReciverEmail, data.ReciverName));
+            msg.AddTo(new EmailAddress(data.ReciverEmail, data.ReciverName));// remove name
             var response = await mailClient.SendEmailAsync(msg);
             return response.StatusCode;
         }

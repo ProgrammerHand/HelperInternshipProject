@@ -1,4 +1,5 @@
 ﻿using Helper.Core.Offer.ValueObjects;
+using Helper.Core.Solution.ValueObjects;
 
 namespace Helper.Core.Solution
 {
@@ -6,6 +7,6 @@ namespace Helper.Core.Solution
     {
         Task AddAsync(Solution solution);
         Task UpdateAsync(Solution solution);
-        Task<Solution> GetByIdAsync(OfferId solution);
+        Task<Solution> GetByIdAsync(SolutionId solution);
     }
 }

@@ -79,7 +79,7 @@ namespace Helper.Api.Controllers
             return Ok(await _queryDispatcher.QueryAsync(new GetInquiries()));
         }
 
-        [HttpGet("{inquiryId}")]
+        [HttpGet("{inquiryId}"), Authorize]
         public async Task<ActionResult> GetInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId)
         {
             
@@ -87,6 +87,7 @@ namespace Helper.Api.Controllers
         }
 
         [HttpGet("solutions-variants")]
+        [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> GetInquirySolutionVariants()
         {
             return Ok(await _queryDispatcher.QueryAsync(new GetInquirySolutionVariants()));
