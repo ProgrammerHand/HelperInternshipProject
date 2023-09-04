@@ -1,4 +1,5 @@
 ﻿using Helper.Application.Abstraction.Commands;
+using Helper.Application.Exceptions;
 using Helper.Application.Security;
 using Helper.Core.User;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace Helper.Application.User.Commands.Handlers
         public async Task HandleAsync(AuthoriseUser command)
         {
             if (await _userRepo.CheckByEmailAsync(command.Email) is false)
-                throw new ArgumentException("no user");
+                throw new UserDoesntExistException();
             var entity = await _userRepo.GetByEmailAsync(command.Email);
             if (_passwordManager.Validate(command.Password, entity.PasswordHash) is false)
                 throw new ArgumentException("wrong pasword");

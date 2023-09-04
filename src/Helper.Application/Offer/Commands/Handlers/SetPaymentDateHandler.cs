@@ -3,11 +3,11 @@ using Helper.Core.Offer;
 
 namespace Helper.Application.Offer.Commands.Handlers
 {
-    public sealed class SetOfferPaymentDateHandler : ICommandHandler<SetOfferPaymentDate>
+    public sealed class SetPaymentDateHandler : ICommandHandler<SetOfferPaymentDate>
     {
         private IOfferRepository _offerRepo;
 
-        public SetOfferPaymentDateHandler(IOfferRepository offerRepo)
+        public SetPaymentDateHandler(IOfferRepository offerRepo)
         {
             _offerRepo = offerRepo;
         }

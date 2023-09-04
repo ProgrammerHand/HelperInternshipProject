@@ -87,15 +87,15 @@ namespace Helper.Core.Offer
         public void SpecifyPrice(double price)
         {
             if (PaymentDate is null)
-                throw new NoOfferPaymentDateException();
+                throw new NoPaymentDateException();
             Price = new OfferPrice(price);
         }
 
         public void FinalizeDraft()
         {
             if (PaymentDate is null)
-                throw new NoOfferPaymentDateException();
-            if (Price is null) // check paymentDate
+                throw new NoPaymentDateException();
+            if (Price is null)
                 throw new InccorectPriceException();
             IsDraft = false;
         }

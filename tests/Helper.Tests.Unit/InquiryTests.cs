@@ -31,7 +31,7 @@ namespace Helper.Tests.Unit
 
             //ASSERT
             exception.ShouldNotBeNull();
-            exception.ShouldBeOfType<NoFeasibilityNoteWasGivenException>();
+            exception.ShouldBeOfType<NoFeasibilityNoteException>();
 
         }
 
@@ -46,7 +46,7 @@ namespace Helper.Tests.Unit
 
             //ASSERT
             exception.ShouldNotBeNull();
-            exception.ShouldBeOfType<NoFeasibilityNoteWasGivenException>();
+            exception.ShouldBeOfType<NoFeasibilityNoteException>();
 
         }
 
@@ -64,7 +64,7 @@ namespace Helper.Tests.Unit
 
             //ASSERT
             exception.ShouldNotBeNull();
-            exception.ShouldBeOfType<NoFeasibilityNoteWasGivenException>();
+            exception.ShouldBeOfType<NoFeasibilityNoteException>();
 
         }
 

@@ -9,7 +9,7 @@ namespace Helper.Core.Inquiry.ValueObjects
         public FeasibilityNote(string body)
         {
             if (string.IsNullOrEmpty(body) || string.IsNullOrWhiteSpace((body)))
-                throw new NoFeasibilityNoteWasGivenException();
+                throw new NoFeasibilityNoteException();
             Value = body;
         }
 

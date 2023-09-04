@@ -44,14 +44,14 @@ namespace Helper.Core.Inquiry
         public void AcceptInquiry()
         {
             if (string.IsNullOrEmpty(FeasibilityNote?.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
-                throw new NoFeasibilityNoteWasGivenException();
+                throw new NoFeasibilityNoteException();
             AcceptanceStatus = new AcceptanceStatus(Status.accepted);
         }
 
         public void RejectInquiry()
         {
             if (string.IsNullOrEmpty(FeasibilityNote?.Value) || string.IsNullOrWhiteSpace(FeasibilityNote.Value))
-                throw new NoFeasibilityNoteWasGivenException();
+                throw new NoFeasibilityNoteException();
             AcceptanceStatus = new AcceptanceStatus(Status.rejected);
         }
 
