@@ -19,13 +19,13 @@ namespace Helper.Core.Offer
         public DateTime RealisationStartDate { get; private set; }
         public bool IsDraft { get; private set; } = true;
         public bool IsVerified { get; private set; } = false;
-        public AcceptanceStatus Status { get; private set; } = new(Inquiry.ValueObjects.Status.awaits_decision);
+        public AcceptanceStatus Status { get; private set; } = new (Inquiry.ValueObjects.Status.awaits_decision);
         public OfferRejectReason? ClientsReason { get; private set; }
-        public byte[] RowVersion { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public byte[] RowVersion { get; private set; }
+        public DateTime CreatedAt { get; private set; }
+        public DateTime ModifiedAt { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
 
         private Offer(OfferId id, Inquiry.Inquiry inquiry)
         {

@@ -20,10 +20,10 @@ namespace Helper.Core.User
         public UserRole Role { get; private set; } = Value_objects.Role.User;
         //public IEnumerable<Inquiry.Inquiry> Inquiries => InquiriesRelation;
         //private ICollection<Inquiry.Inquiry> InquiriesRelation = new List<Inquiry.Inquiry>();
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
+        public DateTime ModifiedAt { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
 
         private User(UserId id, UserEmail email, UserPassword passwordHash)
         {
