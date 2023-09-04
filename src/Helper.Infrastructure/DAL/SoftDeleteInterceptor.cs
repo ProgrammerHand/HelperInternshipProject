@@ -24,8 +24,8 @@ namespace Helper.Infrastructure.DAL
                 if (entry.State is EntityState.Deleted && entry.Entity is ISoftDelete delete)
                 {
                     entry.State = EntityState.Modified;
-                    delete.IsDeleted = true;
-                    delete.DeletedAt = _clock.Now;
+                    entry.CurrentValues["IsDeleted"] = true;
+                    entry.CurrentValues["DeletedAt"] = _clock.Now;
                     foreach (var navigationEntry in entry.Navigations.Where(x => !((IReadOnlyNavigation)x.Metadata).IsOnDependent))
                     {
                         if (navigationEntry is CollectionEntry collectionEntry)
@@ -47,13 +47,13 @@ namespace Helper.Infrastructure.DAL
                 }
                 if (entry.State is EntityState.Added && entry.Entity is IDataAudit created) 
                 {
-                    created.CreatedAt = _clock.Now;
-                    created.ModifiedAt = _clock.Now;
+                    entry.CurrentValues["CreatedAt"] = _clock.Now;
+                    entry.CurrentValues["ModifiedAt"] = _clock.Now;
                 }
 
                 if (entry.State is EntityState.Modified && entry.Entity is IDataAudit modified)
                 {
-                    modified.ModifiedAt = _clock.Now;
+                    entry.CurrentValues["ModifiedAt"] = _clock.Now;
                 }
 
             }

@@ -2,7 +2,8 @@
 {
     public interface IDataAudit
     {
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
+        public DateTime CreatedAt { get; }
+        public DateTime ModifiedAt { get; }
+
     }
 }

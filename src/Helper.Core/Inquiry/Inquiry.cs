@@ -16,11 +16,11 @@ namespace Helper.Core.Inquiry
         public SolutionVariant SolutionDecision { get; private set; }
         //public UserId AuthorId { get; private set; }
         public User.User Author { get; private set; }
-        public byte[] RowVersion { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public byte[] RowVersion { get; private set; }
+        public DateTime CreatedAt { get; private set; }
+        public DateTime ModifiedAt { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
 
         private Inquiry(InquiryId id, Description description, RealisationDate requestedCompletionDate, SolutionVariant solutionDecision, User.User author)
         {

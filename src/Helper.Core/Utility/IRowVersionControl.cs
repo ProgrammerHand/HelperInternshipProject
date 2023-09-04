@@ -2,6 +2,6 @@
 {
     public interface IRowVersionControl
     {
-        public byte[] RowVersion { get; set; }
+        public byte[] RowVersion { get; }
     }
 }
