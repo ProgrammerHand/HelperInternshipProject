@@ -36,7 +36,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
             var mailData = new MailDto
             {
                 ReciverEmail = inquiry.Author.Email,
-                ReciverName = "user", // name from User?
+                ReciverName = "User",
                 Subject = "Your inquiry sucsesfully registerd",
                 Content = $"Dear user your Inquiry was registered, please use this id to check Inquiry status: {inquiry.Id.Value}"
             };

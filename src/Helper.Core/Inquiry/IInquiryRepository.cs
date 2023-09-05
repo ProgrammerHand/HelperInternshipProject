@@ -1,6 +1,4 @@
-﻿using Helper.Core.Inquiry.ValueObjects;
-
-namespace Helper.Core.Inquiry
+﻿namespace Helper.Core.Inquiry
 {
     public interface IInquiryRepository
     {

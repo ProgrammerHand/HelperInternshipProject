@@ -42,6 +42,14 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
+        [HttpPost("send/{offerId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> SendToClient([FromRoute(Name = "offerId")] Guid offerId)
+        {
+            await _commandDispatcher.SendAsync(new SendOffer(offerId));
+            return Ok();
+        }
+
         [HttpPatch("/accept"), Authorize]
         public async Task<ActionResult> Accept(AcceptOffer command)
         {

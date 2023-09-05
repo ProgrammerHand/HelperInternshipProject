@@ -19,9 +19,10 @@ namespace Helper.Application.Offer.Commands.Handlers
         }
         public async Task HandleAsync(SpecifyOfferPrice command)
         {
-            var entity = await _offerRepo.GetByIdAsync(command.OfferId);
+            var offer = await _offerRepo.GetByIdAsync(command.OfferId);
             var finalPrice = DiscountFactory.CreateDiscount(_clock).CalculateDiscount(command.price);
-            entity.SpecifyPrice(finalPrice);
+            offer.SpecifyPrice(finalPrice);
+            await _offerRepo.UpdateAsync(offer);
         }
     }
 }

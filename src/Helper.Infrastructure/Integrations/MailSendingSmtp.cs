@@ -24,24 +24,28 @@ namespace Helper.Infrastructure.Integrations
 
         public async Task<HttpStatusCode> SendMailAsync(MailDto data)
         {
-            var email = new MimeMessage();
-
-            email.From.Add(new MailboxAddress(_configuration.GetValue<string>("app:name"), _configuration.GetValue<string>("projectMail:adress")));
-            email.To.Add(new MailboxAddress(data.ReciverName, data.ReciverEmail));
-
-            email.Subject = data.Subject;
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            if (data.ReciverEmail.Trim().EndsWith("."))
             {
-                Text = data.Content
-            };
+                var email = new MimeMessage();
 
-            using (var smtp = GetMailSendingSMTP())
-            {
-                //smtp.Connect("smtp.gmail.com", 587, false);
-                await smtp.SendAsync(email);
-                smtp.Disconnect(true);
+                email.From.Add(new MailboxAddress(_configuration.GetValue<string>("app:name"), _configuration.GetValue<string>("projectMail:adress")));
+                email.To.Add(new MailboxAddress(data.ReciverName, data.ReciverEmail));
+
+                email.Subject = data.Subject;
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = data.Content
+                };
+
+                using (var smtp = GetMailSendingSMTP())
+                {
+                    //smtp.Connect("smtp.gmail.com", 587, false);
+                    await smtp.SendAsync(email);
+                    smtp.Disconnect(true);
+                }
+                return HttpStatusCode.OK;
             }
-            return HttpStatusCode.OK;
+            return HttpStatusCode.NoContent;
         }
     }
 }

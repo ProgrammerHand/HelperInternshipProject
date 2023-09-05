@@ -20,24 +20,29 @@ namespace Helper.Application.Offer.Commands.Handlers
             var offer = await _offerRepo.GetByIdAsync(command.OfferId);
             offer.Accept();
             await _offerRepo.UpdateAsync(offer);
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "PaymentBus",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+           
+            
+            
+            
+            
+            
+            
+            //var factory = new ConnectionFactory() { HostName = "localhost" };
+            //using (var connection = factory.CreateConnection())
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(queue: "PaymentBus",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-               var body = Encoding.UTF8.GetBytes(offer.Id.Value.ToString());
+            //   var body = Encoding.UTF8.GetBytes(offer.Id.Value.ToString());
 
-               channel.BasicPublish(exchange: "",
-                   routingKey: "PaymentBus",
-                   basicProperties: null, body);
-
-
-            }
+            //   channel.BasicPublish(exchange: "",
+            //       routingKey: "PaymentBus",
+            //       basicProperties: null, body);
+            //}
         }
     }
 }

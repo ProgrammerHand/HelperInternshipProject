@@ -28,7 +28,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
             var mailData = new MailDto
             {
                 ReciverEmail = inquiry.Author.Email,
-                ReciverName = "user", // name from User?
+                ReciverName = "User",
                 Subject = $"Inquiry {inquiry.Id.Value}",
                 Content = "Your Inquiry was acceped, please review offer in your account"
             };

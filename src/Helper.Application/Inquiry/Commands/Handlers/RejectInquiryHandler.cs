@@ -25,7 +25,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
             var mailData = new MailDto
             {
                 ReciverEmail = inquiry.Author.Email,
-                ReciverName = "user", // name from User?
+                ReciverName = "User",
                 Subject = $"Inquiry {inquiry.Id.Value}",
                 Content = "Your Inquiry was rejected, please contact support for details"
             };

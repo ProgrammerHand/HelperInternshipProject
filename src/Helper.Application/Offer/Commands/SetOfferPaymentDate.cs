@@ -4,5 +4,5 @@ using System.Text.Json.Serialization;
 
 namespace Helper.Application.Offer.Commands
 {
-    public sealed record SetOfferPaymentDate([property: JsonIgnore]OfferId OfferId, DateTime PaymentDate) : ICommand;
+    public sealed record SetOfferPaymentDate([property: JsonIgnore] Guid OfferId, DateTime PaymentDate) : ICommand;
 }

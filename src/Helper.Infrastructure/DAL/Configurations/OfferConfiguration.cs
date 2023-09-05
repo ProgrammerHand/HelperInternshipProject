@@ -1,4 +1,5 @@
-﻿using Helper.Core.Inquiry.ValueObjects;
+﻿using Helper.Core.Inquiry;
+using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer;
 using Helper.Core.Offer.ValueObjects;
 using Helper.Core.User.Value_objects;

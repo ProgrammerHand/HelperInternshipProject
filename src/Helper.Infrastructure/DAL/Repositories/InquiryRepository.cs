@@ -1,5 +1,4 @@
 ﻿using Helper.Core.Inquiry;
-using Helper.Core.Inquiry.ValueObjects;
 using Helper.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

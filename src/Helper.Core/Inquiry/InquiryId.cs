@@ -1,6 +1,6 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
 
-namespace Helper.Core.Inquiry.ValueObjects
+namespace Helper.Core.Inquiry
 {
     public sealed record InquiryId
     {
@@ -12,7 +12,7 @@ namespace Helper.Core.Inquiry.ValueObjects
             {
                 throw new EmptyIdException();
             }
-             
+
             Value = value;
         }
 
