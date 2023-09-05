@@ -2,7 +2,6 @@
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.User.Value_objects;
 using Helper.Core.Utility;
-using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Inquiry
 {

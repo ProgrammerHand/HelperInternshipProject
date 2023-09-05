@@ -1,6 +1,6 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
 
-namespace Helper.Core.Offer.ValueObjects
+namespace Helper.Core.Offer
 {
     public sealed record OfferId
     {

@@ -1,17 +1,18 @@
 ﻿using Helper.Core.Inquiry.Exceptions;
-using Helper.Core.Offer.ValueObjects;
+using Helper.Core.Inquiry.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helper.Core.Solution.ValueObjects
+namespace Helper.Core.User
 {
-    public sealed record SolutionId
+    public sealed record UserId
     {
         public Guid Value { get; }
-        public SolutionId(Guid value)
+
+        public UserId(Guid value)
         {
             if (value == Guid.Empty)
             {
@@ -21,8 +22,8 @@ namespace Helper.Core.Solution.ValueObjects
             Value = value;
         }
 
-        public static implicit operator Guid(SolutionId data) => data.Value;
+        public static implicit operator Guid(UserId date) => date.Value;
 
-        public static implicit operator SolutionId(Guid value) => new(value);
+        public static implicit operator UserId(Guid value) => new(value);
     }
 }

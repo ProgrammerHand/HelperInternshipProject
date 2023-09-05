@@ -1,7 +1,6 @@
 ﻿using Helper.Core.User.Exceptions;
 using Helper.Core.User.Value_objects;
 using Helper.Core.Utility;
-using Helper.Infrastructure.DAL;
 using System.Data;
 
 namespace Helper.Core.User

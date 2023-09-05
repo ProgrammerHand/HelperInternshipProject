@@ -1,4 +1,4 @@
-﻿namespace Helper.Application.Abstraction
+﻿namespace Helper.Core.Offer.Policies
 {
     public interface IDiscounter
     {

@@ -1,5 +1,4 @@
 ﻿using Helper.Core.Offer.ValueObjects;
-using Helper.Core.Solution.ValueObjects;
 
 namespace Helper.Core.Solution
 {

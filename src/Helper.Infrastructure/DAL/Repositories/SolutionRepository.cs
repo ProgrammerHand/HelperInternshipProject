@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helper.Core.Solution;
-using Helper.Core.Solution.ValueObjects;
 
 namespace Helper.Infrastructure.DAL.Repositories
 {

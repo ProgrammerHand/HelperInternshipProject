@@ -1,4 +1,4 @@
-﻿namespace Helper.Infrastructure.DAL
+﻿namespace Helper.Core.Utility
 {
     public interface ISoftDelete
     {

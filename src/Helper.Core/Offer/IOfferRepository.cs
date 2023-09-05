@@ -1,6 +1,4 @@
-﻿using Helper.Core.Offer.ValueObjects;
-
-namespace Helper.Core.Offer
+﻿namespace Helper.Core.Offer
 {
     public interface IOfferRepository
     {

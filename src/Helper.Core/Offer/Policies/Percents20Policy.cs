@@ -1,6 +1,4 @@
-﻿using Helper.Application.Abstraction;
-
-namespace Helper.Core.Offer.Policies
+﻿namespace Helper.Core.Offer.Policies
 {
     public class Percents20Policy : IDiscounter
     {

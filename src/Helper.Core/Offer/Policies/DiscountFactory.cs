@@ -1,5 +1,4 @@
-﻿using Helper.Application.Abstraction;
-using Helper.Core.Utility;
+﻿using Helper.Core.Utility;
 
 namespace Helper.Core.Offer.Policies
 {

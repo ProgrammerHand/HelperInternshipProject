@@ -2,9 +2,8 @@
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer.Exceptions;
 using Helper.Core.Offer.ValueObjects;
-using Helper.Core.User.Value_objects;
+using Helper.Core.User;
 using Helper.Core.Utility;
-using Helper.Infrastructure.DAL;
 
 namespace Helper.Core.Offer
 {

@@ -1,5 +1,4 @@
 ﻿using Helper.Core.Offer;
-using Helper.Core.Offer.ValueObjects;
 using Helper.Core.User;
 using Microsoft.EntityFrameworkCore;
 using System;

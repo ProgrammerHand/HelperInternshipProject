@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Helper.Infrastructure.Migrations
 {
-    [DbContext(typeof(HelperDbContext))]
+    [DbContext(typeof(HelperPaymentDbContext))]
     [Migration("20230825103641_OfferExtension")]
     partial class OfferExtension
     {
