@@ -27,6 +27,7 @@ namespace Helper.Core
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHostedService<DatabaseAutoMigration>();
             services.AddControllers();
             services.AddSingleton<ExceptionMiddleware>();
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();

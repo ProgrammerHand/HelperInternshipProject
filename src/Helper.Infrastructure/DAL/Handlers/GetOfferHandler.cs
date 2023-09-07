@@ -3,6 +3,7 @@ using Helper.Application.DTO;
 using Helper.Application.Inquiry.Queries;
 using Helper.Application.Offer.Queries;
 using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.Offer;
 using Helper.Core.Offer.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Helper.Infrastructure.Migrations
 {
-    [DbContext(typeof(HelperPaymentDbContext))]
+    [DbContext(typeof(HelperDbContext))]
     [Migration("20230822071040_IntialCreate")]
     partial class IntialCreate
     {

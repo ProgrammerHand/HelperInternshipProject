@@ -1,8 +1,7 @@
 ﻿using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Solution;
-using Helper.Core.Solution.ValueObjects;
-using Helper.Core.User.Value_objects;
+using Helper.Core.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

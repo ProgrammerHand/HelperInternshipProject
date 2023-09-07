@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Events\**" />
+    <EmbeddedResource Remove="Events\**" />
+    <None Remove="Events\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.61.0.3155" />
     <PackageReference Include="Humanizer" Version="2.14.1" />
     <PackageReference Include="MailKit" Version="4.2.0" />
@@ -26,10 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Helper.Application\Helper.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Events\" />
   </ItemGroup>
 
 </Project>
