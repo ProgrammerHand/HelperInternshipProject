@@ -16,7 +16,6 @@ namespace Helper.Infrastructure.Integrations
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            await Task.Yield();
             await client.CreateChannel();
             await client.CreateQueue("PaymentBus");
             while (true)

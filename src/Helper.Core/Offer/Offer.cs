@@ -18,7 +18,6 @@ namespace Helper.Core.Offer
         public SolutionCloudStorage? SolutionStorage { get; private set; }
         public DateTime RealisationStartDate { get; private set; }
         public bool IsDraft { get; private set; } = true;
-        public bool IsVerified { get; private set; } = false;
         public AcceptanceStatus Status { get; private set; } = new (Inquiry.ValueObjects.Status.awaits_decision);
         public OfferRejectReason? ClientsReason { get; private set; }
         public byte[] RowVersion { get; private set; }

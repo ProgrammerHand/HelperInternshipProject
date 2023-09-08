@@ -34,7 +34,7 @@ namespace Helper.Application.Offer.Commands.Handlers
                 Content = "Offer Content"
             };
             await _mailClient.SendMailAsync(mailData);
-
+            await _offerRepo.UpdateAsync(offer);
         }
         
     }
