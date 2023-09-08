@@ -23,7 +23,6 @@ namespace Helper.Infrastructure.Integrations
                 await client.ConsumeEventAsync();
                 await Task.Yield();
             }
-
         }
     }
 }

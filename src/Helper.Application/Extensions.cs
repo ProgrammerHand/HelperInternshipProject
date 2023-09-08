@@ -1,6 +1,8 @@
 ﻿using Helper.Application.Abstraction.Commands;
 using Helper.Application.Abstraction.Events;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Helper.Application
 {

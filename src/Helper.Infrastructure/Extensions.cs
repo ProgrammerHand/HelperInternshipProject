@@ -1,25 +1,25 @@
-﻿using Helper.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Helper.Application.Abstraction.Commands;
+using Helper.Application.Abstraction.Events;
+using Helper.Application.Abstraction.Queries;
+using Helper.Application.Integrations;
 using Helper.Core.Inquiry;
-using Helper.Infrastructure.DAL;
-using Helper.Infrastructure.Exceptions;
-using Microsoft.AspNetCore.Builder;
-using Helper.Infrastructure.DAL.Repositories;
+using Helper.Core.Offer;
+using Helper.Core.Solution;
 using Helper.Core.User;
-using Helper.Infrastructure.Security;
+using Helper.Core.Utility;
+using Helper.Infrastructure;
+using Helper.Infrastructure.DAL;
+using Helper.Infrastructure.DAL.Repositories;
+using Helper.Infrastructure.Dispatchers;
+using Helper.Infrastructure.Exceptions;
+using Helper.Infrastructure.Integrations;
 using Helper.Infrastructure.JWT;
 using Helper.Infrastructure.Logging;
-using Helper.Application.Abstraction.Commands;
-using Helper.Application.Abstraction.Queries;
-using Helper.Infrastructure.Dispatchers;
-using Helper.Application.Abstraction.Events;
-using Helper.Core.Offer;
-using Helper.Application.Abstraction;
-using Helper.Infrastructure.Integrations;
-using Helper.Core.Utility;
-using Helper.Application.Integrations;
-using Helper.Core.Solution;
+using Helper.Infrastructure.Security;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Helper.Core
 {
@@ -29,11 +29,11 @@ namespace Helper.Core
         {
             services.AddHostedService<DatabaseAutoMigration>();
             services.AddControllers();
-            services.AddSingleton<ExceptionMiddleware>();
+            services.AddSingleton<ExceptionMiddleware>();;
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
             services.AddSingleton<IEventDispatcher, EventDispatcher>();
-            
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddHttpContextAccessor();
             services.AddSecurity();
             services.AddSingleton<IClockCustom, ClockCustom>();
