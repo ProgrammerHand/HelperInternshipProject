@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Helper.Infrastructure.Integrations
 {
-    public class BackgroundRabbitMQ : IHostedService
+    public class BackgroundRabbitMQ : BackgroundService
     {
         private readonly RabbitMqClient client;
 
@@ -14,16 +14,16 @@ namespace Helper.Infrastructure.Integrations
         }
 
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             await client.CreateChannel();
             await client.CreateQueue("PaymentBus");
             while (true)
             {
                 await client.ConsumeEventAsync();
+                await Task.Yield();
             }
 
         }
-        public Task StopAsync(CancellationToken cancellationToken) => client.DeleteChannel();
     }
 }

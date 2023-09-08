@@ -47,6 +47,7 @@ namespace Helper.Application.Offer.Commands.Handlers
             };
             var serialized = JsonSerializer.Serialize(dto);
             await client.PublishEvent(serialized);
+            await client.DeleteChannel();
         }
     }
 }
