@@ -1,4 +1,9 @@
-﻿namespace Helper.Application.Solution.Events.Handlers
+﻿using Helper.Application.Abstraction.Events;
+using Helper.Application.Inquiry.Events;
+using Helper.Core.Inquiry;
+using Helper.Core.Solution;
+
+namespace Helper.Application.Solution.Events.Handlers
 {
     //public class CreateSolutionHandler : IEventHandler<InquiryAccepted>
     //{

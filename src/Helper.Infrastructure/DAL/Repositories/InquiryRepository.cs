@@ -1,7 +1,10 @@
-﻿using Helper.Core.Inquiry;
+﻿using Google.Apis.Util;
+using Helper.Core.Inquiry;
+using Helper.Core.Utility;
 using Helper.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -10,9 +13,14 @@ namespace Helper.Infrastructure.DAL.Repositories
     public sealed class InquiryRepository : IInquiryRepository
     {
         private readonly HelperDbContext _context;
-        public InquiryRepository(HelperDbContext dbContext)
+        private readonly IServiceProvider _serviceProvider;
+        private readonly DbContextOptions<HelperDbContext> _options;
+        private readonly IClockCustom _clock;
+
+        public InquiryRepository(HelperDbContext dbContext, IServiceProvider serviceProvider)
         {
             _context = dbContext;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task AddAsync(Inquiry inquiry)
@@ -23,7 +31,12 @@ namespace Helper.Infrastructure.DAL.Repositories
 
         public async Task<Inquiry> GetByIdAsync(InquiryId id) 
         {
-            return await _context.Inquiries.Include(x => x.Author).FirstOrDefaultAsync(x => x.Id == id);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<HelperDbContext>();
+                return await context.Inquiries.Include(x => x.Author).FirstOrDefaultAsync(x => x.Id == id);
+            }
+           
         }
 
         public async Task DeleteInquiry(Inquiry inquiry)

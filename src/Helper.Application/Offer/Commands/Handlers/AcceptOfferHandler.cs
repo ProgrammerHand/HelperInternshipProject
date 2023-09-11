@@ -10,6 +10,7 @@ using RabbitMQ.Client;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text.Json;
+using Helper.Application.Offer.Events;
 
 namespace Helper.Application.Offer.Commands.Handlers
 {
@@ -35,7 +36,7 @@ namespace Helper.Application.Offer.Commands.Handlers
             var client = new RabbitMqClient(_eventDispatcher);
             await client.CreateChannel();
             await client.CreateQueue();
-            var dto = new InvoiceCreationDto()
+            var dto = new InvoiceCreatedEvent()
             {
                 OfferId = offer.Id.Value,
                 PaymentDate = offer.PaymentDate.Value,

@@ -15,7 +15,7 @@ namespace Helper.Infrastructure.Dispatchers
             using var scope = _serviceProvider.CreateScope();
             var handlers = scope.ServiceProvider.GetServices<IEventHandler<TEvent>>();
 
-            var tasks = handlers.Select(x => x.HandleAsync(@event));
+            IEnumerable<Task> tasks = handlers.Select(x => x.HandleAsync(@event));
             await Task.WhenAll(tasks);
         }
     }

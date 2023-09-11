@@ -1,7 +1,6 @@
 ﻿using Helper.Application.Abstraction.Events;
-using Helper.Application.DTO;
 using Helper.Application.Offer.Events;
-using HelperPayment.Core.DTO;
+using Helper.Application.Solution.Events;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -61,8 +60,8 @@ namespace Helper.Application.Integrations
             consumer.Received += async (model, ea) =>
             {
                 var stream = new MemoryStream(ea.Body.ToArray());
-                var data = await JsonSerializer.DeserializeAsync<InvoicePayment>(stream);
-                if (data is InvoicePayment)
+                var data = await JsonSerializer.DeserializeAsync<InvoicePaidEvent>(stream);
+                if (data is InvoicePaidEvent)
                     await _eventDispatcher.PublishAsync(new OfferPaid(data.OfferId));
             };
             _channel.BasicConsume(queue: "PaymentBus", autoAck: true, consumer: consumer);
