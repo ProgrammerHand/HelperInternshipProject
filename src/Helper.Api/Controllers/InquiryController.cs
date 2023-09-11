@@ -75,8 +75,13 @@ namespace Helper.Api.Controllers
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> GetInquiries()
         {
-             
             return Ok(await _queryDispatcher.QueryAsync(new GetInquiries()));
+        }
+
+        [HttpGet("owned"), Authorize]
+        public async Task<ActionResult> GetUsersInquiries()
+        {
+            return Ok(await _queryDispatcher.QueryAsync(new GetOwnedInquiries(Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value))));
         }
 
         [HttpGet("{inquiryId}"), Authorize]

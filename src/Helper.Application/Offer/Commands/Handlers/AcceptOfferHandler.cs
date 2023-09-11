@@ -1,16 +1,10 @@
 ﻿using Helper.Application.Abstraction.Commands;
 using Helper.Application.Abstraction.Events;
-using Helper.Application.Exceptions;
 using Helper.Application.Integrations;
-using Helper.Core.Inquiry;
-using Helper.Core.Inquiry.ValueObjects;
-using Helper.Core.Offer;
-using HelperPayment.Core.DTO;
-using RabbitMQ.Client;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Text.Json;
 using Helper.Application.Offer.Events;
+using Helper.Core.Inquiry;
+using Helper.Core.Offer;
+using System.Text.Json;
 
 namespace Helper.Application.Offer.Commands.Handlers
 {

@@ -1,0 +1,74 @@
+
+@protocol = https://
+@baseUrl = localhost:7105/api
+
+###
+
+POST {{protocol}}{{baseUrl}}/Security/authorise
+content-type: application/json
+
+{
+    "email": "TestUser",
+    "password": "password"
+}
+
+###
+
+POST {{protocol}}{{baseUrl}}/Security/register
+content-type: application/json
+
+{
+    "email": "TestUser",
+    "password": "password"
+}
+
+###
+
+# @name authorisationResponse
+
+POST {{protocol}}{{baseUrl}}/Security/authorise
+content-type: application/json
+
+{
+    "email": "TestUser",
+    "password": "password"
+}
+
+###
+
+@token = {{authorisationResponse.response.body.accessToken}}
+
+###
+
+GET {{protocol}}{{baseUrl}}/Security/appinfo
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+###
+
+POST {{protocol}}{{baseUrl}}/Inquiry
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+  "description": "Test Inquiry",
+  "start": "{{$datetime iso8601 8 d}}",
+  "end": "{{$datetime iso8601 10 d}}",
+  "solutionVariant": 0
+}
+
+###
+
+GET {{protocol}}{{baseUrl}}/Inquiry
+Authorization: bearer {{token}}
+
+###
+
+# @name ownedInquiriesResponse
+
+GET {{protocol}}{{baseUrl}}/Inquiry/owned
+Authorization: bearer {{token}}
+
+###
+
+@createdInquiryId = {{ownedInquiriesResponse.response.body.$[0].id}}
