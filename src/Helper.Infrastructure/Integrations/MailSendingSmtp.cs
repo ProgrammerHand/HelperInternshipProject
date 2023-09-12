@@ -1,6 +1,6 @@
 ﻿using Helper.Application.Integrations;
-using Microsoft.Extensions.Configuration;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System.Net;
 
@@ -27,15 +27,19 @@ namespace Helper.Infrastructure.Integrations
             if (data.ReciverEmail.Trim().EndsWith("."))
             {
                 var email = new MimeMessage();
-
                 email.From.Add(new MailboxAddress(_configuration.GetValue<string>("app:name"), _configuration.GetValue<string>("projectMail:adress")));
                 email.To.Add(new MailboxAddress(data.ReciverName, data.ReciverEmail));
-
+                var builder = new BodyBuilder();
+                builder.HtmlBody = data.Content;
                 email.Subject = data.Subject;
-                email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+
+
+                if (data.Attachment is not null)
                 {
-                    Text = data.Content
-                };
+                    builder.Attachments.Add($"{data.AttachmentName}.{data.AttachmentType}", data.Attachment, new ContentType("application", data.AttachmentType));
+                }
+
+                email.Body = builder.ToMessageBody();
 
                 using (var smtp = GetMailSendingSMTP())
                 {

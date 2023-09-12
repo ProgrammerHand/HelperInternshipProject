@@ -1,27 +1,27 @@
-﻿using Helper.Application.Abstraction.Events;
-using Helper.Application.Integrations;
+﻿using Helper.Application.Integrations;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Helper.Infrastructure.Integrations
 {
     public class BackgroundRabbitMQ : BackgroundService
     {
-        private readonly RabbitMqClient client;
+        private readonly IServiceProvider _serviceProvider;
 
-        public BackgroundRabbitMQ(IEventDispatcher eventDispatcher)
+        public BackgroundRabbitMQ(IServiceProvider serviceProvider)
         {
-            client = new RabbitMqClient(eventDispatcher);
+            _serviceProvider = serviceProvider;
         }
 
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            await client.CreateChannel();
-            await client.CreateQueue("PaymentBus");
+            using var scope = _serviceProvider.CreateScope();
             while (true)
             {
+                var client = scope.ServiceProvider.GetRequiredService<IRabbitMqClient>();
                 await client.ConsumeEventAsync();
-                await Task.Yield();
+                //await Task.Yield();
             }
         }
     }

@@ -13,12 +13,15 @@ namespace Helper.Application.Offer.Commands.Handlers
         public readonly IOfferRepository _offerRepo;
         public readonly IInquiryRepository _inquiryRepo;
         private readonly IEventDispatcher _eventDispatcher;
+        private readonly IRabbitMqClient client;
 
-        public AcceptOfferHandler(IOfferRepository offerRepo, IInquiryRepository inquiryRepo, IEventDispatcher eventDispatcher)
+        public AcceptOfferHandler(IOfferRepository offerRepo, IRabbitMqClient rabbitMqClien,
+           IInquiryRepository inquiryRepo, IEventDispatcher eventDispatcher)
         {
             _offerRepo = offerRepo;
             _eventDispatcher = eventDispatcher;
             _inquiryRepo = inquiryRepo;
+            client = rabbitMqClien;
         }
 
         public async Task HandleAsync(AcceptOffer command)
@@ -27,9 +30,6 @@ namespace Helper.Application.Offer.Commands.Handlers
             var inquiry = await _inquiryRepo.GetByIdAsync(offer.InquiryId);
             offer.Accept();
             await _offerRepo.UpdateAsync(offer);
-            var client = new RabbitMqClient(_eventDispatcher);
-            await client.CreateChannel();
-            await client.CreateQueue();
             var dto = new InvoiceCreatedEvent()
             {
                 OfferId = offer.Id.Value,
@@ -41,8 +41,7 @@ namespace Helper.Application.Offer.Commands.Handlers
                 ClientName = "User"
             };
             var serialized = JsonSerializer.Serialize(dto);
-            await client.PublishEvent(serialized);
-            await client.DeleteChannel();
+            await client.PublishEvent(serialized, "OfferBus");
         }
     }
 }

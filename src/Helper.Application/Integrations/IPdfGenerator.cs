@@ -4,6 +4,6 @@ namespace Helper.Application.Integrations
 {
     public interface IPdfGenerator
     {
-        public void GeneratePdf(string name);
+        public byte[] GeneratePdf(string name);
     }
 }

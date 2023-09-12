@@ -1,12 +1,13 @@
 ﻿using PdfSharpCore.Pdf;
 using PdfSharpCore.Drawing;
 using Helper.Application.Integrations;
+using MigraDoc.Rendering;
 
 namespace Helper.Infrastructure.Integrations
 {
     public class PdfGenerator : IPdfGenerator
     {
-        public void GeneratePdf(string name) 
+        public byte[] GeneratePdf(string name) 
         {
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
@@ -18,7 +19,14 @@ namespace Helper.Infrastructure.Integrations
             new XRect(0, 0, page.Width, page.Height),
             format);
             string filename = name + ".pdf";
-            document.Save(filename);
+
+            byte[] bin = null;
+            using (var stream = new MemoryStream())
+            {
+                document.Save(stream, false);
+                bin = stream.ToArray();
+            }
+            return bin;
         }
     }
 }

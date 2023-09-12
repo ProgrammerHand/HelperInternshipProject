@@ -36,7 +36,7 @@ namespace Helper.Core
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddHttpContextAccessor();
             services.AddSecurity();
-            services.AddSingleton<IClockCustom, ClockCustom>();
+            services.AddSingleton<IClockCustom, ClockCustom>(); 
             services.AddScoped<IPdfGenerator, PdfGenerator>();
             services.AddScoped<IMailSendingClient, MailSendingSmtp>();
             services.AddScoped<IGoogleDriveClient, GoogleDriveClient>();
@@ -44,7 +44,7 @@ namespace Helper.Core
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISolutionRepository, SolutionRepository>();
-
+            services.AddScoped<IRabbitMqClient, RabbitMqClient>();
             services.AddDb(configuration);
 
             var infrastructureAssembly = typeof(AppOptions).Assembly;
