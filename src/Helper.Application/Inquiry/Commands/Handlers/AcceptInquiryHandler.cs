@@ -32,7 +32,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
                 Subject = $"Inquiry {inquiry.Id.Value}",
                 Content = "Your Inquiry was acceped, please review offer in your account"
             };
-            await _mailclient.SendMailAsync(mailData);
+            //await _mailclient.SendMailAsync(mailData);
             await _eventDispatcher.PublishAsync(new InquiryAccepted(inquiry.Id));
         }
     }

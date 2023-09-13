@@ -12,14 +12,12 @@ namespace Helper.Application.Offer.Commands.Handlers
     {
         public readonly IOfferRepository _offerRepo;
         public readonly IInquiryRepository _inquiryRepo;
-        private readonly IEventDispatcher _eventDispatcher;
         private readonly IRabbitMqClient client;
 
         public AcceptOfferHandler(IOfferRepository offerRepo, IRabbitMqClient rabbitMqClien,
-           IInquiryRepository inquiryRepo, IEventDispatcher eventDispatcher)
+           IInquiryRepository inquiryRepo)
         {
             _offerRepo = offerRepo;
-            _eventDispatcher = eventDispatcher;
             _inquiryRepo = inquiryRepo;
             client = rabbitMqClien;
         }

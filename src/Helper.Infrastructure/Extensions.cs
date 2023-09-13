@@ -28,6 +28,7 @@ namespace Helper.Core
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHostedService<DatabaseAutoMigration>();
+            services.AddHostedService<BackgroundRabbitMQ>();
             services.AddControllers();
             services.AddSingleton<ExceptionMiddleware>();;
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
@@ -37,7 +38,7 @@ namespace Helper.Core
             services.AddHttpContextAccessor();
             services.AddSecurity();
             services.AddSingleton<IClockCustom, ClockCustom>(); 
-            services.AddScoped<IPdfGenerator, PdfGenerator>();
+            //services.AddScoped<IPdfGenerator, PdfGenerator>();
             services.AddScoped<IMailSendingClient, MailSendingSmtp>();
             services.AddScoped<IGoogleDriveClient, GoogleDriveClient>();
             services.AddScoped<IOfferRepository, OfferRepository>();

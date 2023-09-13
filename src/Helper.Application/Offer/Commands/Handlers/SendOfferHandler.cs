@@ -25,7 +25,7 @@ namespace Helper.Application.Offer.Commands.Handlers
             var offer = await _offerRepo.GetByIdAsync(command.OfferId); 
             var inquiry = await _inquiryRepo.GetByIdAsync(offer.InquiryId);
             offer.FinalizeDraft();
-            _pdfGenerator.GeneratePdf(inquiry.Id.Value.ToString());
+            _pdfGenerator.GenerateOffer(inquiry, offer);
             var mailData = new MailDto
             {
                 ReciverEmail = inquiry.Author.Email,
@@ -33,7 +33,7 @@ namespace Helper.Application.Offer.Commands.Handlers
                 Subject = $"Inquiry {inquiry.Id.Value}", // TODO add file
                 Content = "Offer Content"
             };
-            await _mailClient.SendMailAsync(mailData);
+            //await _mailClient.SendMailAsync(mailData);
             await _offerRepo.UpdateAsync(offer);
         }
         

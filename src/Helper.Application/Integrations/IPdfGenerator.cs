@@ -1,9 +1,7 @@
-﻿using System.Xml.Linq;
-
-namespace Helper.Application.Integrations
+﻿namespace Helper.Application.Integrations
 {
     public interface IPdfGenerator
     {
-        public byte[] GeneratePdf(string name);
+        byte[] GenerateOffer(Core.Inquiry.Inquiry Inquiry, Core.Offer.Offer Offer);
     }
 }

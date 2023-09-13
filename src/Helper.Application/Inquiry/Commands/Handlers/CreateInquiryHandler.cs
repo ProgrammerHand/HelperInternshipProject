@@ -45,7 +45,7 @@ namespace Helper.Application.Inquiry.Commands.Handlers
                 Subject = "Your inquiry sucsesfully registerd",
                 Content = $"Dear user your Inquiry was registered, please use this url to check Inquiry status: {url}"
             };
-            await _mailclient.SendMailAsync(mailData);
+            //await _mailclient.SendMailAsync(mailData);
 
         }
     }
