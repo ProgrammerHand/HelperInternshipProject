@@ -91,7 +91,7 @@ namespace Helper.Infrastructure.Integrations
 
             gfx.DrawString($"Selected solution: {Inquiry.SolutionDecision}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer((float)oldrectSize + xfSansBody.Height)));
             gfx.DrawString($"Selected solution:", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(0)));
-            gfx.DrawString($"Realisation start: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(15xfSansBody.Height));
+            gfx.DrawString($"Realisation start: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
             if (Inquiry.SolutionDecision.Value.Equals(Variants.consulting))
             {
                 gfx.DrawString($"Realisation end: {((DateTime)Inquiry.RequestedCompletionDate.End).Day}.{((DateTime)Inquiry.RequestedCompletionDate.End).Month}.{((DateTime)Inquiry.RequestedCompletionDate.End).Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
