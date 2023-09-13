@@ -17,7 +17,7 @@ namespace Helper.Infrastructure.Integrations
         private readonly IClockCustom _clock;
         private readonly IConfiguration _configuration;
 
-        private PdfGenerator(IClockCustom clock, IConfiguration configuration) 
+        public PdfGenerator(IClockCustom clock, IConfiguration configuration) 
         {
             _clock = clock;
             _configuration = configuration;
