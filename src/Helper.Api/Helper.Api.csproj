@@ -31,7 +31,7 @@
 
    <ItemGroup>
      <None Include="client_secret.json">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
      </None>
    </ItemGroup>
 
