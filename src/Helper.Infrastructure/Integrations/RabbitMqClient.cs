@@ -2,6 +2,7 @@
 using Helper.Application.Integrations;
 using Helper.Application.Offer.Events;
 using Helper.Application.Solution.Events;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -15,12 +16,12 @@ namespace Helper.Infrastructure.Integrations
         private readonly IServiceProvider _serviceProvider;
         private readonly ConnectionFactory _factory;
 
-        public RabbitMqClient(IServiceProvider serviceProvider)
+        public RabbitMqClient(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             _serviceProvider = serviceProvider;
             _factory = new ConnectionFactory()
             {
-                HostName = "localhost",
+                Uri = new Uri(configuration.GetValue<string>("MessageBrockerAdress")),
                 DispatchConsumersAsync = true
             };
         }

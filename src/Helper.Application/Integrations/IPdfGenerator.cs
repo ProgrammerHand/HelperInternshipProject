@@ -2,6 +2,6 @@
 {
     public interface IPdfGenerator
     {
-        byte[] GenerateOffer(Core.Inquiry.Inquiry Inquiry, Core.Offer.Offer Offer);
+        public byte[] GenerateOffer(Core.Inquiry.Inquiry Inquiry, Core.Offer.Offer Offer);
     }
 }
