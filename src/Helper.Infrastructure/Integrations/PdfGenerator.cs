@@ -100,8 +100,8 @@ namespace Helper.Infrastructure.Integrations
 
             rts = gfx.MeasureString($"Estimated netto price: {Offer.Price}", xfSansBody);
             gfx.DrawString($"Estimated netto price: {Offer.Price}", xfSansBody, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(0)));
-            rts = gfx.MeasureString($"Total: {Offer.Price}", xfSansBodyBold);
-            gfx.DrawString($"Total: {Offer.Price}", xfSansBodyBold, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
+            rts = gfx.MeasureString($"Total: {Offer.Price.Value}", xfSansBodyBold);
+            gfx.DrawString($"Total: {Offer.Price.Value}", xfSansBodyBold, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
 
             Footer(_configuration.GetValue<string>("app:name"), " ", _configuration.GetValue<string>("projectMail:adress"));
 
