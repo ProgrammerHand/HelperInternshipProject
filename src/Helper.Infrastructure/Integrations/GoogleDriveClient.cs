@@ -3,11 +3,13 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Helper.Application.Integrations;
 using Microsoft.Extensions.Configuration;
+using SendGrid.Helpers.Mail;
 
 namespace Helper.Infrastructure.Integrations
 {
     public class GoogleDriveClient : IGoogleDriveClient
     {
+        private static readonly HttpClient client = new HttpClient();
         private readonly IConfiguration _configuration;
         public GoogleDriveClient(IConfiguration configuration)
         {
@@ -18,7 +20,7 @@ namespace Helper.Infrastructure.Integrations
         {
             string[] scopes = { Google.Apis.Drive.v3.DriveService.Scope.Drive };
             GoogleCredential credentialScoped;
-            using (var stream = new FileStream(Directory.GetCurrentDirectory() + "/client_secret.json", FileMode.Open, FileAccess.Read))
+            using (var stream = await client.GetStreamAsync(_configuration.GetValue<string>("GoogleSecretAzureStorage")))
             {
                 var credential = ServiceAccountCredential.FromServiceAccountData(stream);
                 credentialScoped = GoogleCredential.FromServiceAccountCredential(credential).CreateScoped(scopes);
