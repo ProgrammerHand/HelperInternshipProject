@@ -114,9 +114,9 @@ namespace Helper.Infrastructure.Integrations
                     new XPoint(margin, pageSize.Height - (xfSansBody.Height / 2) - margin));
 
 
-                var fcts = gfx.MeasureString(textCenter, xfSansBody);
-                gfx.DrawString(textCenter, xfSansBody, XBrushes.Black,
-                    new XPoint(((pageSize.Width - (float)fcts.Width) / 2), pageSize.Height - (xfSansBody.Height / 2) - margin));
+                //var fcts = gfx.MeasureString(textCenter, xfSansBody);
+                //gfx.DrawString(textCenter, xfSansBody, XBrushes.Black,
+                //    new XPoint(((pageSize.Width - (float)fcts.Width) / 2), pageSize.Height - (xfSansBody.Height / 2) - margin));
 
                 var frts = gfx.MeasureString(textRight, xfSansBody);
                 gfx.DrawString(textRight, xfSansBody, XBrushes.Black,
