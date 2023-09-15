@@ -1,4 +1,5 @@
-﻿using Helper.Core.Utility;
+﻿using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -38,7 +39,7 @@ namespace Helper.Infrastructure.DAL
                         else
                         {
                             var dependentEntry = navigationEntry.CurrentValue;
-                            if (dependentEntry != null)
+                            if (dependentEntry != null && dependentEntry is not RealisationDate)
                             {
                                 HandleDependent(eventData.Context.Entry(dependentEntry));
                             }

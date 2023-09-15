@@ -3,8 +3,6 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Helper.Application.Integrations;
 using Microsoft.Extensions.Configuration;
-using SendGrid.Helpers.Mail;
-
 namespace Helper.Infrastructure.Integrations
 {
     public class GoogleDriveClient : IGoogleDriveClient

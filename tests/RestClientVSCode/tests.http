@@ -1,8 +1,8 @@
 
-@protocol = https://
-@baseUrl = localhost:7105/api
+@protocol = http://
+@baseUrl = localhost:5055/api
 
-###
+### authorise to get token
 
 POST {{protocol}}{{baseUrl}}/Security/authorise
 content-type: application/json
@@ -12,7 +12,7 @@ content-type: application/json
     "password": "password"
 }
 
-###
+### register to be able to authorise (default user level: user)
 
 POST {{protocol}}{{baseUrl}}/Security/register
 content-type: application/json
@@ -22,7 +22,7 @@ content-type: application/json
     "password": "password"
 }
 
-###
+### get token into variable
 
 # @name authorisationResponse
 
@@ -34,17 +34,23 @@ content-type: application/json
     "password": "password"
 }
 
-###
+### 
 
 @token = {{authorisationResponse.response.body.accessToken}}
 
-###
+### get app info: name and envoirment (requires authorisation)
 
 GET {{protocol}}{{baseUrl}}/Security/appinfo
 Content-Type: application/json
 Authorization: bearer {{token}}
 
-###
+
+
+### INQUIRY CONTROLLER
+
+
+
+### create an inquiry (requires authorisation)
 
 POST {{protocol}}{{baseUrl}}/Inquiry
 Content-Type: application/json
@@ -57,12 +63,12 @@ Authorization: bearer {{token}}
   "solutionVariant": 0
 }
 
-###
+### get all inquiries (requires worker level user)
 
 GET {{protocol}}{{baseUrl}}/Inquiry
 Authorization: bearer {{token}}
 
-###
+### get all inquiries created by authorised user (requires authorisation)
 
 # @name ownedInquiriesResponse
 
@@ -72,3 +78,120 @@ Authorization: bearer {{token}}
 ###
 
 @createdInquiryId = {{ownedInquiriesResponse.response.body.$[0].id}}
+
+### Get inquiry by id (requires authorisation)
+
+# @name getInquiryResponse
+
+GET {{protocol}}{{baseUrl}}/Inquiry/{{createdInquiryId}}
+Authorization: bearer {{token}}
+
+###
+
+@inquiryRowVersion = {{getInquiryResponse.response.body.rowVersion}}
+
+### Delete inquiry by id (requires authorisation)
+DELETE {{protocol}}{{baseUrl}}/Inquiry/{{createdInquiryId}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+  "rowVersion": "{{inquiryRowVersion}}"
+}
+
+### Change Inquiry feasibility note (requires worker level user)
+
+PATCH {{protocol}}{{baseUrl}}/Inquiry/feasibility-note/{{createdInquiryId}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "value": "test can be done",
+    "rowVersion":"{{inquiryRowVersion}}"
+}
+
+### Accept inquiry, creates offer (requires authorisation)
+
+PATCH {{protocol}}{{baseUrl}}/Inquiry/accepted/{{createdInquiryId}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "rowVersion":"{{inquiryRowVersion}}"
+}
+
+### Reject inquiry (requires authorisation)
+
+PATCH {{protocol}}{{baseUrl}}/Inquiry/accepted/{{createdInquiryId}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "rowVersion":"{{inquiryRowVersion}}"
+}
+
+
+
+### OFFER CONTROLLER
+
+
+### Get all offers (requires worker level user) TODO add owned offers get
+
+# @name ownedOffrersResponse
+GET {{protocol}}{{baseUrl}}/Offer/
+Authorization: bearer {{token}}
+
+###
+
+@createdOfferId = {{ownedOffrersResponse.response.body.$[0].id}}
+
+### Get offer by id (requires authorisation)
+
+GET {{protocol}}{{baseUrl}}/Offer/{{createdOfferId}}
+Authorization: bearer {{token}}
+
+### Add to offer payment date, date must be 5 dayse before realisation start (requires worker level user)
+
+PATCH {{protocol}}{{baseUrl}}/Offer/setPaymentDate/{{createdOfferId}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+    "paymentDate": "{{$datetime iso8601 2 d}}"
+}
+
+### Add to offer price, some discounts applied to price (requires worker level user)
+
+PATCH {{protocol}}{{baseUrl}}/Offer/price/{{createdOfferId}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+   "price": 22.50 
+}
+
+### Send offer to client, sends pdf via mail and changes is draft variable(requires worker level user)
+
+POST {{protocol}}{{baseUrl}}/Offer/send/{{createdOfferId}}
+Authorization: bearer {{token}}
+
+### Accepts offer by id, creates invoice in otther webapp (requires authorisation)
+
+PATCH {{protocol}}{{baseUrl}}/Offer/accept/
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+  "offerId": "{{createdOfferId}}"
+}
+
+### Rejects offer by id, reason required (requires authorisation)
+
+PATCH {{protocol}}{{baseUrl}}/Offer/reject/
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+  "offerId": "{{createdOfferId}}",
+  "clientsReason": "Dont want"
+}

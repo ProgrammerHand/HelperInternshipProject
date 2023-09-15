@@ -50,14 +50,14 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpPatch("/accept"), Authorize]
+        [HttpPatch("accept"), Authorize]
         public async Task<ActionResult> Accept(AcceptOffer command)
         {
             await _commandDispatcher.SendAsync(command);
             return Ok();
         }
 
-        [HttpPut("/reject"), Authorize]
+        [HttpPatch("reject"), Authorize]
         public async Task<ActionResult> Reject(RejectOffer command)
         {
             await _commandDispatcher.SendAsync(command);
