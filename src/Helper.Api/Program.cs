@@ -1,11 +1,8 @@
 using Helper.Application;
 using Helper.Core;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 // Add services to the container.
 builder.Services.AddApplication().AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();

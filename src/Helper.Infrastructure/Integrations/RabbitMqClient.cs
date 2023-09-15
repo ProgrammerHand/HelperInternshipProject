@@ -15,6 +15,7 @@ namespace Helper.Infrastructure.Integrations
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ConnectionFactory _factory;
+        private static IConnection? connection;
 
         public RabbitMqClient(IServiceProvider serviceProvider, IConfiguration configuration)
         {
@@ -24,6 +25,8 @@ namespace Helper.Infrastructure.Integrations
                 Uri = new Uri(configuration.GetValue<string>("MessageBrockerAdress")),
                 DispatchConsumersAsync = true
             };
+            if(connection is null)
+            connection = _factory.CreateConnection();
         }
 
         internal async Task CreateQueue(IModel channel, string name = "OfferBus")
@@ -37,8 +40,6 @@ namespace Helper.Infrastructure.Integrations
 
         public async Task PublishEvent(string data, string routingKey = "OfferBus")
         {
-            using (var connection = _factory.CreateConnection())
-            {
                 using (var channel = connection.CreateModel())
                 {
                     await CreateQueue(channel, routingKey);
@@ -47,13 +48,10 @@ namespace Helper.Infrastructure.Integrations
                     routingKey: routingKey,
                     basicProperties: null, body);
                 }
-            }
         }
 
         public async Task ConsumeEventAsync(string queueName = "PaymentBus")
         {
-            using (var connection = _factory.CreateConnection())
-            {
                 using (var channel = connection.CreateModel())
                 {
                     await CreateQueue(channel, queueName);
@@ -70,7 +68,6 @@ namespace Helper.Infrastructure.Integrations
                     channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
                     await Task.Delay(1);
                 }
-            }
             //await Task.Delay(100);
         }
     }

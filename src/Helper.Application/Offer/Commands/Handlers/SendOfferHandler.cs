@@ -25,7 +25,7 @@ namespace Helper.Application.Offer.Commands.Handlers
             var offer = await _offerRepo.GetByIdAsync(command.OfferId); 
             var inquiry = await _inquiryRepo.GetByIdAsync(offer.InquiryId);
             offer.FinalizeDraft();
-            _pdfGenerator.GenerateOffer(inquiry, offer);
+            var documment = _pdfGenerator.GenerateOffer(inquiry, offer);
             var mailData = new MailDto
             {
                 ReciverEmail = inquiry.Author.Email,
