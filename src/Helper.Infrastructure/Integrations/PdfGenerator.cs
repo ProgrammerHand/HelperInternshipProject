@@ -4,9 +4,9 @@ using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer;
 using Helper.Core.Utility;
 using Microsoft.Extensions.Configuration;
-using PdfSharp.Drawing;
-using PdfSharp.Drawing.Layout;
-using PdfSharp.Pdf;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Drawing.Layout;
+using PdfSharpCore.Pdf;
 using System.Drawing;
 
 namespace Helper.Infrastructure.Integrations
@@ -50,24 +50,24 @@ namespace Helper.Infrastructure.Integrations
             var createdAt = _clock.Now;
 
 
-            gfx.DrawLine(XPens.Black, new PointF(margin, pointerPosition), new PointF(pageSize.Width - margin, pointerPosition));
-            gfx.DrawString("Client:", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(30)));
-            gfx.DrawString("User", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
+            gfx.DrawLine(XPens.Black, new XPoint(margin, pointerPosition), new XPoint(pageSize.Width - margin, pointerPosition));
+            gfx.DrawString("Client:", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(30)));
+            gfx.DrawString("User", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(xfSansBody.Height)));
 
 
             var rts = gfx.MeasureString($"Created at: {createdAt.Day}.{createdAt.Month}.{createdAt.Year}", xfSansBody);
-            gfx.DrawString($"Created at: {createdAt.Day}.{createdAt.Month}.{createdAt.Year}", xfSansBody, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(0)));
+            gfx.DrawString($"Created at: {createdAt.Day}.{createdAt.Month}.{createdAt.Year}", xfSansBody, XBrushes.Black, new XPoint(pageSize.Width - margin - (float)rts.Width, MovePointer(0)));
             rts = gfx.MeasureString($"Expires at at: {((DateTime)Offer.PaymentDate).Day}.{((DateTime)Offer.PaymentDate).Month}.{((DateTime)Offer.PaymentDate).Year}", xfSansBody);
             gfx.DrawString($"Expires at at: {((DateTime)Offer.PaymentDate).Day}.{((DateTime)Offer.PaymentDate).Month}.{((DateTime)Offer.PaymentDate).Year}", xfSansBody, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
 
-            gfx.DrawString("Users", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(0)));
-            gfx.DrawString($"email: {Inquiry.Author.Email.Value}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
+            gfx.DrawString("Users", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(0)));
+            gfx.DrawString($"email: {Inquiry.Author.Email.Value}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(xfSansBody.Height)));
 
 
             pointerPosition = pageSize.Height / 3;
             var cts = gfx.MeasureString($"Offer {Offer.Id.Value}", xfSansHeader);
             gfx.DrawString($"Offer {Offer.Id.Value}", xfSansHeader, XBrushes.Black,
-                new PointF(((pageSize.Width - (float)cts.Width) / 2), pageSize.Height / 3));
+                new XPoint(((pageSize.Width - (float)cts.Width) / 2), pageSize.Height / 3));
 
 
             XTextFormatter tf = new XTextFormatter(gfx);
@@ -86,8 +86,8 @@ namespace Helper.Infrastructure.Integrations
             tf.DrawString($"Feasibility note:{Inquiry.FeasibilityNote.Value}", xfSansBody, XBrushes.Black, rect, XStringFormats.TopLeft);
             oldrectSize = rectSize;
 
-            gfx.DrawString($"Selected solution: {Inquiry.SolutionDecision.Value}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer((float)oldrectSize + xfSansBody.Height)));
-            gfx.DrawString($"Selected solution:", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(0)));
+            gfx.DrawString($"Selected solution: {Inquiry.SolutionDecision.Value}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer((float)oldrectSize + xfSansBody.Height)));
+            gfx.DrawString($"Selected solution:", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(0)));
             gfx.DrawString($"Realisation start: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
             if (Inquiry.SolutionDecision.Value.Equals(Variants.consulting))
             {
@@ -99,28 +99,28 @@ namespace Helper.Infrastructure.Integrations
             }
 
             rts = gfx.MeasureString($"Estimated netto price: {Offer.Price}", xfSansBody);
-            gfx.DrawString($"Estimated netto price: {Offer.Price}", xfSansBody, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(0)));
+            gfx.DrawString($"Estimated netto price: {Offer.Price}", xfSansBody, XBrushes.Black, new XPoint(pageSize.Width - margin - (float)rts.Width, MovePointer(0)));
             rts = gfx.MeasureString($"Total: {Offer.Price.Value}", xfSansBodyBold);
-            gfx.DrawString($"Total: {Offer.Price.Value}", xfSansBodyBold, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
+            gfx.DrawString($"Total: {Offer.Price.Value}", xfSansBodyBold, XBrushes.Black, new XPoint(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
 
             Footer(_configuration.GetValue<string>("app:name"), " ", _configuration.GetValue<string>("projectMail:adress"));
 
             void Footer(string textLeft, string textCenter, string textRight)
             {
-                gfx.DrawLine(XPens.Black, new PointF(margin, pageSize.Height - 50),
-                    new PointF(pageSize.Width - margin, pageSize.Height - 50));
+                gfx.DrawLine(XPens.Black, new XPoint(margin, pageSize.Height - 50),
+                    new XPoint(pageSize.Width - margin, pageSize.Height - 50));
 
                 gfx.DrawString(textLeft, xfSansBody, XBrushes.Black,
-                    new PointF(margin, pageSize.Height - (xfSansBody.Height / 2) - margin));
+                    new XPoint(margin, pageSize.Height - (xfSansBody.Height / 2) - margin));
 
 
                 var fcts = gfx.MeasureString(textCenter, xfSansBody);
                 gfx.DrawString(textCenter, xfSansBody, XBrushes.Black,
-                    new PointF(((pageSize.Width - (float)fcts.Width) / 2), pageSize.Height - (xfSansBody.Height / 2) - margin));
+                    new XPoint(((pageSize.Width - (float)fcts.Width) / 2), pageSize.Height - (xfSansBody.Height / 2) - margin));
 
                 var frts = gfx.MeasureString(textRight, xfSansBody);
                 gfx.DrawString(textRight, xfSansBody, XBrushes.Black,
-                    new PointF(pageSize.Width - margin - (float)frts.Width, pageSize.Height - (xfSansBody.Height / 2) - margin));
+                    new XPoint(pageSize.Width - margin - (float)frts.Width, pageSize.Height - (xfSansBody.Height / 2) - margin));
             }
 
             string filename = $"Offer {Offer.Id.Value}.pdf";
