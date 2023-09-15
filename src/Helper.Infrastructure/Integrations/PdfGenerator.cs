@@ -58,7 +58,7 @@ namespace Helper.Infrastructure.Integrations
             var rts = gfx.MeasureString($"Created at: {createdAt.Day}.{createdAt.Month}.{createdAt.Year}", xfSansBody);
             gfx.DrawString($"Created at: {createdAt.Day}.{createdAt.Month}.{createdAt.Year}", xfSansBody, XBrushes.Black, new XPoint(pageSize.Width - margin - (float)rts.Width, MovePointer(0)));
             rts = gfx.MeasureString($"Expires at at: {((DateTime)Offer.PaymentDate).Day}.{((DateTime)Offer.PaymentDate).Month}.{((DateTime)Offer.PaymentDate).Year}", xfSansBody);
-            gfx.DrawString($"Expires at at: {((DateTime)Offer.PaymentDate).Day}.{((DateTime)Offer.PaymentDate).Month}.{((DateTime)Offer.PaymentDate).Year}", xfSansBody, XBrushes.Black, new PointF(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
+            gfx.DrawString($"Expires at at: {((DateTime)Offer.PaymentDate).Day}.{((DateTime)Offer.PaymentDate).Month}.{((DateTime)Offer.PaymentDate).Year}", xfSansBody, XBrushes.Black, new XPoint(pageSize.Width - margin - (float)rts.Width, MovePointer(xfSansBody.Height)));
 
             gfx.DrawString("Users", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(0)));
             gfx.DrawString($"email: {Inquiry.Author.Email.Value}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(xfSansBody.Height)));
@@ -88,14 +88,14 @@ namespace Helper.Infrastructure.Integrations
 
             gfx.DrawString($"Selected solution: {Inquiry.SolutionDecision.Value}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer((float)oldrectSize + xfSansBody.Height)));
             gfx.DrawString($"Selected solution:", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(0)));
-            gfx.DrawString($"Realisation start: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
+            gfx.DrawString($"Realisation start: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(xfSansBody.Height)));
             if (Inquiry.SolutionDecision.Value.Equals(Variants.consulting))
             {
-                gfx.DrawString($"Realisation end: {((DateTime)Inquiry.RequestedCompletionDate.End).Day}.{((DateTime)Inquiry.RequestedCompletionDate.End).Month}.{((DateTime)Inquiry.RequestedCompletionDate.End).Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
+                gfx.DrawString($"Realisation end: {((DateTime)Inquiry.RequestedCompletionDate.End).Day}.{((DateTime)Inquiry.RequestedCompletionDate.End).Month}.{((DateTime)Inquiry.RequestedCompletionDate.End).Year}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(xfSansBody.Height)));
             }
             else
             {
-                gfx.DrawString($"Realisation end: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new PointF(margin, MovePointer(xfSansBody.Height)));
+                gfx.DrawString($"Realisation end: {Inquiry.RequestedCompletionDate.Start.Day}.{Inquiry.RequestedCompletionDate.Start.Month}.{Inquiry.RequestedCompletionDate.Start.Year}", xfSansBody, XBrushes.Black, new XPoint(margin, MovePointer(xfSansBody.Height)));
             }
 
             rts = gfx.MeasureString($"Estimated netto price: {Offer.Price}", xfSansBody);
