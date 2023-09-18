@@ -1,5 +1,4 @@
 ﻿using Helper.Application.Abstraction.Commands;
-using Helper.Application.Abstraction.Events;
 using Helper.Application.Integrations;
 using Helper.Application.Offer.Events;
 using Helper.Core.Inquiry;
@@ -27,17 +26,17 @@ namespace Helper.Application.Offer.Commands.Handlers
             var offer = await _offerRepo.GetByIdAsync(command.OfferId);
             var inquiry = await _inquiryRepo.GetByIdAsync(offer.InquiryId);
             offer.Accept();
-            await _offerRepo.UpdateAsync(offer);
             var dto = new InvoiceCreatedEvent()
             {
                 OfferId = offer.Id.Value,
                 PaymentDate = offer.PaymentDate.Value,
                 RealisationStart = inquiry.RequestedCompletionDate.Start,
-                RealisationEnd = (DateTime)inquiry.RequestedCompletionDate.End,
+                RealisationEnd = (inquiry.RequestedCompletionDate.End is null)? null : (DateTime)inquiry.RequestedCompletionDate.End,
                 Price = offer.Price,
                 ClientEmail = inquiry.Author.Email.Value,
                 ClientName = "User"
             };
+            await _offerRepo.UpdateAsync(offer);
             var serialized = JsonSerializer.Serialize(dto);
             await client.PublishEvent(serialized, "OfferBus");
         }

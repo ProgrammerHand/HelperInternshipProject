@@ -26,7 +26,7 @@ namespace Helper.Api.Controllers
             
         }
 
-        [HttpPatch("setPaymentDate/{offerId}")]
+        [HttpPatch("paymentDateSet/{offerId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SetPaymentDate([FromRoute(Name = "offerId")] Guid offerId, SetOfferPaymentDate command)
         {
@@ -34,7 +34,7 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpPatch("price/{offerId}")]
+        [HttpPatch("priceSet/{offerId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SpecifyPrice([FromRoute(Name = "offerId")] Guid offerId, SpecifyOfferPrice command)
         {
@@ -42,7 +42,7 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpPost("send/{offerId}")]
+        [HttpPost("sent/{offerId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SendToClient([FromRoute(Name = "offerId")] Guid offerId)
         {
@@ -50,14 +50,14 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpPatch("accept"), Authorize]
+        [HttpPatch("accepted"), Authorize]
         public async Task<ActionResult> Accept(AcceptOffer command)
         {
             await _commandDispatcher.SendAsync(command);
             return Ok();
         }
 
-        [HttpPatch("reject"), Authorize]
+        [HttpPatch("rejected"), Authorize]
         public async Task<ActionResult> Reject(RejectOffer command)
         {
             await _commandDispatcher.SendAsync(command);

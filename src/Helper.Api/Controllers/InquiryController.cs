@@ -29,7 +29,7 @@ namespace Helper.Api.Controllers
             return Ok();
         }
         
-        [HttpPatch("feasibility-note/{inquiryId}")]
+        [HttpPatch("addedFeasibilityNote/{inquiryId}")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> SetFeasibility([FromRoute(Name = "inquiryId")] Guid inquiryId, SetFeasibilityNote command)
         {
@@ -63,7 +63,7 @@ namespace Helper.Api.Controllers
             return Ok();
         }
 
-        [HttpPatch("Author/{inquiryId}")]
+        [HttpPatch("author/{inquiryId}")]
         [Authorize(Policy = Policies.IsAdmin)]
         public async Task<ActionResult> ChangeAuthorInquiry([FromRoute(Name = "inquiryId")] Guid inquiryId, ChangeAuthor command)
         {
@@ -91,7 +91,7 @@ namespace Helper.Api.Controllers
             return Ok(await _queryDispatcher.QueryAsync(new GetInquiry(inquiryId)));
         }
 
-        [HttpGet("solutions-variants")]
+        [HttpGet("solutionsVariants")]
         [Authorize(Policy = Policies.IsWorker)]
         public async Task<ActionResult> GetInquirySolutionVariants()
         {

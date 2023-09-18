@@ -31,7 +31,8 @@ namespace Helper.Application.Offer.Commands.Handlers
                 ReciverEmail = inquiry.Author.Email,
                 ReciverName = "User",
                 Subject = $"Inquiry {inquiry.Id.Value}", // TODO add file
-                Content = "Offer Content"
+                Content = "Offer Content",
+                Attachment = documment
             };
             //await _mailClient.SendMailAsync(mailData);
             await _offerRepo.UpdateAsync(offer);

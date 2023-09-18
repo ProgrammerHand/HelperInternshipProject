@@ -59,7 +59,7 @@ Authorization: bearer {{token}}
 {
   "description": "Test Inquiry",
   "start": "{{$datetime iso8601 8 d}}",
-  "end": "{{$datetime iso8601 10 d}}",
+  ///"end": "{{$datetime iso8601 10 d}}",
   "solutionVariant": 0
 }
 
@@ -101,7 +101,7 @@ Authorization: bearer {{token}}
 
 ### Change Inquiry feasibility note (requires worker level user)
 
-PATCH {{protocol}}{{baseUrl}}/Inquiry/feasibility-note/{{createdInquiryId}}
+PATCH {{protocol}}{{baseUrl}}/Inquiry/addedFeasibilityNote/{{createdInquiryId}}
 Content-Type: application/json
 Authorization: bearer {{token}}
 
@@ -122,7 +122,7 @@ Authorization: bearer {{token}}
 
 ### Reject inquiry (requires authorisation)
 
-PATCH {{protocol}}{{baseUrl}}/Inquiry/accepted/{{createdInquiryId}}
+PATCH {{protocol}}{{baseUrl}}/Inquiry/rejected/{{createdInquiryId}}
 Content-Type: application/json
 Authorization: bearer {{token}}
 
@@ -152,7 +152,7 @@ Authorization: bearer {{token}}
 
 ### Add to offer payment date, date must be 5 dayse before realisation start (requires worker level user)
 
-PATCH {{protocol}}{{baseUrl}}/Offer/setPaymentDate/{{createdOfferId}}
+PATCH {{protocol}}{{baseUrl}}/Offer/paymentDateSet/{{createdOfferId}}
 Content-Type: application/json
 Authorization: bearer {{token}}
 
@@ -162,7 +162,7 @@ Authorization: bearer {{token}}
 
 ### Add to offer price, some discounts applied to price (requires worker level user)
 
-PATCH {{protocol}}{{baseUrl}}/Offer/price/{{createdOfferId}}
+PATCH {{protocol}}{{baseUrl}}/Offer/priceSet/{{createdOfferId}}
 Content-Type: application/json
 Authorization: bearer {{token}}
 
