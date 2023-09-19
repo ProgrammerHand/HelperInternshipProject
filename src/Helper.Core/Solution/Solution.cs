@@ -1,5 +1,6 @@
 ﻿using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.ReservedEmployeeTime;
 using Helper.Core.User;
 using Helper.Core.Utility;
 
@@ -13,6 +14,7 @@ namespace Helper.Core.Solution
         public RealisationDate RequestedCompletionDate { get; private set;}
         public SolutionVariant Variant { get; private set;}
         public UserId? AssignedConsultant { get; private set; }
+        public ReservedEmployeeTimeId? AssignedTime { get; private set; }
         public byte[] RowVersion { get; private set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletedAt { get; private set; }
@@ -37,6 +39,11 @@ namespace Helper.Core.Solution
         public void AssignConsultant(Guid userId)
         {
             AssignedConsultant = userId;
+        }
+
+        public void AddTimeReservation(Guid reservationId)
+        {
+            AssignedTime = reservationId;
         }
     }
 }

@@ -3,5 +3,5 @@ using Helper.Core.Offer;
 
 namespace Helper.Application.Offer.Events
 {
-    public sealed record OfferPaid(OfferId Id) : IEvent;
+    public sealed record InvoicePaidEvent(OfferId Id) : IEvent;
 }

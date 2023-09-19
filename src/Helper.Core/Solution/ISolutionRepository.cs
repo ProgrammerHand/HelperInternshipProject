@@ -1,6 +1,4 @@
-﻿using Helper.Core.Offer.ValueObjects;
-
-namespace Helper.Core.Solution
+﻿namespace Helper.Core.Solution
 {
     public interface ISolutionRepository
     {

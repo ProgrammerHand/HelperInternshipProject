@@ -2,7 +2,6 @@
 using Helper.Application.Inquiry.Events;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
-using Helper.Core.Solution;
 
 namespace Helper.Application.Offer.Events.Handlers
 {

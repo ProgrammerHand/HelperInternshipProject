@@ -1,5 +1,6 @@
 ﻿using Helper.Core.Inquiry;
 using Helper.Core.Offer;
+using Helper.Core.ReservedEmployeeTime;
 using Helper.Core.Solution;
 using Helper.Core.User;
 using Helper.Core.Utility;
@@ -15,6 +16,7 @@ namespace Helper.Infrastructure.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Solution> Solutions { get; set; }
+        public DbSet<ReservedEmployeeTime> ReservedEmployeeTime { get; set; }
         public HelperDbContext(DbContextOptions<HelperDbContext> options, IClockCustom clock) : base(options)
         {
             _clock = clock;

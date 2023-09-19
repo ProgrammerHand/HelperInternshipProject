@@ -1,6 +1,4 @@
-﻿using Helper.Core.Exceptions;
-
-namespace Helper.Core.Inquiry.Exceptions
+﻿namespace Helper.Core.Exceptions
 {
     public class EmptyIdException : CustomException
     {

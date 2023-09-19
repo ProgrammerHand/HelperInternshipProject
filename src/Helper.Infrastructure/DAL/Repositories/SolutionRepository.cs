@@ -1,21 +1,15 @@
-﻿using Helper.Core.Offer.ValueObjects;
-using Helper.Core.Offer;
+﻿using Helper.Core.Solution;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Helper.Core.Solution;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Helper.Infrastructure.DAL.Repositories
 {
     public class SolutionRepository : ISolutionRepository
     {
         private readonly HelperDbContext _context;
-        public SolutionRepository(HelperDbContext dbContext)
+        public SolutionRepository(HelperDbContext dbContext, IServiceProvider serviceProvider)
         {
-            _context = dbContext;
+            _context = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<HelperDbContext>(); ;
         }
         public async Task<Solution> GetByIdAsync(SolutionId id)
         {

@@ -1,6 +1,7 @@
 ﻿using Helper.Application.DTO;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
+using Helper.Core.User;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
@@ -37,6 +38,15 @@ namespace Helper.Infrastructure.DAL.Handlers
             ModifiedAt = entity.ModifiedAt,
             IsDeleted = entity.IsDeleted,
             DeletedAt = entity.DeletedAt
+       };
+
+        public static UserDto AsDto(this User entity)
+       => new()
+       {
+           Id = entity.Id,
+           Email = entity.Email,
+           Role = Enum.GetName(entity.Role.Value),
+           CreatedAt = entity.CreatedAt
        };
     }
 }

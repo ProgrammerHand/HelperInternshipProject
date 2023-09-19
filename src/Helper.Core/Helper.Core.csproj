@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ReservedEmployeeTime\Exceptions\" />
     <Folder Include="Solution\ValueObjects\" />
   </ItemGroup>
 

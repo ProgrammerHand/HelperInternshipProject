@@ -1,4 +1,4 @@
-﻿using Helper.Core.Inquiry.Exceptions;
+﻿using Helper.Core.Exceptions;
 
 namespace Helper.Core.User.Value_objects
 {

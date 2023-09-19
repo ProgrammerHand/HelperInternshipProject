@@ -3,7 +3,6 @@ using Helper.Core.Inquiry.ValueObjects;
 using Helper.Core.Offer;
 using Helper.Core.Offer.ValueObjects;
 using Helper.Core.User;
-using Helper.Core.User.Value_objects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

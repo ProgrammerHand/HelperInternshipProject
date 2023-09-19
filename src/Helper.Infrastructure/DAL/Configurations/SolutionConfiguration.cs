@@ -1,5 +1,6 @@
 ﻿using Helper.Core.Inquiry;
 using Helper.Core.Inquiry.ValueObjects;
+using Helper.Core.ReservedEmployeeTime;
 using Helper.Core.Solution;
 using Helper.Core.User;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace Helper.Infrastructure.DAL.Configurations
             builder.Property(x => x.Description).HasConversion(x => x.Value, x => new Description(x));
             builder.Property(x => x.Variant).HasConversion(x => x.Value, x => new SolutionVariant(x));
             builder.Property(x => x.AssignedConsultant).HasConversion(x => x.Value, x => new UserId(x));
+            builder.Property(x => x.AssignedTime).HasConversion(x => x.Value, x => new ReservedEmployeeTimeId(x));
             builder.Property(x => x.RowVersion).IsRowVersion();
 
             builder.OwnsOne(x => x.RequestedCompletionDate, cd =>

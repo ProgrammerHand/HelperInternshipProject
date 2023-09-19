@@ -1,5 +1,4 @@
 ﻿using Helper.Application.Abstraction.Commands;
-using Helper.Application.Exceptions;
 using Helper.Core.Inquiry;
 
 namespace Helper.Application.Inquiry.Commands.Handlers

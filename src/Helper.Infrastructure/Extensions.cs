@@ -4,6 +4,7 @@ using Helper.Application.Abstraction.Queries;
 using Helper.Application.Integrations;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
+using Helper.Core.ReservedEmployeeTime;
 using Helper.Core.Solution;
 using Helper.Core.User;
 using Helper.Core.Utility;
@@ -43,6 +44,7 @@ namespace Helper.Core
             services.AddScoped<IGoogleDriveClient, GoogleDriveClient>();
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
+            services.AddScoped<IReservedEmployeeTimeRepository, ReservedEmployeeTimeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISolutionRepository, SolutionRepository>();
             services.AddScoped<IRabbitMqClient, RabbitMqClient>();

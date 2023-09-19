@@ -21,8 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Offer\Exceptions\" />
-    <Folder Include="Solution\Commands\" />
+    <Folder Include="ReservedEmployeeTime\Commands\" />
   </ItemGroup>
 
 </Project>
