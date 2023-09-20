@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Helper.Core\Helper.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ReservedEmployeeTime\Commands\" />
-  </ItemGroup>
-
 </Project>

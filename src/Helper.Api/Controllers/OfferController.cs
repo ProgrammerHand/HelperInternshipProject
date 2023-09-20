@@ -1,12 +1,10 @@
 ﻿using Helper.Application.Abstraction.Commands;
 using Helper.Application.Abstraction.Queries;
-using Helper.Application.Offer.Queries;
 using Helper.Application.Offer.Commands;
+using Helper.Application.Offer.Queries;
 using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Helper.Infrastructure.Integrations;
-using Helper.Application.Integrations;
 
 namespace Helper.Api.Controllers
 {
@@ -17,13 +15,10 @@ namespace Helper.Api.Controllers
     {
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
-       
-
         public OfferController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             _commandDispatcher = commandDispatcher;
             _queryDispatcher = queryDispatcher;
-            
         }
 
         [HttpPatch("paymentDateSet/{offerId}")]

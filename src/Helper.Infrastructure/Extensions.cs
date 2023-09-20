@@ -2,6 +2,7 @@
 using Helper.Application.Abstraction.Events;
 using Helper.Application.Abstraction.Queries;
 using Helper.Application.Integrations;
+using Helper.Application.ReservedEmployeeTime;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
 using Helper.Core.ReservedEmployeeTime;
@@ -39,9 +40,10 @@ namespace Helper.Core
             services.AddHttpContextAccessor();
             services.AddSecurity();
             services.AddSingleton<IClockCustom, ClockCustom>(); 
-            services.AddScoped<IPdfGenerator, PdfGenerator>();
+            services.AddScoped<IPdfGenerator, PdfGenerator>(); 
             services.AddScoped<IMailSendingClient, MailSendingSmtp>();
             services.AddScoped<IGoogleDriveClient, GoogleDriveClient>();
+            services.AddScoped<IEmployeeReservation, EmployeeReservation>();
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IInquiryRepository, InquiryRepository>();
             services.AddScoped<IReservedEmployeeTimeRepository, ReservedEmployeeTimeRepository>();

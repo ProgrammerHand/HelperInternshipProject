@@ -3,6 +3,7 @@ using Helper.Application.Abstraction.Queries;
 using Helper.Application.Integrations;
 using Helper.Application.Offer.Commands;
 using Helper.Application.Offer.Queries;
+using Helper.Application.ReservedEmployeeTime;
 using Helper.Application.Solution.Commands;
 using Helper.Application.Solution.Queries;
 using Helper.Infrastructure.JWT;
@@ -18,12 +19,15 @@ namespace Helper.Api.Controllers
         private readonly IGoogleDriveClient _gdriveclient;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly IQueryDispatcher _queryDispatcher;
+        private readonly IEmployeeReservation _employeeReservation;
 
-        public SolutionController(IGoogleDriveClient gdriveclient, IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public SolutionController(IGoogleDriveClient gdriveclient, IQueryDispatcher queryDispatcher,
+            ICommandDispatcher commandDispatcher, IEmployeeReservation employeeReservation)
         {
             _gdriveclient = gdriveclient;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
+            _employeeReservation = employeeReservation;
         }
 
         [HttpPost("/folder")]
@@ -46,6 +50,13 @@ namespace Helper.Api.Controllers
         public async Task<ActionResult> GetSolutions()
         {
             return Ok(await _queryDispatcher.QueryAsync(new GetSolutions()));
+        }
+
+        [HttpGet("availableEmployee/{solutionId}")]
+        [Authorize(Policy = Policies.IsWorker)]
+        public async Task<ActionResult> GetAvailableEmployee([FromRoute(Name = "solutionId")] Guid solutionId)
+        {
+            return Ok(await _employeeReservation.GetAvailableEmployee(solutionId));
         }
 
     }
