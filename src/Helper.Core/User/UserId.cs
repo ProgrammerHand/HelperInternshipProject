@@ -16,8 +16,8 @@ namespace Helper.Core.User
             Value = value;
         }
 
-        public static implicit operator Guid(UserId date) => date.Value;
+        public static implicit operator Guid(UserId data) => data.Value;
 
-        public static implicit operator UserId(Guid value) => new(value);
+        public static implicit operator UserId(Guid data) => new(data);
     }
 }

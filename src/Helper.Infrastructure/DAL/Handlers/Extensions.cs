@@ -1,6 +1,8 @@
 ﻿using Helper.Application.DTO;
+using Helper.Application.Solution.Commands;
 using Helper.Core.Inquiry;
 using Helper.Core.Offer;
+using Helper.Core.Solution;
 using Helper.Core.User;
 
 namespace Helper.Infrastructure.DAL.Handlers
@@ -48,5 +50,18 @@ namespace Helper.Infrastructure.DAL.Handlers
            Role = Enum.GetName(entity.Role.Value),
            CreatedAt = entity.CreatedAt
        };
+
+        public static SolutionDto AsDto(this Solution entity)
+      => new()
+      {
+          Id = entity.Id,
+          InquiryId = entity.InquiryId,
+          Description = entity.Description,
+          RealistationStart = entity.RequestedCompletionDate.Start,
+          RealisationEnd = entity.RequestedCompletionDate.End,
+          Variant = Enum.GetName(entity.Variant.Value),
+          AssignedConsultant = entity.AssignedConsultant is null ? null : entity.AssignedConsultant,
+          AssignedTime = entity.AssignedTime is null ? null : entity.AssignedTime,
+      };
     }
 }

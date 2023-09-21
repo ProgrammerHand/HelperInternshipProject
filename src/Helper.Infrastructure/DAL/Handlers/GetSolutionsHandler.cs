@@ -1,4 +1,5 @@
 ﻿using Helper.Application.Abstraction.Queries;
+using Helper.Application.DTO;
 using Helper.Application.Solution.Queries;
 using Helper.Core.Solution;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +13,11 @@ namespace Helper.Infrastructure.DAL.Handlers
         public async Task<List<Solution>> HandleAsync(GetSolutions querry)
         {
             var entities = await _context.Solutions.ToListAsync();
-            //var offers = new List<OfferDto>();
-            //foreach (var entity in entities)
-            //{
-            //    offers.Add(entity.AsDto());
-            //}
+            var solutions = new List<SolutionDto>();
+            foreach (var solution in entities)
+            {
+                solutions.Add(solution.AsDto());
+            }
             return entities;
         }
     }

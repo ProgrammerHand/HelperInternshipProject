@@ -17,8 +17,8 @@ namespace Helper.Application.Solution.Commands.Handlers
         public async Task HandleAsync(AssignConsultant command)
         {
             var solution = await _solutionRepo.GetByIdAsync(command.SolutionId);
+            var reservationId = await _employeeReservation.ReserveEmployee(command.UserId, solution.RequestedCompletionDate.Start, solution.RequestedCompletionDate.End);
             solution.AssignConsultant(command.UserId);
-            var reservationId = await _employeeReservation.ReserveEmployee(solution.AssignedConsultant, solution.RequestedCompletionDate.Start, solution.RequestedCompletionDate.End);
             solution.AddTimeReservation(reservationId);
             await _solutionRepo.UpdateAsync(solution);
         }

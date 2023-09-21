@@ -4,7 +4,9 @@ using Helper.Core.Solution;
 using Helper.Core.User.Value_objects;
 using Helper.Infrastructure.DAL;
 using Helper.Infrastructure.DAL.Handlers;
+using Helper.Infrastructure.Integrations.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Tsp;
 
 namespace Helper.Application.ReservedEmployeeTime
 {
@@ -40,6 +42,12 @@ namespace Helper.Application.ReservedEmployeeTime
 
         public async Task<ReservedEmployeeTimeId> ReserveEmployee(Guid userId, DateTime RealisationStart, DateTime? RealisationEnd)
         {
+            var busyEmployee = await _context.ReservedEmployeeTime
+            .Where(x => ((x.Start < RealisationStart && RealisationStart < x.End)
+            && (x.Start < RealisationEnd && RealisationEnd < x.End)))
+            .Where(x => x.Id.Value == userId).FirstOrDefaultAsync();
+            if (busyEmployee is not null)
+                throw new ReservationCollisionException();
             var reservation = Core.ReservedEmployeeTime.ReservedEmployeeTime.CreateEmployeeReservation(userId, RealisationStart, RealisationEnd);
             await _reservedEmployeeRepo.AddAsync(reservation);
             return reservation.Id;
