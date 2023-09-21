@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    internal class GetSolutionsHandler : IQueryHandler<GetSolutions, List<SolutionDto>>
+    internal class GetOwnedSolutionsHandler : IQueryHandler<GetOwnedSolutions, List<SolutionDto>>
     {
         private readonly HelperDbContext _context;
-        public GetSolutionsHandler(HelperDbContext DbContext) => _context = DbContext;
-        public async Task<List<SolutionDto>> HandleAsync(GetSolutions querry)
+        public GetOwnedSolutionsHandler(HelperDbContext DbContext) => _context = DbContext;
+        public async Task<List<SolutionDto>> HandleAsync(GetOwnedSolutions querry)
         {
-            var entities = await _context.Solutions.AsNoTracking().ToListAsync();
+            var entities = await _context.Solutions.Where(x => x.AssignedConsultant == querry.WorkerId).AsNoTracking().ToListAsync();
             var solutions = new List<SolutionDto>();
             foreach (var solution in entities)
             {

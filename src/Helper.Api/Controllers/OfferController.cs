@@ -5,6 +5,7 @@ using Helper.Application.Offer.Queries;
 using Helper.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Helper.Api.Controllers
 {
@@ -64,6 +65,12 @@ namespace Helper.Api.Controllers
         public async Task<ActionResult> GetOffers()
         {
             return Ok(await _queryDispatcher.QueryAsync(new GetOffers()));
+        }
+
+        [HttpGet("owned"), Authorize]
+        public async Task<ActionResult> GetOwnedOffers()
+        {
+            return Ok(await _queryDispatcher.QueryAsync(new GetOwnedOffers(Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value))));
         }
 
         [HttpGet("{offerId}"), Authorize]

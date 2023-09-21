@@ -132,14 +132,18 @@ Authorization: bearer {{token}}
 }
 
 
-
 ### OFFER CONTROLLER
 
 
-### Get all offers (requires worker level user) TODO add owned offers get
+### Get all offers (requires worker level user)
+
+GET {{protocol}}{{baseUrl}}/Offer/
+Authorization: bearer {{token}}
+
+### get owned offers (requires authorisation)
 
 # @name ownedOffrersResponse
-GET {{protocol}}{{baseUrl}}/Offer/
+GET {{protocol}}{{baseUrl}}/Offer/owned
 Authorization: bearer {{token}}
 
 ###
@@ -239,7 +243,12 @@ Authorization: bearer {{token}}
 
 @availableEmployeeid= {{AvailableEmployeeResponse.response.body.$[0].id}}
 
-### Rejects offer by id, reason required (requires worker level user)
+### Get Solution by id  (requires authorisation)
+
+GET {{protocol}}{{baseUrl}}/Solution/{{createdSolutionId}}
+Authorization: bearer {{token}}
+
+### Assigns worker to solution (requires worker level user)
 
 PATCH {{protocol}}{{baseUrl}}/Solution/assign
 Content-Type: application/json
@@ -249,3 +258,8 @@ Authorization: bearer {{token}}
   "solutionId": "{{createdSolutionId}}",
   "userId": "{{availableEmployeeid}}}"
 }
+
+### Get solutions assigned to current worker (requires worker level user)
+
+GET {{protocol}}{{baseUrl}}/Solution/owned
+Authorization: bearer {{token}}

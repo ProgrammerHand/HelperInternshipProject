@@ -11,8 +11,7 @@ namespace Helper.Infrastructure.DAL.Handlers
         public GetInquiriesHandler(HelperDbContext DbContext) => _context = DbContext;
         public async Task<List<InquiryDto>> HandleAsync(GetInquiries querry)
         {
-            //DB Interaction
-            var entities = await _context.Inquiries.Include(x => x.Author).ToListAsync();
+            var entities = await _context.Inquiries.Include(x => x.Author).AsNoTracking().ToListAsync();
             var inquiries = new List<InquiryDto>();
             foreach (var entity in entities)
             {

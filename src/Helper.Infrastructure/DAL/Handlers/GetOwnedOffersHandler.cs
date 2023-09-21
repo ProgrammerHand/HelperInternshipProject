@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    internal class GetOffersHandler : IQueryHandler<GetOffers, List<OfferDto>>
+    internal class GetOwnedOffersHandler : IQueryHandler<GetOwnedOffers, List<OfferDto>>
     {
         private readonly HelperDbContext _context;
-        public GetOffersHandler(HelperDbContext DbContext) => _context = DbContext;
-        public async Task<List<OfferDto>> HandleAsync(GetOffers querry)
+        public GetOwnedOffersHandler(HelperDbContext DbContext) => _context = DbContext;
+        public async Task<List<OfferDto>> HandleAsync(GetOwnedOffers querry)
         {
-            var entities = await _context.Offers.AsNoTracking().ToListAsync();
+            var entities = await _context.Offers.Where(x => x.CustomerId == querry.CustomerId).AsNoTracking().ToListAsync();
             var offers = new List<OfferDto>();
             foreach (var entity in entities)
             {

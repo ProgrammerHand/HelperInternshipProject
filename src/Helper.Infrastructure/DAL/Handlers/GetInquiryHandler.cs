@@ -2,7 +2,6 @@
 using Helper.Application.DTO;
 using Helper.Application.Inquiry.Queries;
 using Helper.Core.Inquiry;
-using Helper.Core.Inquiry.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers
