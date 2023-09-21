@@ -1,7 +1,6 @@
 ﻿using Helper.Application.Abstraction.Queries;
 using Helper.Application.DTO;
 using Helper.Application.Solution.Queries;
-using Helper.Core.Solution;
 using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers

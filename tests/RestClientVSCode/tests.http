@@ -1,6 +1,7 @@
 
 @protocol = http://
 @baseUrl = localhost:5055/api
+@paymentBaseUrl = localhost:5047/api
 
 ### authorise to get token
 
@@ -170,9 +171,9 @@ Authorization: bearer {{token}}
    "price": 22.50 
 }
 
-### Send offer to client, sends pdf via mail and changes is draft variable(requires worker level user)
+### Send offer to client, sends pdf via mail and changes is draft variable (requires worker level user)
 
-POST {{protocol}}{{baseUrl}}/Offer/send/{{createdOfferId}}
+POST {{protocol}}{{baseUrl}}/Offer/sent/{{createdOfferId}}
 Authorization: bearer {{token}}
 
 ### Accepts offer by id, creates invoice in otther webapp (requires authorisation)
@@ -194,4 +195,57 @@ Authorization: bearer {{token}}
 {
   "offerId": "{{createdOfferId}}",
   "clientsReason": "Dont want"
+}
+
+
+### PAYMENT CONTROLLER
+
+### Get all invoices
+# @name invoicesResponse
+GET {{protocol}}{{paymentBaseUrl}}/Payment
+
+###
+
+@createdInvoiceId = {{invoicesResponse.response.body.$[0].id}}
+
+### Get invoice by id
+
+GET {{protocol}}{{paymentBaseUrl}}/Payment/{{createdInvoiceId}}
+
+### Pay for invoice 
+
+PATCH {{protocol}}{{paymentBaseUrl}}/Payment/pay/{{createdInvoiceId}}
+Content-Type: application/json
+
+
+### SOLUTION CONTROLLER
+
+### Get all Solutions by id (requires worker level user)
+# @name SolutionsResponse
+GET {{protocol}}{{baseUrl}}/Solution/
+Authorization: bearer {{token}}
+
+###
+
+@createdSolutionId= {{SolutionsResponse.response.body.$[0].id}}
+
+### Get available employee ( for assigment ) for given solution (requires worker level user)
+
+# @name AvailableEmployeeResponse
+GET {{protocol}}{{baseUrl}}/Solution/availableEmployee/{{createdSolutionId}}
+Authorization: bearer {{token}}
+
+###
+
+@availableEmployeeid= {{AvailableEmployeeResponse.response.body.$[0].id}}
+
+### Rejects offer by id, reason required (requires worker level user)
+
+PATCH {{protocol}}{{baseUrl}}/Solution/assign
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+  "solutionId": "{{createdSolutionId}}",
+  "userId": "{{availableEmployeeid}}}"
 }
