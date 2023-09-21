@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Helper.Infrastructure.DAL.Handlers
 {
-    internal class GetSolutionsHandler : IQueryHandler<GetSolutions, List<Solution>>
+    internal class GetSolutionsHandler : IQueryHandler<GetSolutions, List<SolutionDto>>
     {
         private readonly HelperDbContext _context;
         public GetSolutionsHandler(HelperDbContext DbContext) => _context = DbContext;
-        public async Task<List<Solution>> HandleAsync(GetSolutions querry)
+        public async Task<List<SolutionDto>> HandleAsync(GetSolutions querry)
         {
             var entities = await _context.Solutions.ToListAsync();
             var solutions = new List<SolutionDto>();
@@ -18,7 +18,7 @@ namespace Helper.Infrastructure.DAL.Handlers
             {
                 solutions.Add(solution.AsDto());
             }
-            return entities;
+            return solutions;
         }
     }
 }

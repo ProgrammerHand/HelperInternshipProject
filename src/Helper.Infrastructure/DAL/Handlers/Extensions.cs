@@ -60,8 +60,8 @@ namespace Helper.Infrastructure.DAL.Handlers
           RealistationStart = entity.RequestedCompletionDate.Start,
           RealisationEnd = entity.RequestedCompletionDate.End,
           Variant = Enum.GetName(entity.Variant.Value),
-          AssignedConsultant = entity.AssignedConsultant is null ? null : entity.AssignedConsultant,
-          AssignedTime = entity.AssignedTime is null ? null : entity.AssignedTime,
+          //AssignedConsultant = entity.AssignedConsultant is null ? null : entity.AssignedConsultant,
+          //AssignedTime = entity.AssignedTime is null ? null : entity.AssignedTime,
       };
     }
 }
